@@ -4,7 +4,9 @@
 
 ## Usage
 
-Requires the following font to be installed on the system: `Alte Haas Grotesk Regular`
+Requires the following font to be installed on the system: `Alte Haas Grotesk Regular` (used by the OSD).
+
+Subtitles use `Merriweather` Bold (700), bundled in [`fonts/`](fonts/) and loaded automatically from mpv's `~~/fonts` directory, so no system installation is needed. The font is licensed under the SIL Open Font License (see `Merriweather-OFL.txt`).
 
 ### Windows
 

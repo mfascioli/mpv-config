@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- OSD now uses the system default sans-serif instead of Alte Haas Grotesk, so no system font is required.
+
 ## 1.0.0
 
 First stable release.

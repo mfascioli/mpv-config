@@ -45,7 +45,7 @@ For a fuller comparison, see [Source Serif vs Merriweather: Screen Serif Showdow
 
 ## Usage
 
-Install `Alte Haas Grotesk Regular` on your system (OSD only). Subtitles need no installation: Merriweather Bold ships in `fonts/` (SIL OFL, see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
+No fonts need to be installed: Merriweather Bold ships in `fonts/` (SIL OFL, see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)) and the OSD uses the system's default sans-serif.
 
 ```console
 # Windows

@@ -61,7 +61,7 @@ cd ~/.config/mpv && git init . && git remote add -t \* -f origin https://github.
 
 ### Option 1 — config only
 
-That is already everything: player settings, keybinds, Lua scripts, the bundled Merriweather and the minimal bottom-bar OSC in `script-opts/osc.conf`. Launch mpv and it just works, with no network access after cloning.
+Nothing else to do: player settings, keybinds, Lua scripts, the bundled Merriweather and the minimal bottom-bar OSC in `script-opts/osc.conf`. Launch mpv and it just works, with no network access after cloning.
 
 ### Option 2 — config + uosc
 
@@ -96,17 +96,16 @@ uosc is **not vendored in this repo**: the script downloads it straight from the
 
 What the script does:
 
-- Downloads `uosc.zip` at run time from `github.com/tomasklaen/uosc/releases/latest` — nothing is copied from this repo.
+- Downloads `uosc.zip` at run time from `github.com/tomasklaen/uosc/releases/latest` over HTTPS — nothing is copied from this repo. Downloads are HTTPS-only, with timeouts and a size cap.
+- Checks the archive layout **before** removing an existing uosc, so a broken release cannot leave you without an interface.
 - Installs `scripts/uosc/` and its icon font (`fonts/uosc_icons.otf`, `fonts/uosc_textures.ttf`), plus the LGPL-2.1 license next to the code.
 - Downloads `script-opts/uosc.conf` (all options with their defaults) **only if you do not have one**; existing settings are kept.
 - Leaves `mpv.conf`, `input.conf`, the other scripts and Merriweather untouched.
-- Accepts `-ConfigDir <path>` / `--config-dir <path>` to install into another config directory, `-Force` / `--force` to replace `uosc.conf` with the defaults, and `-y` / `--yes` to install a missing tool without asking.
+- Accepts `-ConfigDir <path>` / `--config-dir <path>` to install into another config directory, `-Force` / `--force` to replace `uosc.conf` with the defaults, and `-y` / `--yes` to install a missing tool without asking. The config directory must already exist; the installers do not create it.
 
 Those paths are listed in `.gitignore`, so `git pull` never overwrites the installed uosc or its config, and an accidental `git add -A` will not commit the 17 MB of binaries.
 
-### Thumbnails
-
-[thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/`, so hovering uosc's timeline shows a live preview with nothing else to install. It renders them by running mpv in the background, which it looks up in `PATH`. If mpv is not in `PATH` (common on Windows), tell it where mpv is in `script-opts/thumbfast.conf`:
+**Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/`, so hovering uosc's timeline shows a live preview with nothing else to install. It renders them by running mpv in the background, which it looks up in `PATH`. If mpv is not in `PATH` (common on Windows), tell it where mpv is in `script-opts/thumbfast.conf`:
 
 ```ini
 # script-opts/thumbfast.conf — only needed when mpv is not in PATH
@@ -131,11 +130,13 @@ bash install-uosc-ubuntu.sh
 # CachyOS / Arch
 bash install-uosc-cachyos.sh
 
-# macOS (or use Utils → Update uosc inside mpv)
+# macOS
 bash install-uosc-macos.sh
 ```
 
-### Going back to config only
+uosc also has its own **Utils → Update uosc**, which pipes the latest `master` installer straight into a shell (`irm … | iex` on Windows, `source <(curl …)` on Linux/macOS). It works, but it runs unreviewed code; the installers above download a release archive and check its layout instead.
+
+### Uninstalling uosc
 
 ```console
 # Windows
@@ -147,10 +148,6 @@ bash uninstall-uosc.sh
 
 It deletes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf`, leaving everything else intact. Add `-KeepConf` / `--keep-conf` to keep your uosc preferences for a later reinstall. The built-in OSC takes over immediately, no config change needed.
 
-### Fonts
-
-No fonts need to be installed: Merriweather Bold ships in `fonts/` and the OSD uses the system's default sans-serif; uosc brings its own icon font. Merriweather is SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)); uosc is LGPL-2.1.
-
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Why this look?
@@ -159,7 +156,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 **Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType without thin strokes glowing. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier book serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
-Based on [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1).
+Based on [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); timeline thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

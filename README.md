@@ -4,7 +4,7 @@
 
 A personal mpv setup meant to look right on any screen — SDR or HDR, standard or high DPI — and for any viewer: clean scaling, subtitles in the amber tone of classic cinema/TV, stereo-normalised audio and a few small quality-of-life scripts.
 
-![Subtitles rendered in Merriweather Bold: amber fill (#FCBE11) with a thin near-black outline](assets/subtitles.jpg)
+![mpv with uosc: the timeline, a thumbfast preview and Merriweather subtitles in amber](assets/interface.jpg)
 
 ## What's inside
 
@@ -26,22 +26,26 @@ A personal mpv setup meant to look right on any screen — SDR or HDR, standard 
 
 **Streaming** — 100 s cache and a desktop Firefox user agent over HTTP/HTTPS, maximum HLS bitrate, GIFs and WebM loop.
 
-**Keys** — `b` deband, `v` video output levels, `s` screenshot (PNG), numpad `+`/`-` subtitle size ±2. Seeking (`←`/`→`/`↑`/`↓`), volume (`9`/`0`/`m`) and speed (`[`/`]`/`Backspace`) flash uosc's own indicators instead of the built-in OSD bar.
+**Keys** — the extra bindings this config adds:
+
+| Key | Action |
+| --- | --- |
+| `b` | Toggle deband |
+| `v` | Cycle video output levels |
+| `s` | Screenshot (PNG) |
+| numpad `+` / `-` | Subtitle size ±2 |
+| `←` / `→` | Seek −5 s / +5 s † |
+| `↑` / `↓` | Seek +60 s / −60 s † |
+| `9` / `0` | Volume −2 / +2 † |
+| `m` | Mute † |
+| `[` / `]` | Speed down / up (×0.91 / ×1.1) † |
+| `Backspace` | Speed back to 1× † |
+
+† Flashes uosc's own timeline, volume or speed indicator instead of the built-in OSD bar.
 
 **Scripts** — `autocrop` (black bars, `C` manual), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline thumbnails for uosc).
 
 **Interface** — [uosc](https://github.com/tomasklaen/uosc), installed from its latest official release by the per-system installer (`install-uosc.ps1` on Windows, `install-uosc-ubuntu.sh`, `install-uosc-cachyos.sh` or `install-uosc-macos.sh`): a proximity-based timeline and control bar plus searchable menus for audio/subtitle tracks, subtitle search on OpenSubtitles, playlist, chapters, file browser and keybind lookup, with live timeline thumbnails from [thumbfast](https://github.com/po5/thumbfast). It follows `osd-font` (the system sans-serif) and the `slang` order above. The built-in OSD bar is off and the config is borderless, so uosc draws its own border, window controls and progress indicators. The old minimal OSC (`script-opts/osc.conf`) stays as a fallback if uosc is removed.
-
-## Why Merriweather?
-
-Subtitles are read at a glance, over moving footage, often for two hours straight — not typeset in a book:
-
-- **Screen-native serif with a very tall x-height** (~76–77 % of cap height), so lowercase letters stay substantial at subtitle sizes.
-- **Low stroke contrast and sturdy serifs**, which survive Windows/ClearType at standard DPI without thin strokes smearing or glowing against dark scenes.
-- **Compact, dense texture**: it sits solidly over busy backgrounds and reads instantly, where airier book serifs such as Source Serif 4 or IBM Plex Serif lose their finer details at this size and distance.
-- **Bold 700** carries enough weight to work with a *thin* outline instead of the usual fat black border.
-
-For a fuller comparison, see [Source Serif vs Merriweather: Screen Serif Showdown](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
 ## Installation
 
@@ -148,6 +152,12 @@ It deletes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.c
 No fonts need to be installed: Merriweather Bold ships in `fonts/` and the OSD uses the system's default sans-serif; uosc brings its own icon font. Merriweather is SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)); uosc is LGPL-2.1.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
+
+## Why this look?
+
+**Amber instead of white.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
+
+**Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType without thin strokes glowing. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier book serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
 Based on [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1).
 

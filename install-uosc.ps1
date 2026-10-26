@@ -5,18 +5,22 @@
 # - Keeps your existing script-opts/uosc.conf; only downloads it when missing
 #   (use -Force to replace it with the defaults).
 # - Never touches mpv.conf, input.conf, the other scripts or Merriweather.
-# - The archive is checked (HTTPS only, expected layout) before the previous
-#   uosc is removed, so a broken download cannot leave you without a UI.
+# - Verifies the SHA-256 that GitHub publishes for uosc.zip (and for uosc.conf
+#   when it installs it) before replacing anything; -NoVerify skips the check.
+# - The archive layout is checked (HTTPS only, expected layout) before the
+#   previous uosc is removed, so a broken download cannot leave you without a UI.
 #
 # Usage (from the mpv config directory, where this file lives):
 #   powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1
 #   powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1 -ConfigDir "C:\path\to\mpv"
 #   powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1 -Force
+#   powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1 -NoVerify
 
 [CmdletBinding()]
 param(
     [string]$ConfigDir,
-    [switch]$Force
+    [switch]$Force,
+    [switch]$NoVerify
 )
 
 # Resolve the default here: with [CmdletBinding()] and -File, PowerShell 5.1
@@ -41,7 +45,7 @@ function New-Directory([string]$Path) {
     }
 }
 
-function Get-File([string]$Uri, [string]$OutFile) {
+function Get-File([string]$Uri, [string]$OutFile, [string]$Sha256) {
     if (([Uri]$Uri).Scheme -ne 'https') {
         throw "refusing a non-HTTPS download: $Uri"
     }
@@ -51,6 +55,12 @@ function Get-File([string]$Uri, [string]$OutFile) {
         Invoke-WebRequest -Uri $Uri -OutFile $download -UseBasicParsing -TimeoutSec 300
         if ((Get-Item -LiteralPath $download).Length -gt 52428800) {
             throw "download is larger than 50 MB, refusing: $Uri"
+        }
+        if ($Sha256) {
+            $actual = (Get-FileHash -LiteralPath $download -Algorithm SHA256).Hash
+            if ($actual -ne $Sha256) {
+                throw "SHA-256 mismatch for $Uri`nexpected: $Sha256`nactual:   $actual"
+            }
         }
         [IO.File]::Copy($download, $OutFile, $true)
     } finally {
@@ -74,12 +84,40 @@ if (-not (Test-Path -LiteralPath $ConfigDir -PathType Container)) {
 }
 
 $release = 'https://github.com/tomasklaen/uosc/releases/latest/download'
+$api = 'https://api.github.com/repos/tomasklaen/uosc/releases/latest'
 $work = Join-Path $env:TEMP ('uosc-install-' + [guid]::NewGuid().ToString('N'))
 
-Write-Host "uosc: downloading the latest official release..."
 New-Directory $work
 try {
-    Get-File "$release/uosc.zip" (Join-Path $work 'uosc.zip')
+    # SHA-256 published by GitHub for each release asset, keyed by asset name
+    $digests = @{}
+    if (-not $NoVerify) {
+        Write-Host "uosc: fetching the release checksums..."
+        try {
+            $meta = Invoke-RestMethod -Uri $api -UseBasicParsing -TimeoutSec 30 -Headers @{
+                'User-Agent' = 'mpv-config-installer'
+            }
+        } catch {
+            throw "could not fetch release metadata from api.github.com ($($_.Exception.Message)). Rerun with -NoVerify to skip the checksum."
+        }
+        foreach ($asset in $meta.assets) {
+            if ($asset.digest -like 'sha256:*') {
+                $value = $asset.digest.Substring(7)
+                if ($value -match '^[0-9a-fA-F]{64}$') {
+                    $digests[$asset.name] = $value
+                }
+            }
+        }
+        if (-not $digests.ContainsKey('uosc.zip')) {
+            throw 'the latest release does not publish a SHA-256 for uosc.zip. Rerun with -NoVerify to skip the checksum.'
+        }
+    }
+
+    Write-Host "uosc: downloading the latest official release..."
+    Get-File "$release/uosc.zip" (Join-Path $work 'uosc.zip') $digests['uosc.zip']
+    if (-not $NoVerify) {
+        Write-Host "uosc: checksum verified"
+    }
     try {
         Expand-Archive -LiteralPath (Join-Path $work 'uosc.zip') -DestinationPath $work -Force
     } catch {
@@ -122,8 +160,12 @@ try {
     # Default options, only if the user does not have their own yet
     $conf = Join-Path $ConfigDir 'script-opts/uosc.conf'
     if ($Force -or -not (Test-Path -LiteralPath $conf)) {
+        $confSha = $digests['uosc.conf']
+        if (-not $NoVerify -and -not $confSha) {
+            throw 'the latest release does not publish a SHA-256 for uosc.conf. Rerun with -NoVerify to skip the checksum.'
+        }
         New-Directory (Split-Path $conf)
-        Get-File "$release/uosc.conf" $conf
+        Get-File "$release/uosc.conf" $conf $confSha
         Write-Host "uosc: uosc.conf installed"
     } else {
         Write-Host "uosc: kept existing uosc.conf"

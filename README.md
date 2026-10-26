@@ -97,11 +97,12 @@ uosc is **not vendored in this repo**: the script downloads it straight from the
 What the script does:
 
 - Downloads `uosc.zip` at run time from `github.com/tomasklaen/uosc/releases/latest` over HTTPS — nothing is copied from this repo. Downloads are HTTPS-only, with timeouts and a size cap.
+- Verifies the SHA-256 that GitHub publishes for `uosc.zip` (and for `uosc.conf` when it installs one) before extracting or replacing anything — it catches a corrupted download or a tampered CDN, not a compromised upstream release. If the API is unreachable or rate-limited, it stops instead of installing unverified code; `-NoVerify` / `--no-verify` skips the check.
 - Checks the archive layout **before** removing an existing uosc, so a broken release cannot leave you without an interface.
 - Installs `scripts/uosc/` and its icon font (`fonts/uosc_icons.otf`, `fonts/uosc_textures.ttf`), plus the LGPL-2.1 license next to the code.
 - Downloads `script-opts/uosc.conf` (all options with their defaults) **only if you do not have one**; existing settings are kept.
 - Leaves `mpv.conf`, `input.conf`, the other scripts and Merriweather untouched.
-- Accepts `-ConfigDir <path>` / `--config-dir <path>` to install into another config directory, `-Force` / `--force` to replace `uosc.conf` with the defaults, and `-y` / `--yes` to install a missing tool without asking. The config directory must already exist; the installers do not create it.
+- Accepts `-ConfigDir <path>` / `--config-dir <path>` to install into another config directory, `-Force` / `--force` to replace `uosc.conf` with the defaults, `-NoVerify` / `--no-verify` to skip the SHA-256 check, and `-y` / `--yes` to install a missing tool without asking. The config directory must already exist; the installers do not create it.
 
 Those paths are listed in `.gitignore`, so `git pull` never overwrites the installed uosc or its config, and an accidental `git add -A` will not commit the 17 MB of binaries.
 
@@ -120,7 +121,7 @@ That file is listed in `.gitignore`, so the absolute path stays local. Without u
 # config
 git -C <config dir> pull
 
-# uosc — run the installer again; it keeps your script-opts/uosc.conf
+# uosc — run the installer again; it keeps your script-opts/uosc.conf and verifies the checksum
 # Windows
 powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1
 

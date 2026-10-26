@@ -47,6 +47,15 @@ A personal mpv setup meant to look right on any screen — SDR or HDR, standard 
 
 **Interface** — [uosc](https://github.com/tomasklaen/uosc), installed from its latest official release by the per-system installer (`install-uosc.ps1` on Windows, `install-uosc-ubuntu.sh`, `install-uosc-cachyos.sh` or `install-uosc-macos.sh`): a proximity-based timeline and control bar plus searchable menus for audio/subtitle tracks, subtitle search on OpenSubtitles, playlist, chapters, file browser and keybind lookup, with live timeline thumbnails from [thumbfast](https://github.com/po5/thumbfast). It follows `osd-font` (the system sans-serif) and the `slang` order above. The built-in OSD bar is off and the config is borderless, so uosc draws its own border, window controls and progress indicators. The old minimal OSC (`script-opts/osc.conf`) stays as a fallback if uosc is removed.
 
+**Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/`, so hovering uosc's timeline shows a live preview with nothing else to install. It renders them by running mpv in the background, which it looks up in `PATH`. If mpv is not in `PATH` (common on Windows), tell it where mpv is in `script-opts/thumbfast.conf`:
+
+```ini
+# script-opts/thumbfast.conf — only needed when mpv is not in PATH
+mpv_path=C:\Program Files\mpv\mpv.exe
+```
+
+That file is listed in `.gitignore`, so the absolute path stays local. Without uosc, thumbfast simply does nothing.
+
 ## Installation
 
 Requires **mpv 0.40 or newer** (the config targets `gpu-next`, the default video output since 0.40; tested on 0.41). Both options start by cloning this repo into your mpv config directory — `%APPDATA%\mpv` on Windows, `~/.config/mpv` on Linux/macOS:
@@ -105,15 +114,6 @@ What the script does:
 - Accepts `-ConfigDir <path>` / `--config-dir <path>` to install into another config directory, `-Force` / `--force` to replace `uosc.conf` with the defaults, `-NoVerify` / `--no-verify` to skip the SHA-256 check, and `-y` / `--yes` to install a missing tool without asking. The config directory must already exist; the installers do not create it.
 
 Those paths are listed in `.gitignore`, so `git pull` never overwrites the installed uosc or its config, and an accidental `git add -A` will not commit the 17 MB of binaries.
-
-**Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/`, so hovering uosc's timeline shows a live preview with nothing else to install. It renders them by running mpv in the background, which it looks up in `PATH`. If mpv is not in `PATH` (common on Windows), tell it where mpv is in `script-opts/thumbfast.conf`:
-
-```ini
-# script-opts/thumbfast.conf — only needed when mpv is not in PATH
-mpv_path=C:\Program Files\mpv\mpv.exe
-```
-
-That file is listed in `.gitignore`, so the absolute path stays local. Without uosc, thumbfast simply does nothing.
 
 ### Updating
 

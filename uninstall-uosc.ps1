@@ -12,11 +12,30 @@
 
 [CmdletBinding()]
 param(
-    [string]$ConfigDir = $PSScriptRoot,
+    [string]$ConfigDir,
     [switch]$KeepConf
 )
 
+# Resolve the default here: with [CmdletBinding()] and -File, PowerShell 5.1
+# still has $PSScriptRoot empty while the parameters are being bound.
+if (-not $PSBoundParameters.ContainsKey('ConfigDir')) {
+    $ConfigDir = $PSScriptRoot
+}
+
 $ErrorActionPreference = 'Stop'
+
+# Refuse paths that would make the cleanup sweep too wide.
+if ([string]::IsNullOrWhiteSpace($ConfigDir)) {
+    throw 'config directory cannot be empty; pass -ConfigDir'
+}
+$full = [IO.Path]::GetFullPath($ConfigDir)
+if ($full.TrimEnd('\', '/') -eq [IO.Path]::GetPathRoot($full).TrimEnd('\', '/')) {
+    throw "refusing to use the filesystem root as the mpv config directory: $full"
+}
+$ConfigDir = $full.TrimEnd('\', '/')
+if (-not (Test-Path -LiteralPath $ConfigDir -PathType Container)) {
+    throw "config directory not found: $ConfigDir (create it first or pass -ConfigDir)"
+}
 
 $targets = @(
     (Join-Path $ConfigDir 'scripts/uosc'),
@@ -27,14 +46,14 @@ if (-not $KeepConf) { $targets += (Join-Path $ConfigDir 'script-opts/uosc.conf')
 
 $removed = $false
 foreach ($target in $targets) {
-    if (Test-Path $target) {
-        Remove-Item $target -Recurse -Force
+    if (Test-Path -LiteralPath $target) {
+        Remove-Item -LiteralPath $target -Recurse -Force
         Write-Host "removed: $target"
         $removed = $true
     }
 }
 
-if ($KeepConf -and (Test-Path (Join-Path $ConfigDir 'script-opts/uosc.conf'))) {
+if ($KeepConf -and (Test-Path -LiteralPath (Join-Path $ConfigDir 'script-opts/uosc.conf'))) {
     Write-Host "kept: $(Join-Path $ConfigDir 'script-opts/uosc.conf')"
 }
 

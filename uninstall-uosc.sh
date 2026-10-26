@@ -11,11 +11,16 @@ set -eu
 config_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 keep_conf=0
 
+die() {
+    echo "error: $*" >&2
+    exit 1
+}
+
 usage() {
     cat <<'EOF'
 Usage: bash uninstall-uosc.sh [options]
 
-  --config-dir <path>  mpv config directory (default: the directory of this script)
+  --config-dir <path>  existing mpv config directory (default: directory of this script)
   --keep-conf          keep script-opts/uosc.conf (your settings) for later
   -h, --help           show this help
 EOF
@@ -26,9 +31,14 @@ while [ $# -gt 0 ]; do
         --config-dir) config_dir="$2"; shift 2 ;;
         --keep-conf) keep_conf=1; shift ;;
         -h|--help) usage; exit 0 ;;
-        *) echo "unknown option: $1" >&2; exit 1 ;;
+        *) die "unknown option: $1" ;;
     esac
 done
+
+[ -n "$config_dir" ] || die "--config-dir cannot be empty"
+[ -d "$config_dir" ] || die "config directory not found: $config_dir"
+config_dir="$(cd "$config_dir" && pwd)"
+[ "$config_dir" != "/" ] || die "refusing to use / as the mpv config directory"
 
 removed=0
 for path in \

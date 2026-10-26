@@ -9,7 +9,7 @@
 # - Uses curl or wget and unzip. If one of them is missing it offers to install
 #   that package only, with apt. Nothing else is installed.
 
-set -eu
+set -euo pipefail
 
 release="https://github.com/tomasklaen/uosc/releases/latest/download"
 license_url="https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/LICENSE.LGPL"
@@ -30,7 +30,7 @@ usage() {
     cat <<'EOF'
 Usage: bash install-uosc-ubuntu.sh [options]
 
-  --config-dir <path>  mpv config directory (default: the directory of this script)
+  --config-dir <path>  existing mpv config directory (default: directory of this script)
   --force              replace script-opts/uosc.conf with the defaults
   -y, --yes            install a missing tool (curl/unzip) without asking
   -h, --help           show this help
@@ -46,6 +46,11 @@ while [ $# -gt 0 ]; do
         *) die "unknown option: $1" ;;
     esac
 done
+
+[ -n "$config_dir" ] || die "--config-dir cannot be empty"
+[ -d "$config_dir" ] || die "config directory not found: $config_dir"
+config_dir="$(cd "$config_dir" && pwd)"
+[ "$config_dir" != "/" ] || die "refusing to use / as the mpv config directory"
 
 [ -r /etc/os-release ] || die "cannot read /etc/os-release; this installer is for Ubuntu/Debian"
 # shellcheck source=/dev/null
@@ -68,21 +73,31 @@ install_packages() {
         esac
     fi
     if [ "$(id -u)" -eq 0 ]; then
-        apt-get install -y "$@"
+        apt-get install -y --no-install-recommends "$@"
     elif have sudo; then
-        sudo apt-get install -y "$@"
+        sudo apt-get install -y --no-install-recommends "$@"
     else
         die "cannot install $*: run as root or install it with: sudo apt-get install $*"
     fi
 }
 
 if have curl; then
-    download() { curl -fsSL "$1" -o "$2"; }
+    download() {
+        curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
+            --connect-timeout 15 --max-time 300 --max-filesize 52428800 \
+            -fsSL "$1" -o "$2"
+    }
 elif have wget; then
-    download() { wget -qO "$2" "$1"; }
+    download() {
+        wget --https-only --max-redirect=5 --timeout=30 --tries=3 -qO "$2" "$1"
+    }
 else
     install_packages curl
-    download() { curl -fsSL "$1" -o "$2"; }
+    download() {
+        curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
+            --connect-timeout 15 --max-time 300 --max-filesize 52428800 \
+            -fsSL "$1" -o "$2"
+    }
 fi
 
 if ! have unzip; then

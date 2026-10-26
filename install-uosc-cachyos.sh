@@ -10,7 +10,7 @@
 #   If one is missing it offers to install that package only, with your
 #   package manager (yay, paru or pacman). Nothing else is installed.
 
-set -eu
+set -euo pipefail
 
 release="https://github.com/tomasklaen/uosc/releases/latest/download"
 license_url="https://raw.githubusercontent.com/tomasklaen/uosc/HEAD/LICENSE.LGPL"
@@ -31,7 +31,7 @@ usage() {
     cat <<'EOF'
 Usage: bash install-uosc-cachyos.sh [options]
 
-  --config-dir <path>  mpv config directory (default: the directory of this script)
+  --config-dir <path>  existing mpv config directory (default: directory of this script)
   --force              replace script-opts/uosc.conf with the defaults
   -y, --yes            install a missing tool (curl/libarchive) without asking
   -h, --help           show this help
@@ -47,6 +47,11 @@ while [ $# -gt 0 ]; do
         *) die "unknown option: $1" ;;
     esac
 done
+
+[ -n "$config_dir" ] || die "--config-dir cannot be empty"
+[ -d "$config_dir" ] || die "config directory not found: $config_dir"
+config_dir="$(cd "$config_dir" && pwd)"
+[ "$config_dir" != "/" ] || die "refusing to use / as the mpv config directory"
 
 [ -r /etc/os-release ] || die "cannot read /etc/os-release; this installer is for CachyOS/Arch"
 # shellcheck source=/dev/null
@@ -98,7 +103,9 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 
 echo "uosc: downloading the latest official release..."
-curl -fsSL "$release/uosc.zip" -o "$work/uosc.zip"
+curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
+    --connect-timeout 15 --max-time 300 --max-filesize 52428800 \
+    -fsSL "$release/uosc.zip" -o "$work/uosc.zip"
 bsdtar -xf "$work/uosc.zip" -C "$work"
 
 [ -f "$work/scripts/uosc/main.lua" ] || die "unexpected archive layout: scripts/uosc/main.lua not found"
@@ -109,7 +116,9 @@ mkdir -p "$config_dir/scripts" "$config_dir/fonts"
 cp -r "$work/scripts/uosc" "$config_dir/scripts/uosc"
 
 # Keep the LGPL notice next to the code
-curl -fsSL "$license_url" -o "$config_dir/scripts/uosc/LICENSE.LGPL" \
+curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
+    --connect-timeout 15 --max-time 300 --max-filesize 52428800 \
+    -fsSL "$license_url" -o "$config_dir/scripts/uosc/LICENSE.LGPL" \
     || echo "warning: could not download LICENSE.LGPL" >&2
 
 cp "$work"/fonts/* "$config_dir/fonts/"
@@ -117,7 +126,9 @@ cp "$work"/fonts/* "$config_dir/fonts/"
 conf="$config_dir/script-opts/uosc.conf"
 if [ "$force" -eq 1 ] || [ ! -f "$conf" ]; then
     mkdir -p "$config_dir/script-opts"
-    curl -fsSL "$release/uosc.conf" -o "$conf"
+    curl --proto '=https' --proto-redir '=https' --tlsv1.2 \
+        --connect-timeout 15 --max-time 300 --max-filesize 52428800 \
+        -fsSL "$release/uosc.conf" -o "$conf"
     echo "uosc: uosc.conf installed"
 else
     echo "uosc: kept existing uosc.conf"

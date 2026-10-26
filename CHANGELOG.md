@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0
+
+- **Interface (optional):** [uosc](https://github.com/tomasklaen/uosc) installed from its latest official release (`install-uosc.ps1` on Windows, `install-uosc-ubuntu.sh` / `install-uosc-cachyos.sh` / `install-uosc-macos.sh` elsewhere), not vendored. Without it the config uses the minimal OSC in `script-opts/osc.conf`. Includes proximity-based timeline and control bar, searchable track/subtitle menus, OpenSubtitles search, playlist, chapters and file browser; respects `osd-font` and `slang`.
+- **Installers:** one native script per system, using only its own tools — Windows (`install-uosc.ps1`, PowerShell), Ubuntu/Debian (`install-uosc-ubuntu.sh`, `curl`/`wget` + `unzip` with apt), CachyOS/Arch (`install-uosc-cachyos.sh`, `curl` + `bsdtar` with yay/paru/pacman) and macOS (`install-uosc-macos.sh`, built-in `curl` + `unzip`). A missing tool is installed only after asking, one package at a time. `uninstall-uosc.ps1` / `uninstall-uosc.sh` remove uosc again, keeping `uosc.conf` with `-KeepConf` / `--keep-conf`.
+- **Integration:** `osd-bar` disabled; seeks, volume and speed flash uosc's own timeline/volume/speed indicators (the window was already borderless, so uosc draws the border and window controls).
+- **Fixed:** `cscale=ewa_lanczossoft` only exists in the `gpu` output; with `gpu-next` (mpv's default since 0.40) mpv logged an error and fell back to a default chroma scaler. Now uses `ewa_lanczos`.
+- **Thumbnails:** [thumbfast](https://github.com/po5/thumbfast) bundled in `scripts/` (MPL-2.0), so uosc shows live previews while hovering the timeline. It runs mpv in the background instead of ffmpeg; `script-opts/thumbfast.conf` with `mpv_path=` is only needed when mpv is not in `PATH` (typical on Windows), and that file is gitignored.
+- **Licensing:** uosc is LGPL-2.1 (see `scripts/uosc/LICENSE.LGPL`); thumbfast is MPL-2.0 (notice in `scripts/thumbfast.lua`).
+
 ## 1.0.1
 
 - OSD now uses the system default sans-serif instead of Alte Haas Grotesk, so no system font is required.

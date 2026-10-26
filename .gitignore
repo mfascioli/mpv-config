@@ -1,1 +1,8 @@
 watch_later
+
+# uosc is installed from its official release (install-uosc-* scripts)
+scripts/uosc/
+fonts/uosc_icons.otf
+fonts/uosc_textures.ttf
+script-opts/uosc.conf
+script-opts/thumbfast.conf

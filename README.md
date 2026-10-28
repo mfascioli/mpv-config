@@ -5,6 +5,9 @@
 A personal mpv setup meant to look right on any screen — SDR or HDR, standard or high DPI — and for any viewer: clean scaling, subtitles in the amber tone of classic cinema/TV, stereo-normalised audio and a few small quality-of-life scripts.
 
 ![mpv with uosc: the timeline, a thumbfast preview and Merriweather subtitles in amber](assets/interface.jpg)
+<sub>Wicked City | 1987 - film by Yoshiaki Kawajiri<br>
+Spoiler: it did not go smoothly at all.</sub>
+
 
 ## What's inside
 

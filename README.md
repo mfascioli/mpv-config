@@ -62,7 +62,7 @@ Requires **mpv 0.40 or newer** (the config targets `gpu-next`, the default video
 
 ```console
 # Windows
-cd $HOME/AppData/Roaming/mpv && git init . && git remote add -t \* -f origin https://github.com/mfascioli/mpv-config && git checkout master
+cd /d "%APPDATA%\mpv" && git init . && git remote add -t * -f origin https://github.com/mfascioli/mpv-config && git checkout master
 
 # Linux / macOS
 cd ~/.config/mpv && git init . && git remote add -t \* -f origin https://github.com/mfascioli/mpv-config && git checkout master

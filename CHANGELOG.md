@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 — 2026-11-16
+
+- **Audio profiles:** new `scripts/audio-norm.lua` with four profiles on `1`–`4`: Off (no filters), Soft (−22 LUFS, `loudnorm` only, −1.5 dBTP), Balanced (−20 LUFS, `loudnorm` only, −2 dBTP) and Night (−18 LUFS, 4:1 compression at −18 dB before `loudnorm`, −3 dBTP). Playback starts in Off (1), so files play untouched until a profile is chosen. Soft, Balanced and Night force `loudnorm`'s dynamic mode with `linear=false`; `alimiter` with `level=0` is the final sample-peak stage. Replaces the old always-on `dynaudnorm`.
+- **Volume:** `volume=100` is now only the startup level. Numpad `0`–`9` sets 0 %, 11.1 %, …, 88.9 %, 100 %, numpad `/` and `*` adjust ±2, and the uosc volume indicator flashes. `volume-max=100` still blocks gain above 100 %. `scripts/neutral-volume.lua` was removed, so mpv's volume is no longer held at unity. `m` and the keyboard's mute key still mute.
+- **Keys:** `q`/`w` move subtitles up/down, `a`/`s` change subtitle delay, `z`/`Shift+z` zoom (panscan), `PrintScreen`/`Ctrl+PrintScreen` screenshot without/with subtitles (`F10`/`Ctrl+F10` fallback), numpad `+`/`-` change subtitle size. `r`, `t`, `e`, `x`, `Shift+q`, `5`–`8`, horizontal `9`/`0`, `/`, `*`, mouse wheel up/down, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w` and the volume-up/down media keys are unbound. Only `1`–`4` remain horizontal number bindings; the numpad digits control volume.
+- **Subtitles:** `blend-subtitles=no` keeps subtitles on the OSD layer instead of embedding them in the video, which is what allows them to sit in the black bars of 21:9 content on a 16:9 screen (`sub-pos` up to 150). The new `scripts/subtitle-size.lua` saves the size chosen with numpad `+`/`-` to `subtitle-size.txt` (gitignored) and restores it on the next launch; delete the file to return to `sub-font-size=40`.
+- **Closing:** new `scripts/esc-quit.lua`. `Esc` leaves fullscreen first and quits on the next press; `Shift+Esc` quits and saves the position. `q` no longer quits. `save-position-on-quit` still covers the window close button.
+- **Resume:** `watch-later-options-remove` drops `af`, `volume` and `mute` from new resume files, and the audio script reasserts the selected profile whenever a file loads. Old watch-later files may still carry `af` or a volume; the profile is reasserted on load.
+- **Docs:** README now documents the full key map, the four profiles (LUFS, LRA, compressor, true peak, limiter), the loudness concepts and best uses, numpad volume, subtitles in the black bars, subtitle-size persistence, the scripts and the two screenshot modes.
+
 ## 1.1.0
 
 - **Interface (optional):** [uosc](https://github.com/tomasklaen/uosc) installed from its latest official release (`install-uosc.ps1` on Windows, `install-uosc-ubuntu.sh` / `install-uosc-cachyos.sh` / `install-uosc-macos.sh` elsewhere), not vendored. Without it the config uses the minimal OSC in `script-opts/osc.conf`. Includes proximity-based timeline and control bar, searchable track/subtitle menus, OpenSubtitles search, playlist, chapters and file browser; respects `osd-font` and `slang`.

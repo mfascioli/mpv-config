@@ -2,9 +2,9 @@
 -- alimiter. The key bindings live in input.conf:
 --
 --   1  off        no processing; the original mix
---   2  soft       -22 LUFS, dynamic loudness normalization only
---   3  balanced   -20 LUFS, dynamic loudness normalization only
---   4  night      -18 LUFS, strong compression plus limiting
+--   2  soft       -23 LUFS, dynamic loudness normalization only
+--   3  balanced   -18 LUFS, dynamic loudness normalization only
+--   4  night      -16 LUFS, strong compression plus limiting
 --
 -- Playback starts in Off, so a file plays untouched until a profile is chosen.
 -- The processed profiles use loudnorm in single-pass dynamic mode
@@ -20,19 +20,19 @@ local profiles = {
     },
     soft = {
         name = 'Soft',
-        af = 'loudnorm=I=-22:TP=-1.5:LRA=18:linear=false,'
-            .. 'alimiter=limit=0.8414:level=0',
+        af = 'loudnorm=I=-23:TP=-1:LRA=18:linear=false,'
+            .. 'alimiter=limit=0.8913:level=0',
     },
     balanced = {
         name = 'Balanced',
-        af = 'loudnorm=I=-20:TP=-2:LRA=14:linear=false,'
+        af = 'loudnorm=I=-18:TP=-2:LRA=15:linear=false,'
             .. 'alimiter=limit=0.7943:level=0',
     },
     night = {
         name = 'Night',
         af = 'acompressor=threshold=0.125:ratio=4:attack=20:release=250'
             .. ':knee=2.5:makeup=1,'
-            .. 'loudnorm=I=-18:TP=-3:LRA=7:linear=false,'
+            .. 'loudnorm=I=-16:TP=-3:LRA=7:linear=false,'
             .. 'alimiter=limit=0.7079:level=0',
     },
 }

@@ -1,5 +1,5 @@
 -- Remember the subtitle font size between runs, so the size chosen with
--- numpad +/- (or G/F) survives closing mpv.
+-- the numpad + / - keys survives closing mpv.
 --
 -- The value lives in subtitle-size.txt next to this config, which is
 -- gitignored. A missing or malformed file is ignored and mpv.conf's

@@ -75,6 +75,9 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
 - `blend-subtitles=no` is required so subtitles can enter the letterbox bars;
   `sub-use-margins=yes` and `sub-ass-force-margins=yes` are already set.
   `sub-pos` runs 0–150; 100 is normal, ~100–106 reaches the bottom bar.
+- Describe the bars as subtitle behaviour, never as a letterbox feature:
+  subtitles follow the window, stay sharp, never stretch with the picture and
+  adapt to any aspect ratio (21:9 or 4:3 alike).
 - `scripts/subtitle-size.lua` writes every `sub-font-size` change to
   `subtitle-size.txt` (gitignored) and restores it on startup. Delete the file
   to reset to 40.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.4 — 2026-11-16
+
+- **Docs (subtitles):** the black bars are now described as subtitle behaviour instead of a letterbox feature. The hero chip reads `ADAPTIVE SUBTITLES`, the subtitles strip reads `ADAPTIVE PLACEMENT`, and the README explains that subtitles follow the window, stay sharp at any size and never stretch with the picture, whatever the aspect ratio.
+
 ## 1.2.3 — 2026-11-16
 
 - **Docs (accuracy):** subtitles reach the black bars of any letterboxed source, not only 21:9 content. The hero chip now reads `LETTERBOX BARS`, the README explains the behaviour without assuming an aspect ratio, and the 1.2.0 entry says so too.

@@ -1,25 +1,25 @@
 -- Audio profiles for mpv, built on FFmpeg's loudnorm, acompressor and
 -- alimiter. The key bindings live in input.conf:
 --
---   1  off        no processing; the original mix
---   2  soft       -23 LUFS, dynamic loudness normalization only
---   3  balanced   -18 LUFS, dynamic loudness normalization only
---   4  night      -16 LUFS, strong compression plus limiting
+--   1  no_processing  no filters; the mix plays as authored
+--   2  cinematic      -23 LUFS, dynamic loudness normalization only
+--   3  balanced       -18 LUFS, dynamic loudness normalization only
+--   4  night_mode     -16 LUFS, strong compression plus limiting
 --
--- Playback starts in Off, so a file plays untouched until a profile is chosen.
--- The processed profiles use loudnorm in single-pass dynamic mode
+-- Playback starts in No Processing, so a file plays untouched until a profile
+-- is chosen. The processed profiles use loudnorm in single-pass dynamic mode
 -- (linear=false); alimiter is the final sample-peak safety stage.
 
 local mp = require 'mp'
 local msg = require 'mp.msg'
 
 local profiles = {
-    off = {
-        name = 'Off',
+    no_processing = {
+        name = 'No Processing',
         af = '',
     },
-    soft = {
-        name = 'Soft',
+    cinematic = {
+        name = 'Cinematic',
         af = 'loudnorm=I=-23:TP=-1:LRA=18:linear=false,'
             .. 'alimiter=limit=0.8913:level=0',
     },
@@ -28,8 +28,8 @@ local profiles = {
         af = 'loudnorm=I=-18:TP=-2:LRA=15:linear=false,'
             .. 'alimiter=limit=0.7943:level=0',
     },
-    night = {
-        name = 'Night',
+    night_mode = {
+        name = 'Night Mode',
         af = 'acompressor=threshold=0.125:ratio=4:attack=20:release=250'
             .. ':knee=2.5:makeup=1,'
             .. 'loudnorm=I=-16:TP=-3:LRA=7:linear=false,'
@@ -37,7 +37,7 @@ local profiles = {
     },
 }
 
-local default_profile = 'off'
+local default_profile = 'no_processing'
 local current
 
 local function apply(key, silent)

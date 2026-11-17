@@ -227,12 +227,12 @@ def strip(path, kicker, title, detail):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--out", type=Path, default=HERE)
-    p.add_argument("--version", default="v1.2.6")
+    p.add_argument("--version", default="v1.2.7")
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     hero(a.out / "banner.png", a.version)
     design(a.out / "design.png", a.version)
-    strip(a.out / "audio.png", "AUDIO", "FOUR PROFILES", "OFF \u00b7 SOFT \u00b7 BALANCED \u00b7 NIGHT")
+    strip(a.out / "audio.png", "AUDIO", "FOUR PROFILES", "NO PROCESSING \u00b7 CINEMATIC \u00b7 BALANCED \u00b7 NIGHT")
     strip(a.out / "subtitles.png", "SUBTITLES", "ADAPTIVE PLACEMENT", "AMBER \u00b7 SIZE \u00b7 DELAY")
     strip(a.out / "installation.png", "INSTALL", "ONE CLONE", "mpv 0.40+ \u00b7 uosc optional")
     for name in ("banner.png", "design.png", "audio.png", "subtitles.png", "installation.png"):

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.7 — 2026-11-17
+
+- **Audio profiles:** `Off` is now **No Processing** and the other profiles are **Cinematic** (−23 LUFS), **Balanced** (−18 LUFS) and **Night Mode** (−16 LUFS). The script ids and bindings follow the names (`audio_norm/no_processing|cinematic|balanced|night_mode`), so `input.conf`, the OSD and the docs use one vocabulary. Targets and filter chains are unchanged.
+- **Zoom:** `Ctrl`+wheel now moves `video-zoom` with an on-screen value; `z` and `Shift+z` are freed and no longer touch the image. `Alt+Backspace` still resets zoom, pan and alignment.
+- **Screenshots:** `F10` captures without subtitles and `Shift+F10` with them. `PrintScreen`, `Ctrl+PrintScreen` and `Ctrl+F10` are gone; the print key stays with the system.
+- **Keybindings:** freed mpv defaults that could fight the config — `u` (ASS override), `V` (ASS video data), `A` (forced aspect), `F`/`G` (subtitle scale), `E` (editions), `v` (output levels) and horizontal wheel seeking. `d` and `Ctrl+d` remain for deinterlacing.
+- **Autocrop:** the automatic crop now waits 10 s after playback starts (`autocrop-auto_delay=10`), so fades and title cards do not skew detection; `C` still applies or undoes it.
+- **Docs:** the README section is **Keybindings**, and the same term is used across docs, comments and images. The keyboard map gains a mouse panel (`CTRL+WHEEL`, `ALT+BS`, `CTRL+DRAG`, right click, left click), the new profile names and the new screenshot keys, and the banners are regenerated for 1.2.7 with the audio strip listing the four profile names.
+
 ## 1.2.6 — 2026-11-17
 
 - **Docs (design):** the specimen line in `assets/design.png` now reads "Anyway, I hope everything goes smoothly." instead of "The city never looked this quiet." Same size, colour, outline and position; the banners are regenerated for 1.2.6.

@@ -23,10 +23,10 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 
 - **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation and hardware decoding are off; debanding is off too (`b` toggles it).
 - **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They adapt to the window, not the video: `blend-subtitles=no` keeps them on the OSD layer, so they stay sharp at any size and never stretch with the image, and `w` slides them into the black bars of any letterboxed source. Size chosen with numpad `+` / `-` survives restarts.
-- **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in Off; see [Audio profiles](#-audio-profiles).
+- **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in No Processing; see [Audio profiles](#-audio-profiles).
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
 - **Streaming** — 100 s cache, desktop Firefox user agent, maximum HLS bitrate, looping GIF/WebM.
-- **Scripts** — `audio-norm` (profiles), `subtitle-size` (persistence), `esc-quit` (two-step close), `autocrop` (`C`), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline previews).
+- **Scripts** — `audio-norm` (profiles), `subtitle-size` (persistence), `esc-quit` (two-step close), `autocrop` (crops 10 s after load; `C` toggles), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline previews).
 - **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search, playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
 - **Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/` and renders previews by running mpv from `PATH`. If mpv is not in `PATH` (common on Windows), point to it in `script-opts/thumbfast.conf` (gitignored):
 
@@ -34,59 +34,57 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
   mpv_path=C:\Program Files\mpv\mpv.exe
   ```
 
-## Keys
+## Keybindings
 
-![Keyboard map: amber keys mark every binding; the numpad sets volume and subtitle size](assets/keys.png)
+![Keyboard map: amber keys mark every binding; the numpad sets volume and subtitle size, and the mouse panel shows the zoom and pan controls](assets/keys.png)
 
 | Key | Action |
 | --- | --- |
-| `1` / `2` / `3` / `4` | Audio profile: Off / Soft / Balanced / Night |
+| `1` / `2` / `3` / `4` | Audio profile: No Processing / Cinematic / Balanced / Night Mode |
 | `m` | Mute † |
 | `q` / `w` | Subtitles up / down (past 100 % they enter the black bars) |
 | `a` / `s` | Subtitle delay −100 ms / +100 ms |
-| `z` / `Shift+z` | Zoom (panscan) more / less |
-| `PrintScreen` / `Ctrl+PrintScreen` | Screenshot without / with subtitles |
-| `F10` / `Ctrl+F10` | Same, when the OS captures PrintScreen |
+| `Ctrl`+wheel up/down | Zoom in / out (`video-zoom`) |
+| `Ctrl`+drag | Pan the zoomed image |
+| `F10` / `Shift+F10` | Screenshot without / with subtitles |
 | `Esc` | Leave fullscreen; when windowed, quit (a uosc menu closes first) |
 | `Shift+Esc` | Quit and save the position |
-| `b` / `v` | Toggle deband / cycle video output levels |
+| `b` | Toggle deband |
 | `←` / `→` | Seek −5 s / +5 s † |
 | `↑` / `↓` | Seek +60 s / −60 s † |
 | `[` / `]` | Speed down / up (×0.91 / ×1.1) † |
 | `Backspace` | Speed back to 1× † |
 | numpad `0`–`9` | Volume 0 %, 11.1 %, …, 88.9 %, 100 % † |
 | numpad `+` / `-` | Subtitle size ±2 (saved between runs) |
-| `C` / `Ctrl+d` | Autocrop / autodeint |
+| `C` | Autocrop now (it also runs 10 s after playback starts) |
+| `Ctrl+d` | Autodeint |
 
 † Flashes uosc's own timeline, volume or speed indicator instead of the built-in OSD bar.
 
-`f`, `Space`, double-click fullscreen and the usual track/playlist keys are mpv defaults. Deliberately unbound: `r`, `t`, `e`, `x`, `Shift+q`, `5`–`8`, horizontal `9`/`0`, `/`, `*`, wheel up/down, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w` and the volume media keys. Only `1`–`4` are horizontal number keys; the numpad digits set volume. `q` no longer quits: `Esc` and `Shift+Esc` are the quit keys (`Ctrl+c` still force-quits).
+`f`, `Space`, `Alt+Backspace` (reset zoom) and the usual track/playlist keys are mpv defaults. Deliberately unbound: `r`, `t`, `e`, `x`, `z`, `Shift+z`, `v`, `Shift+q`, `5`–`8`, horizontal `9`/`0`, `/`, `*`, wheel up/down/left/right, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w`, `u`, `V`, `A`, `F`, `G`, `E`, `PrintScreen` and the volume media keys. Only `1`–`4` are horizontal number keys; the numpad digits set volume. `q` no longer quits: `Esc` and `Shift+Esc` are the quit keys (`Ctrl+c` still force-quits).
 
 **Closing** is two-step on purpose. In fullscreen, `Esc` leaves fullscreen and only the next press quits. `Shift+Esc` always quits and saves the position; the window close button also saves (`save-position-on-quit`). Resume keeps the position, not the audio profile — the script reasserts the selected profile on load.
 
-**Screenshots** — `PrintScreen` captures the frame, `Ctrl+PrintScreen` adds subtitles; `F10`/`Ctrl+F10` do the same where the OS reserves PrintScreen. On Windows 11 disable *Settings → Accessibility → Keyboard → Use the Print Screen key to open Snipping Tool* if it never reaches mpv. PNG output; with `blend-subtitles=no` neither mode includes the letterbox bars. The old `s`/`S`/`Ctrl+s`/`Alt+s` bindings are gone so `s` can adjust subtitle delay.
+**Screenshots** — `F10` captures the frame, `Shift+F10` adds subtitles. PNG output; with `blend-subtitles=no` neither mode includes the letterbox bars. The old `s`/`S`/`Ctrl+s`/`Alt+s` and `PrintScreen` bindings are gone so `s` can adjust subtitle delay and the print key stays with the system.
+
+**Zoom** — `Ctrl`+wheel moves `video-zoom`: 0 is fit, 0.1 is about +7 %, and negative values zoom out past the frame. `Alt+Backspace` resets zoom, pan and alignment. `z`/`Shift+z` no longer touch the image.
+
+**Autocrop** — after 10 s of playback it detects the encoded black borders and crops them; `C` applies or undoes the crop at any time.
 
 ## 🎚 Audio profiles
 
-![Audio banner: FOUR PROFILES — Off, Soft, Balanced, Night](assets/audio.png)
+![Audio banner: FOUR PROFILES — No Processing, Cinematic, Balanced, Night Mode](assets/audio.png)
 
-`scripts/audio-norm.lua` owns the filter chain. Each key **replaces** it, and playback starts in **1 — Off**. Bindings call named script bindings, so they can be remapped without touching the Lua.
+`scripts/audio-norm.lua` owns the filter chain. Each key **replaces** it, and playback starts in **1 — No Processing**. Bindings call named script bindings, so they can be remapped without touching the Lua.
 
-| Key | Profile | Target | Peak | Character |
-| --- | --- | ---: | ---: | --- |
-| `1` | Off (default) | — | — | original mix |
-| `2` | Soft | −23 LUFS | −1 dBTP | wide, natural |
-| `3` | Balanced | −18 LUFS | −2 dBTP | controlled |
-| `4` | Night | −16 LUFS | −3 dBTP | dialogue lifted |
+| Key | Profile | Chain | I (LUFS) | LRA | TP (dBTP) | Character |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| `1` | No Processing (default) | none | — | — | — | original mix |
+| `2` | Cinematic | `loudnorm` | −23 | 18 | −1 | wide, natural |
+| `3` | Balanced | `loudnorm` | −18 | 15 | −2 | controlled |
+| `4` | Night Mode | `acompressor` 4:1 at −18 dB → `loudnorm` | −16 | 7 | −3 | dialogue lifted |
 
-| Key | Processing | I (LUFS) | LRA | TP (dBTP) | `alimiter` |
-| --- | --- | ---: | ---: | ---: | ---: |
-| `1` | none | — | — | — | — |
-| `2` | `loudnorm` | −23 | 18 | −1 | −1 dBFS |
-| `3` | `loudnorm` | −18 | 15 | −2 | −2 dBFS |
-| `4` | `acompressor` 4:1 at −18 dB → `loudnorm` | −16 | 7 | −3 | −3 dBFS |
-
-Soft, Balanced and Night use `loudnorm` in single-pass dynamic mode (`linear=false`): gain follows the target live, no pre-scan. Night adds one compressor stage — threshold `0.125` (≈ −18 dBFS), ratio `4:1`, attack `20 ms`, release `250 ms`, knee `2.5`, unity makeup. Every processed profile ends in `alimiter` (`level=0`, 5 ms attack / 50 ms release): `loudnorm`'s TP is the true-peak target, `alimiter` the sample-peak safety net.
+Cinematic, Balanced and Night Mode use `loudnorm` in single-pass dynamic mode (`linear=false`): gain follows the target live, no pre-scan. Night Mode adds one compressor stage — threshold `0.125` (≈ −18 dBFS), ratio `4:1`, attack `20 ms`, release `250 ms`, knee `2.5`, unity makeup. Every processed profile ends in `alimiter` (`level=0`, 5 ms attack / 50 ms release): `loudnorm`'s TP is the true-peak target, `alimiter` the sample-peak safety net.
 
 - **LUFS** — perceived loudness; `loudnorm` drives gain to the target and constrains LRA and TP.
 - **Loudness ≠ volume** — loudness belongs to the recording; volume to the player, OS, DAC or speakers.
@@ -94,7 +92,7 @@ Soft, Balanced and Night use `loudnorm` in single-pass dynamic mode (`linear=fal
 - **Compression** — `acompressor` turns down what exceeds its threshold, shrinking the gap between dialogue and effects.
 - **LRA** — the quiet-to-loud span; a lower target compresses it more. Labels describe the intended result, not a measurement of every soundtrack.
 
-**Volume** starts at 100. Numpad `0`–`9` sets 0 %, 11.1 %, …, 88.9 %, 100 % (0 is silent, 9 is full scale); `/` and `*` adjust ±2; `m` and the mute key mute. `volume-max=100` blocks gain above 100 %, and the horizontal volume keys, wheel and media keys stay unbound.
+**Volume** starts at 100. Numpad `0`–`9` sets 0 %, 11.1 %, …, 88.9 %, 100 % (0 is silent, 9 is full scale); `/` and `*` adjust ±2; `m` and the mute key mute. `volume-max=100` blocks gain above 100 %, and the horizontal `9`/`0`, `/`, `*`, the plain wheel and the media volume keys stay unbound (`Ctrl`+wheel is zoom).
 
 **Resume** restores position only: `watch-later-options-remove` drops `af`, `volume` and `mute` from new watch-later files, and the profile is reasserted on every load. Old watch-later files may still carry a volume; deleting them clears it.
 
@@ -104,7 +102,7 @@ Soft, Balanced and Night use `loudnorm` in single-pass dynamic mode (`linear=fal
 
 Subtitles are laid out against the window instead of the video image: `blend-subtitles=no` keeps them on the OSD layer, so they stay sharp at any window size and never stretch with the picture. `sub-use-margins=yes` and `sub-ass-force-margins=yes` let them use the whole frame, and `w` moves them into the bottom black bar of any letterboxed source — 21:9 or 4:3, same behaviour. `sub-pos` runs 0–150; 100 is the normal spot just above the bottom edge, and `w` (or ~100–106) sits inside the bar. Much higher approaches the window edge and can clip, especially with two lines.
 
-Numpad `+` / `-` (or `G` / `F`) change the size; `scripts/subtitle-size.lua` writes every change to `subtitle-size.txt` and restores it at startup. The file is gitignored — delete it to fall back to `sub-font-size=40`.
+Numpad `+` / `-` change the size; `scripts/subtitle-size.lua` writes every change to `subtitle-size.txt` and restores it at startup. The file is gitignored — delete it to fall back to `sub-font-size=40`.
 
 ## 📥 Installation
 
@@ -128,7 +126,7 @@ mv ~/.config/mpv ~/.config/mpv.backup 2>/dev/null
 git clone https://github.com/mfascioli/mpv-config.git ~/.config/mpv
 ```
 
-**2 — Start mpv.** Settings, keys, scripts, the Merriweather font and a minimal OSC are ready. mpv finds the folder by itself — no flags, no network.
+**2 — Start mpv.** Settings, keybindings, scripts, the Merriweather font and a minimal OSC are ready. mpv finds the folder by itself — no flags, no network.
 
 **3 — Optional: uosc.** The timeline, control bar, menus and search. Run one command; skip it to keep the minimal OSC:
 

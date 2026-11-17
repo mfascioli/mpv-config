@@ -40,6 +40,8 @@ $actFillB   = C '#171204'
 
 $fKey    = New-Object System.Drawing.Font('Bahnschrift', 8.5, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
 $fLabel  = New-Object System.Drawing.Font('Bahnschrift SemiBold SemiConden', 10, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
+$fLabelS = New-Object System.Drawing.Font('Bahnschrift SemiBold SemiConden', 8.5, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
+$fLabelXS = New-Object System.Drawing.Font('Bahnschrift SemiBold SemiConden', 7.5, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
 $fLabelL = New-Object System.Drawing.Font('Bahnschrift SemiBold SemiConden', 13, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
 $fDigit  = New-Object System.Drawing.Font('Bahnschrift SemiBold', 20, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
 $fArrow  = New-Object System.Drawing.Font('Segoe UI Symbol', 15, [System.Drawing.FontStyle]::Regular, [System.Drawing.GraphicsUnit]::Point)
@@ -119,7 +121,7 @@ function DrawKey {
             $tr = New-Object System.Drawing.RectangleF($x, ($y + 40), $w, 22)
             $g.DrawString($label, $fArrowL, (New-Object System.Drawing.SolidBrush($labelColor)), $tr, $sfCenter)
         } else {
-            $size = if ($style -eq 'big') { $fLabelL } else { $fLabel }
+            $size = if ($style -eq 'big') { $fLabelL } elseif ($style -eq 'xs') { $fLabelXS } elseif ($style -eq 'small') { $fLabelS } else { $fLabel }
             $lr = New-Object System.Drawing.RectangleF(($x + 3), ($y + 17), ($w - 6), ($h - 20))
             $g.DrawString($label, $size, (New-Object System.Drawing.SolidBrush($labelColor)), $lr, $sfCenter)
         }
@@ -139,7 +141,7 @@ for ($y = 0; $y -lt $H; $y += 64) { $g.DrawLine($gridPen, 0, $y, $W, $y) }
 
 # soft amber glow behind the keyboard
 $glowPath = New-Object System.Drawing.Drawing2D.GraphicsPath
-$glowPath.AddEllipse(260, 200, 1400, 620)
+$glowPath.AddEllipse(180, 200, 1300, 620)
 $pgb = New-Object System.Drawing.Drawing2D.PathGradientBrush($glowPath)
 $pgb.CenterColor = [System.Drawing.Color]::FromArgb(26, 252, 190, 17)
 $pgb.SurroundColors = @([System.Drawing.Color]::FromArgb(0, 252, 190, 17))
@@ -150,16 +152,16 @@ $framePen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(40, 
 $g.DrawRectangle($framePen, 26, 26, $W - 52, $H - 52)
 
 # ---------- header ----------
-$g.DrawString('MPV KEYS', $fTitle, (New-Object System.Drawing.SolidBrush($amber)), 138, 62)
-$g.DrawString("personal mpv config  ${dot}  keyboard map", $fSub, (New-Object System.Drawing.SolidBrush($greyText)), 144, 136)
-$g.DrawString('v1.2.0', $fTiny, (New-Object System.Drawing.SolidBrush($greyText)), 1770, 92)
+$g.DrawString('MPV KEYBINDINGS', $fTitle, (New-Object System.Drawing.SolidBrush($amber)), 138, 62)
+$g.DrawString("personal mpv config  ${dot}  keybindings", $fSub, (New-Object System.Drawing.SolidBrush($greyText)), 144, 136)
+$g.DrawString('v1.2.7', $fTiny, (New-Object System.Drawing.SolidBrush($greyText)), 1770, 92)
 
 $rulePen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(70, 252, 190, 17)), 1
 $g.DrawLine($rulePen, 140, 178, 1782, 178)
 
 # ---------- geometry ----------
-$KW = 74; $KH = 70; $GAP = 7; $U = $KW + $GAP
-$X0 = 140
+$KW = 62; $KH = 62; $GAP = 6; $U = $KW + $GAP
+$X0 = 120
 $yF = 252
 $y1 = $yF + $U
 $y2 = $y1 + $U
@@ -174,21 +176,21 @@ DrawKey (X 0) $yF $KW $KH 'ESC' 'QUIT' $true 'big'
 for ($i = 1; $i -le 12; $i++) {
     $keyName = "F$i"
     if ($i -eq 10) {
-        DrawKey (X $i) $yF $KW $KH $keyName 'SHOT (ALT)' $true 'normal'
+        DrawKey (X $i) $yF $KW $KH $keyName 'SHOT' $true 'normal'
     } else {
         DrawKey (X $i) $yF $KW $KH $keyName '' $false 'normal'
     }
 }
-DrawKey (X 14) $yF $KW $KH 'PRINT' 'SHOT' $true 'normal'
+DrawKey (X 14) $yF $KW $KH 'PRINT' '' $false 'normal'
 DrawKey (X 15) $yF $KW $KH 'SCROLL' '' $false 'normal'
 DrawKey (X 16) $yF $KW $KH 'PAUSE' '' $false 'normal'
 
 # ---------- number row ----------
 DrawKey (X 0) $y1 $KW $KH '`' '' $false 'normal'
-DrawKey (X 1) $y1 $KW $KH '1' 'OFF' $true 'normal'
-DrawKey (X 2) $y1 $KW $KH '2' 'SOFT' $true 'normal'
-DrawKey (X 3) $y1 $KW $KH '3' 'BALANCED' $true 'normal'
-DrawKey (X 4) $y1 $KW $KH '4' 'NIGHT' $true 'normal'
+DrawKey (X 1) $y1 $KW $KH '1' "NO${nln}PROCESSING" $true 'xs'
+DrawKey (X 2) $y1 $KW $KH '2' 'CINEMATIC' $true 'small'
+DrawKey (X 3) $y1 $KW $KH '3' 'BALANCED' $true 'small'
+DrawKey (X 4) $y1 $KW $KH '4' "NIGHT${nln}MODE" $true 'small'
 DrawKey (X 5) $y1 $KW $KH '5' '' $false 'normal'
 DrawKey (X 6) $y1 $KW $KH '6' '' $false 'normal'
 DrawKey (X 7) $y1 $KW $KH '7' '' $false 'normal'
@@ -231,11 +233,11 @@ DrawKey (X 11.75) $y3 $KW $KH "'" '' $false 'normal'
 DrawKey (X 12.75) $y3 (2.25 * $U - $GAP) $KH 'ENTER' '' $false 'normal'
 
 # ---------- shift row ----------
-DrawKey (X 0) $y4 (2.25 * $U - $GAP) $KH 'SHIFT' "SHIFT + Z${nln}ZOOM OUT" $true 'normal'
-DrawKey (X 2.25) $y4 $KW $KH 'Z' 'ZOOM IN' $true 'normal'
+DrawKey (X 0) $y4 (2.25 * $U - $GAP) $KH 'SHIFT' '' $false 'normal'
+DrawKey (X 2.25) $y4 $KW $KH 'Z' '' $false 'normal'
 DrawKey (X 3.25) $y4 $KW $KH 'X' '' $false 'normal'
-DrawKey (X 4.25) $y4 $KW $KH 'C' 'AUTOCROP' $true 'normal'
-DrawKey (X 5.25) $y4 $KW $KH 'V' 'LEVELS' $true 'normal'
+DrawKey (X 4.25) $y4 $KW $KH 'C' 'AUTOCROP' $true 'small'
+DrawKey (X 5.25) $y4 $KW $KH 'V' '' $false 'normal'
 DrawKey (X 6.25) $y4 $KW $KH 'B' 'DEBAND' $true 'normal'
 DrawKey (X 7.25) $y4 $KW $KH 'N' '' $false 'normal'
 DrawKey (X 8.25) $y4 $KW $KH 'M' 'MUTE' $true 'normal'
@@ -255,7 +257,7 @@ DrawKey (X 12.5) $y5 (1.25 * $U - $GAP) $KH 'MENU' '' $false 'normal'
 DrawKey (X 13.75) $y5 (1.25 * $U - $GAP) $KH 'CTRL' '' $false 'normal'
 
 # ---------- numpad ----------
-$NX = 1498
+$NX = 1300
 function NX([double]$n) { return $NX + $n * $U }
 $nA = $y1; $nB = $y2; $nC = $y3; $nD = $y4; $nE = $y5
 
@@ -297,23 +299,74 @@ DrawKey (NX 2) ($ay + $U) $KW $KH $arrRt 'SEEK +5' $true 'arrow'
 $arrowCap = New-Object System.Drawing.RectangleF($AX, ($ay + 2 * $U + 10), (4 * $U - $GAP), 22)
 $g.DrawString("ARROWS  ${dot}  SEEK", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), $arrowCap, $sfCenter)
 
+# ---------- mouse panel ----------
+$MX = 1600; $MY = 300; $MW = 260; $MH = 400
+$mousePanel = RoundRect $MX $MY $MW $MH 12
+$panelFill = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(22, 27, 27, 30))
+$g.FillPath($panelFill, $mousePanel)
+$panelPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(55, 252, 190, 17)), 1
+$g.DrawPath($panelPen, $mousePanel)
+$panelFill.Dispose(); $panelPen.Dispose(); $mousePanel.Dispose()
+$g.DrawString('MOUSE', $fLabelL, (New-Object System.Drawing.SolidBrush($amber)), ($MX + 18), ($MY + 14))
+
+$bx = $MX + 75; $by = $MY + 56; $bw = 110; $bh = 184
+$body = RoundRect $bx $by $bw $bh 52
+$bodyFill = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
+    (New-Object System.Drawing.PointF($bx, $by)),
+    (New-Object System.Drawing.PointF($bx, ($by + $bh))),
+    $dimFillA, $dimFillB)
+$bodyPen = New-Object System.Drawing.Pen($dimBorder, 1.4)
+$g.FillPath($bodyFill, $body)
+$g.DrawPath($bodyPen, $body)
+$bodyFill.Dispose(); $bodyPen.Dispose(); $body.Dispose()
+
+$splitPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(110, 107, 107, 114)), 1.2
+$g.DrawLine($splitPen, ($bx + $bw / 2), ($by + 8), ($bx + $bw / 2), ($by + 84))
+$g.DrawLine($splitPen, ($bx + 10), ($by + 84), ($bx + $bw - 10), ($by + 84))
+$splitPen.Dispose()
+
+$wx = $bx + $bw / 2 - 8; $wy = $by + 26
+$wheel = RoundRect $wx $wy 16 38 7
+$wheelFill = New-Object System.Drawing.SolidBrush($amber)
+$wheelPen = New-Object System.Drawing.Pen((C '#1F1F1F'), 1.2)
+$g.FillPath($wheelFill, $wheel)
+$g.DrawPath($wheelPen, $wheel)
+$wheelFill.Dispose(); $wheelPen.Dispose(); $wheel.Dispose()
+
+$mouseRows = @(
+    @('CTRL+WHEEL', 'ZOOM'),
+    @('ALT+BS', 'RESET ZOOM'),
+    @('CTRL+DRAG', 'PAN'),
+    @('RIGHT CLICK', 'MENU'),
+    @('LEFT CLICK', 'UI')
+)
+$mry = $MY + 262
+foreach ($r in $mouseRows) {
+    $comboRect = New-Object System.Drawing.RectangleF(($MX + 16), $mry, 112, 22)
+    $g.DrawString($r[0], $fCombo, (New-Object System.Drawing.SolidBrush($amberSoft)), $comboRect, $sfNear)
+    $actRect = New-Object System.Drawing.RectangleF(($MX + 132), $mry, 116, 22)
+    $g.DrawString($r[1], $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), $actRect, $sfNear)
+    $mry += 26
+}
+
 # ---------- combos legend ----------
 $lx = 140
-$ly = 748
+$ly = 720
 $g.DrawString('COMBOS', $fLabelL, (New-Object System.Drawing.SolidBrush($amber)), $lx, $ly)
 
 $combos = @(
+    @('SHIFT+F10', 'screenshot with subtitles'),
+    @('CTRL+WHEEL', 'zoom in / out'),
+    @('ALT+BS', 'reset zoom and pan'),
+    @('CTRL+DRAG', 'pan the zoomed image'),
     @('SHIFT+ESC', 'quit and save position'),
-    @('CTRL+PRINT', 'screenshot with subtitles'),
-    @('CTRL+F10', 'screenshot (alt)'),
-    @('SHIFT+Z', 'zoom out'),
     @('CTRL+D', 'autodeint'),
     @('CTRL+C', 'force quit')
 )
 $c1 = 0
 foreach ($c in $combos) {
     $cx = $lx
-    $cy = $ly + 34 + $c1 * 28
+    $cy = $ly + 34 + $c1 * 26
     $keyRect = New-Object System.Drawing.RectangleF($cx, $cy, 150, 24)
     $g.DrawString($c[0], $fCombo, (New-Object System.Drawing.SolidBrush($amberSoft)), $keyRect, $sfNear)
     $actRect = New-Object System.Drawing.RectangleF(($cx + 158), $cy, 420, 24)
@@ -326,7 +379,7 @@ $footPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(40, 2
 $g.DrawLine($footPen, 140, 952, 1782, 952)
 
 $g.DrawString("ESC in fullscreen leaves fullscreen first; the next press quits  ${dot}  q / w move subtitles into the black bars of 21:9 films", $fSmall, (New-Object System.Drawing.SolidBrush($warmWhite)), 140, 972)
-$g.DrawString("numpad + / ${minus} resize subtitles and keep the size between runs  ${dot}  m or MUTE mutes  ${dot}  uosc draws the timeline and volume indicators", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), 140, 998)
+$g.DrawString("Ctrl+wheel zooms and Alt+BS resets  ${dot}  autocrop runs 10 s after playback starts (C toggles)  ${dot}  numpad + / ${minus} resize subtitles", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), 140, 998)
 
 # small amber corner ticks
 $tickPen = New-Object System.Drawing.Pen ($amber, 2)

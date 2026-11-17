@@ -28,6 +28,15 @@ labels, comments, CHANGELOG. Do not alternate with *hotkeys*, *keys* or
 *bindings* when referring to assignments. *Keys* is only acceptable for the
 physical keyboard (`numpad keys`, `arrow keys`).
 
+## Hardware decoding
+
+`hwdec=auto-copy` in `mpv.conf`. It cuts CPU load and can lower power draw, and
+copy-back is required because lavfi filters (`idet` for `Ctrl+d`, `cropdetect`
+for autocrop) fail on direct hwdec interop. `auto-safe` is only an alias of
+`auto` in mpv 0.40+, so it is not a safer choice and it breaks those filters.
+Autocrop disables hwdec for its detection window; `autodeint` does not, which is
+why copy-back is the configured default.
+
 ## Audio profiles
 
 Four profiles on `1`–`4`, handled by `scripts/audio-norm.lua`. Playback starts
@@ -113,9 +122,9 @@ is enabled (`volume=right` in the local `uosc.conf`).
 ## Docs style
 
 - Concise and scannable: short sections, tables over prose, bold lead-ins.
-  The README should stay around 12–13 KB, not 20.
+  The README should stay under about 15 KB, not 20.
 - At most a handful of emojis, only as section markers (audio, subtitles,
-  installation, updating, uninstalling, design). No emoji in body text.
+  installation, updating, uninstalling, design, privacy). No emoji in body text.
 - No marketing tone and no repetition between the summary and the dedicated
   sections. Keep the existing anchors working.
 - CHANGELOG: one entry per release, grouped by feature, in English.
@@ -130,7 +139,7 @@ is enabled (`volume=right` in the local `uosc.conf`).
   `powershell -ExecutionPolicy Bypass -File assets/keys.ps1` after changing
   keybindings.
 - Style: SQUAD-like tactical HUD, charcoal background, faint grid, amber
-  `#FCBE11` glow on active keys, condensed sans labels, 1920×1080.
+  `#FCBE11` glow on active keys, condensed sans labels, 1600×900.
 - The right side carries a mouse panel: wheel highlighted for
   `CTRL+WHEEL = ZOOM`, plus `ALT+BACKSPACE = RESET ZOOM`, `CTRL+DRAG = PAN`,
   `RIGHT CLICK = MENU` and `LEFT CLICK = UI`.
@@ -138,14 +147,36 @@ is enabled (`volume=right` in the local `uosc.conf`).
   written as combinations (`SHIFT+F10`, `CTRL+WHEEL`, `SHIFT+ESC`); never put a
   combo action on the bare modifier key alone. Spell out `BACKSPACE`; `BS` is
   only mpv's internal key name.
+- The keyboard uses a 15-column ortholinear grid: `Tab`, `Caps` and `Shift`
+  start on whole columns (`2U`, `2U`, `2U`/`3U`), so `Q`, `A` and `Z` share a
+  column, and the bottom row uses whole units. The function row fills all 15
+  columns (the dim `PRINT` and `SCROLL` keys have no bindings) and the numpad
+  continues the same grid to the right, sharing the top edge. Do not
+  reintroduce half-unit offsets or a staggered QWERTY silhouette.
 - For any other text-heavy image, draw it instead of generating it: exact
   text matters more than style.
 - The README banners — `banner.png`, `design.png`, `audio.png`,
-  `subtitles.png`, `installation.png` — come from `assets/banner.py` (Python +
-  Pillow) using the bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL),
-  with the same palette, grid and HUD frame as the keyboard map. `--version`
-  sets the chip on the two large images; rerun `python3 assets/banner.py` after
-  changing text or releasing. The audio strip lists the four profile names.
+  `subtitles.png`, `installation.png`, `updating.png`, `uninstalling.png`,
+  `privacy.png` — come from `assets/banner.py` (Python + Pillow) using the
+  bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL), with the same
+  palette, grid and HUD frame as the keyboard map. `--version` sets the chip on
+  the two large images; rerun `python3 assets/banner.py` after changing text or
+  releasing. The audio strip lists the four profile names. Canvases stay narrow
+  so the type survives README scaling on phones: the hero is 1600×600, the
+  design is 1200×470 and the strips are 1200×180. Enlarge the type or shrink
+  the canvas instead of adding width.
+
+## Privacy notice
+
+- The README ends with **Privacy: uosc subtitle search**, and the section says
+  only what was verified: OpenSubtitles receives the file name, the file hash
+  when available, the requested languages and page, and the client IP;
+  downloads send the subtitle id; the requests come from `ziggy`.
+- No claim that it caused anything else, no accusations. The audit result is
+  limited to the inspected files (`menus.lua`, `main.lua`, `subtitles.go`,
+  `utils.go`, `http.go`) and the limitations and the opt-out are stated.
+- Keep it short. Do not add the full Spanish draft back: it repeats the same
+  facts and names analytics vendors that were not found.
 
 ## Git
 
@@ -185,6 +216,9 @@ is enabled (`volume=right` in the local `uosc.conf`).
 | `assets/keys.ps1` | generator for the keyboard map |
 | `assets/keys.png` | keyboard map used by the README |
 | `assets/banner.py` | generator for the README banners |
+| `assets/banner.png` | hero banner |
+| `assets/design.png` | subtitle specimen |
+| `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `privacy.png` | section strips |
 | `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |
 | `README.md` | user-facing documentation |
 | `CHANGELOG.md` | release notes |

@@ -21,13 +21,13 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 
 ## What's inside
 
-- **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation and hardware decoding are off; debanding is off too (`b` toggles it).
+- **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation is off. Hardware decoding runs in copy-back mode (`hwdec=auto-copy`), which cuts CPU load and can lower power draw while keeping `Ctrl+d` and the autocrop filters working; debanding is off too (`b` toggles it).
 - **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They adapt to the window, not the video: `blend-subtitles=no` keeps them on the OSD layer, so they stay sharp at any size and never stretch with the image, and `w` slides them into the black bars of any letterboxed source. Size chosen with numpad `+` / `-` survives restarts.
 - **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in No Processing; see [Audio profiles](#-audio-profiles).
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
 - **Streaming** — 100 s cache, desktop Firefox user agent, maximum HLS bitrate, looping GIF/WebM.
 - **Scripts** — `audio-norm` (profiles), `subtitle-size` (persistence), `esc-quit` (two-step close), `autocrop` (crops 10 s after load; `C` toggles), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline previews).
-- **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search, playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
+- **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search ([privacy](#-privacy-uosc-subtitle-search)), playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
 - **Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/` and renders previews by running mpv from `PATH`. If mpv is not in `PATH` (common on Windows), point to it in `script-opts/thumbfast.conf` (gitignored):
 
   ```ini
@@ -141,6 +141,8 @@ The installer is native to each system, fetches the latest uosc release over HTT
 
 ### 🔄 Updating
 
+![Updating banner: PULL --FF-ONLY — config and uosc move separately](assets/updating.png)
+
 Two independent pieces — update them separately.
 
 **The config.** One command, no need to open the folder:
@@ -158,6 +160,8 @@ uosc's **Utils → Update uosc** also works, but pipes the latest `master` insta
 
 ### 🗑 Uninstalling uosc
 
+![Uninstalling banner: UOSC ONLY — config, resume and fonts stay](assets/uninstalling.png)
+
 ```console
 powershell -ExecutionPolicy Bypass -File "$env:APPDATA\mpv\uninstall-uosc.ps1"   # Windows
 bash ~/.config/mpv/uninstall-uosc.sh                                            # Linux / macOS
@@ -170,6 +174,16 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
 ## Credits
 
 Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
+
+## 🔒 Privacy: uosc subtitle search
+
+![Privacy banner: SUBTITLE SEARCH — OpenSubtitles receives the file name, hash, language and IP](assets/privacy.png)
+
+The subtitle search inside uosc is a third-party call, not a local feature. A search sends **OpenSubtitles** the video file name without its extension, the file hash when available, the languages and page you asked for, and your IP address; downloading a subtitle also sends its id. The requests come from `ziggy`, the helper binary bundled with uosc.
+
+I checked the published source — `menus.lua` and `main.lua` for the search UI, `subtitles.go`, `utils.go` and `http.go` in `ziggy` — and found no analytics, tracking pixels or ad telemetry in this feature.
+
+That audit covers published code, not live traffic: it cannot show what OpenSubtitles does with the data, or rule out changes in a later release. A file name still says what you are watching. If that matters to you, skip the built-in downloader and fetch subtitles elsewhere — the rest of uosc works without it.
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

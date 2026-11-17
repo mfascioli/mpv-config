@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Video:** `hwdec=auto-copy` is on. GPU decoding cuts CPU load and can lower power draw, and copy-back keeps the lavfi filters working — `auto`/`auto-safe` broke `idet` (`Ctrl+d`) and would break `cropdetect`. `auto-safe` is only an alias of `auto` in mpv 0.40+.
+- **Docs:** the README is denser on phones. The hero is 1600×600, the specimen 1200×470 and the strips 1200×180 with larger type, and the keyboard map uses a 15-column ortholinear grid without gaps. **Updating** and **Uninstalling uosc** gain strips, and the README ends with a **Privacy: uosc subtitle search** section: what OpenSubtitles receives, what the source audit covered and what it cannot prove.
+
 ## 1.2.7 — 2026-11-17
 
 - **Audio profiles:** `Off` is now **No Processing** and the other profiles are **Cinematic** (−23 LUFS), **Balanced** (−18 LUFS) and **Night Mode** (−16 LUFS). The script ids and bindings follow the names (`audio_norm/no_processing|cinematic|balanced|night_mode`), so `input.conf`, the OSD and the docs use one vocabulary. Targets and filter chains are unchanged.
@@ -7,7 +12,7 @@
 - **Screenshots:** `F10` captures without subtitles and `Shift+F10` with them. `PrintScreen`, `Ctrl+PrintScreen` and `Ctrl+F10` are gone; the print key stays with the system.
 - **Keybindings:** freed mpv defaults that could fight the config — `u` (ASS override), `V` (ASS video data), `A` (forced aspect), `F`/`G` (subtitle scale), `E` (editions), `v` (output levels) and horizontal wheel seeking. `d` and `Ctrl+d` remain for deinterlacing.
 - **Autocrop:** the automatic crop now waits 10 s after playback starts (`autocrop-auto_delay=10`), so fades and title cards do not skew detection; `C` still applies or undoes it.
-- **Docs:** the README section is **Keybindings**, and the same term is used across docs, comments and images. The keyboard map gains a mouse panel (`CTRL+WHEEL`, `ALT+BS`, `CTRL+DRAG`, right click, left click), the new profile names and the new screenshot keys, and the banners are regenerated for 1.2.7 with the audio strip listing the four profile names.
+- **Docs:** the README section is **Keybindings**, and the same term is used across docs, comments and images. The keyboard map gains a mouse panel (`CTRL+WHEEL`, `ALT+BACKSPACE`, `CTRL+DRAG`, right click, left click), the new profile names and the new screenshot keys, and the banners are regenerated for 1.2.7 with the audio strip listing the four profile names.
 
 ## 1.2.6 — 2026-11-17
 

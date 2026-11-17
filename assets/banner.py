@@ -110,15 +110,15 @@ def draw_right(d, x_right, y, text, f, fill, tracking=0):
 
 
 def hero(path, version):
-    w, h = 1920, 600
-    img = canvas(w, h, (620, 300, 760, 330, 24))
+    w, h = 1600, 600
+    img = canvas(w, h, (520, 300, 640, 330, 24))
     ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     o = ImageDraw.Draw(ov)
 
-    o.line([(140, 376), (1780, 376)], fill=(252, 190, 17, 60), width=1)
+    o.line([(140, 376), (1460, 376)], fill=(252, 190, 17, 60), width=1)
 
     chips = ("SDR \u00b7 HDR", "GPU-NEXT", "ADAPTIVE SUBTITLES", "FOUR PROFILES")
-    chip_font = font("semibold", 18)
+    chip_font = font("semibold", 20)
     boxes = []
     x = 140
     for label in chips:
@@ -136,7 +136,7 @@ def hero(path, version):
     )
     y = 236
     for _label, _value in rows:
-        o.line([(1210, y + 40), (1780, y + 40)], fill=(255, 216, 107, 26), width=1)
+        o.line([(1040, y + 40), (1460, y + 40)], fill=(255, 216, 107, 26), width=1)
         y += 52
 
     img = Image.alpha_composite(img, ov)
@@ -145,31 +145,31 @@ def hero(path, version):
     draw_tracked(d, (140, 92), "PERSONAL MPV CONFIG", font("semibold", 20), AMBER_DIM, 6)
     d.text((136, 124), "MPV CONFIG", font=font("heavy", 132), fill=AMBER)
     d.text((144, 302), "Clean scaling \u00b7 Amber subtitles \u00b7 Four audio profiles",
-           font=font("regular", 30), fill=WARM_WHITE)
+           font=font("regular", 32), fill=WARM_WHITE)
 
     for box, label in boxes:
         draw_tracked(d, (box[0] + 20, 414), label, chip_font, AMBER, 3)
 
     y = 236
     for label, value in rows:
-        draw_tracked(d, (1210, y + 4), label, font("semibold", 15), GREY, 4)
-        draw_right(d, 1780, y, value, font("semibold", 22), WARM_WHITE, 1)
+        draw_tracked(d, (1040, y + 4), label, font("semibold", 16), GREY, 4)
+        draw_right(d, 1460, y, value, font("semibold", 24), WARM_WHITE, 1)
         y += 52
 
     d.text((140, 516), "mpv 0.40+  \u00b7  gpu-next  \u00b7  Windows \u00b7 Linux \u00b7 macOS",
            font=font("regular", 18), fill=GREY)
-    draw_right(d, 1780, 62, version, font("regular", 18), GREY)
+    draw_right(d, 1460, 62, version, font("regular", 18), GREY)
 
     img.convert("RGB").save(path, optimize=True)
 
 
 def design(path, version):
-    w, h = 1920, 480
-    img = canvas(w, h, (760, 250, 700, 300, 18))
+    w, h = 1200, 470
+    img = canvas(w, h, (520, 240, 460, 260, 18))
     ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     o = ImageDraw.Draw(ov)
 
-    o.line([(140, 216), (1780, 216)], fill=(252, 190, 17, 60), width=1)
+    o.line([(60, 200), (1140, 200)], fill=(252, 190, 17, 60), width=1)
 
     swatches = (
         ("FILL", "#FCBE11", (252, 190, 17, 255)),
@@ -177,49 +177,49 @@ def design(path, version):
         ("SHADOW", "#33000000 \u00b7 ARGB \u00b7 1 px", (0, 0, 0, 51)),
         ("TYPE", "SIZE 40 \u00b7 SPACING 0.5", None),
     )
-    x = 140
+    x = 60
     for label, value, color in swatches:
         if color is not None:
-            o.rounded_rectangle([x, 356, x + 44, 400], radius=3, fill=color,
+            o.rounded_rectangle([x, 330, x + 44, 374], radius=3, fill=color,
                                 outline=(255, 216, 107, 80), width=1)
-        x += 300
+        x += 260
 
     img = Image.alpha_composite(img, ov)
     d = ImageDraw.Draw(img)
 
-    draw_tracked(d, (140, 76), "DESIGN", font("semibold", 20), AMBER_DIM, 6)
-    d.text((136, 108), "AMBER, NOT WHITE", font=font("heavy", 72), fill=AMBER)
+    draw_tracked(d, (60, 44), "DESIGN", font("semibold", 20), AMBER_DIM, 6)
+    d.text((56, 76), "AMBER, NOT WHITE", font=font("heavy", 80), fill=AMBER)
 
-    merri = ImageFont.truetype(str(HERE.parent / "fonts" / "Merriweather-Bold.ttf"), 56)
-    d.text((140, 244), "Anyway, I hope everything goes smoothly.",
+    merri = ImageFont.truetype(str(HERE.parent / "fonts" / "Merriweather-Bold.ttf"), 48)
+    d.text((60, 228), "Anyway, I hope everything goes smoothly.",
            font=merri, fill=AMBER, stroke_width=3, stroke_fill=(31, 31, 31))
 
-    x = 140
+    x = 60
     for label, value, _color in swatches:
-        draw_tracked(d, (x, 412), label, font("semibold", 15), GREY, 4)
-        d.text((x, 432), value, font=font("semibold", 20), fill=WARM_WHITE)
-        x += 300
+        draw_tracked(d, (x, 386), label, font("semibold", 15), GREY, 4)
+        d.text((x, 406), value, font=font("semibold", 20), fill=WARM_WHITE)
+        x += 260
 
-    draw_tracked(d, (1442, 300), "MERRIWEATHER", font("semibold", 32), WARM_WHITE, 1)
-    d.text((1440, 336), "BOLD 700", font=font("heavy", 46), fill=AMBER)
-    d.text((1442, 394), "loaded from ~~/fonts", font=font("regular", 18), fill=GREY)
-    draw_right(d, 1780, 62, version, font("regular", 18), GREY)
+    draw_tracked(d, (790, 70), "MERRIWEATHER", font("semibold", 26), WARM_WHITE, 1)
+    d.text((788, 102), "BOLD 700", font=font("heavy", 40), fill=AMBER)
+    d.text((790, 154), "loaded from ~~/fonts", font=font("regular", 18), fill=GREY)
+    draw_right(d, 1140, 44, version, font("regular", 18), GREY)
 
     img.convert("RGB").save(path, optimize=True)
 
 
 def strip(path, kicker, title, detail):
-    w, h = 1920, 170
-    img = canvas(w, h, (560, 85, 620, 180, 16), inset=18, arm=56)
+    w, h = 1200, 180
+    img = canvas(w, h, (360, 90, 400, 140, 16), inset=18, arm=56)
     ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     o = ImageDraw.Draw(ov)
-    o.line([(1300, 46), (1300, 124)], fill=(252, 190, 17, 45), width=1)
+    o.line([(640, 44), (640, 136)], fill=(252, 190, 17, 45), width=1)
     img = Image.alpha_composite(img, ov)
     d = ImageDraw.Draw(img)
 
-    draw_tracked(d, (64, 42), kicker, font("semibold", 16), AMBER_DIM, 5)
-    d.text((60, 62), title, font=font("heavy", 48), fill=AMBER)
-    draw_right(d, 1850, 74, detail, font("semibold", 21), WARM_WHITE, 1)
+    draw_tracked(d, (60, 34), kicker, font("semibold", 20), AMBER_DIM, 5)
+    d.text((56, 62), title, font=font("heavy", 58), fill=AMBER)
+    draw_right(d, 1140, 80, detail, font("semibold", 25), WARM_WHITE, 1)
 
     img.convert("RGB").save(path, optimize=True)
 
@@ -232,10 +232,19 @@ def main():
     a.out.mkdir(parents=True, exist_ok=True)
     hero(a.out / "banner.png", a.version)
     design(a.out / "design.png", a.version)
-    strip(a.out / "audio.png", "AUDIO", "FOUR PROFILES", "NO PROCESSING \u00b7 CINEMATIC \u00b7 BALANCED \u00b7 NIGHT")
-    strip(a.out / "subtitles.png", "SUBTITLES", "ADAPTIVE PLACEMENT", "AMBER \u00b7 SIZE \u00b7 DELAY")
-    strip(a.out / "installation.png", "INSTALL", "ONE CLONE", "mpv 0.40+ \u00b7 uosc optional")
-    for name in ("banner.png", "design.png", "audio.png", "subtitles.png", "installation.png"):
+    strips = (
+        ("audio.png", "AUDIO", "FOUR PROFILES",
+         "NO PROCESSING \u00b7 CINEMATIC \u00b7 BALANCED \u00b7 NIGHT"),
+        ("subtitles.png", "SUBTITLES", "ADAPTIVE PLACEMENT",
+         "AMBER \u00b7 SIZE \u00b7 DELAY \u00b7 ANY LETTERBOX"),
+        ("installation.png", "INSTALL", "ONE CLONE", "mpv 0.40+ \u00b7 uosc optional"),
+        ("updating.png", "UPDATE", "PULL --FF-ONLY", "config and uosc move separately"),
+        ("uninstalling.png", "UNINSTALL", "UOSC ONLY", "config, resume and fonts stay"),
+        ("privacy.png", "PRIVACY", "SUBTITLE SEARCH", "file name \u00b7 hash \u00b7 language \u00b7 IP"),
+    )
+    for name, kicker, title, detail in strips:
+        strip(a.out / name, kicker, title, detail)
+    for name, _kicker, _title, _detail in strips:
         print(f"wrote {a.out / name}")
 
 

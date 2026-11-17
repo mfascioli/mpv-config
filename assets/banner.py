@@ -174,7 +174,7 @@ def design(path, version):
     swatches = (
         ("FILL", "#FCBE11", (252, 190, 17, 255)),
         ("OUTLINE", "#1F1F1F \u00b7 1.5", (31, 31, 31, 255)),
-        ("SHADOW", "#33000000 \u00b7 1 px", (0, 0, 0, 51)),
+        ("SHADOW", "#33000000 \u00b7 ARGB \u00b7 1 px", (0, 0, 0, 51)),
         ("TYPE", "SIZE 40 \u00b7 SPACING 0.5", None),
     )
     x = 140

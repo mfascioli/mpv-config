@@ -300,7 +300,7 @@ $arrowCap = New-Object System.Drawing.RectangleF($AX, ($ay + 2 * $U + 10), (4 * 
 $g.DrawString("ARROWS  ${dot}  SEEK", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), $arrowCap, $sfCenter)
 
 # ---------- mouse panel ----------
-$MX = 1600; $MY = 300; $MW = 260; $MH = 400
+$MX = 1600; $MY = 300; $MW = 300; $MH = 400
 $mousePanel = RoundRect $MX $MY $MW $MH 12
 $panelFill = New-Object System.Drawing.SolidBrush ([System.Drawing.Color]::FromArgb(22, 27, 27, 30))
 $g.FillPath($panelFill, $mousePanel)
@@ -309,7 +309,7 @@ $g.DrawPath($panelPen, $mousePanel)
 $panelFill.Dispose(); $panelPen.Dispose(); $mousePanel.Dispose()
 $g.DrawString('MOUSE', $fLabelL, (New-Object System.Drawing.SolidBrush($amber)), ($MX + 18), ($MY + 14))
 
-$bx = $MX + 75; $by = $MY + 56; $bw = 110; $bh = 184
+$bx = $MX + 95; $by = $MY + 56; $bw = 110; $bh = 184
 $body = RoundRect $bx $by $bw $bh 52
 $bodyFill = New-Object System.Drawing.Drawing2D.LinearGradientBrush(
     (New-Object System.Drawing.PointF($bx, $by)),
@@ -335,16 +335,16 @@ $wheelFill.Dispose(); $wheelPen.Dispose(); $wheel.Dispose()
 
 $mouseRows = @(
     @('CTRL+WHEEL', 'ZOOM'),
-    @('ALT+BS', 'RESET ZOOM'),
+    @('ALT+BACKSPACE', 'RESET ZOOM'),
     @('CTRL+DRAG', 'PAN'),
     @('RIGHT CLICK', 'MENU'),
     @('LEFT CLICK', 'UI')
 )
 $mry = $MY + 262
 foreach ($r in $mouseRows) {
-    $comboRect = New-Object System.Drawing.RectangleF(($MX + 16), $mry, 112, 22)
+    $comboRect = New-Object System.Drawing.RectangleF(($MX + 16), $mry, 140, 22)
     $g.DrawString($r[0], $fCombo, (New-Object System.Drawing.SolidBrush($amberSoft)), $comboRect, $sfNear)
-    $actRect = New-Object System.Drawing.RectangleF(($MX + 132), $mry, 116, 22)
+    $actRect = New-Object System.Drawing.RectangleF(($MX + 162), $mry, 122, 22)
     $g.DrawString($r[1], $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), $actRect, $sfNear)
     $mry += 26
 }
@@ -357,7 +357,7 @@ $g.DrawString('COMBOS', $fLabelL, (New-Object System.Drawing.SolidBrush($amber))
 $combos = @(
     @('SHIFT+F10', 'screenshot with subtitles'),
     @('CTRL+WHEEL', 'zoom in / out'),
-    @('ALT+BS', 'reset zoom and pan'),
+    @('ALT+BACKSPACE', 'reset zoom and pan'),
     @('CTRL+DRAG', 'pan the zoomed image'),
     @('SHIFT+ESC', 'quit and save position'),
     @('CTRL+D', 'autodeint'),
@@ -379,7 +379,7 @@ $footPen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(40, 2
 $g.DrawLine($footPen, 140, 952, 1782, 952)
 
 $g.DrawString("ESC in fullscreen leaves fullscreen first; the next press quits  ${dot}  q / w move subtitles into the black bars of 21:9 films", $fSmall, (New-Object System.Drawing.SolidBrush($warmWhite)), 140, 972)
-$g.DrawString("Ctrl+wheel zooms and Alt+BS resets  ${dot}  autocrop runs 10 s after playback starts (C toggles)  ${dot}  numpad + / ${minus} resize subtitles", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), 140, 998)
+$g.DrawString("Ctrl+wheel zooms and Alt+Backspace resets  ${dot}  autocrop runs 10 s after playback starts (C toggles)  ${dot}  numpad + / ${minus} resize subtitles", $fSmall, (New-Object System.Drawing.SolidBrush($greyText)), 140, 998)
 
 # small amber corner ticks
 $tickPen = New-Object System.Drawing.Pen ($amber, 2)

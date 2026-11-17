@@ -17,7 +17,7 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 
 ![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/design.png)
 
-Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` at 1 px.
+Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` (ARGB, 20 % black) at 1 px.
 
 ## What's inside
 

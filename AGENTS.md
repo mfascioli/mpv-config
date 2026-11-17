@@ -79,7 +79,7 @@ is enabled (`volume=right` in the local `uosc.conf`).
 
 - Merriweather Bold 700 from `fonts/`, loaded via `~~/fonts`; no installation.
 - Amber `#FCBE11`, outline `#1F1F1F` at 1.5, size 40, spacing 0.5, shadow
-  `#33000000` at 1 px. Styling is forced over every track, including ASS signs.
+  `#33000000` (ARGB, 20 % black) at 1 px. Styling is forced over every track, including ASS signs.
 - `blend-subtitles=no` is required so subtitles can enter the letterbox bars;
   `sub-use-margins=yes` and `sub-ass-force-margins=yes` are already set.
   `sub-pos` runs 0–150; 100 is normal, ~100–106 reaches the bottom bar.
@@ -132,11 +132,12 @@ is enabled (`volume=right` in the local `uosc.conf`).
 - Style: SQUAD-like tactical HUD, charcoal background, faint grid, amber
   `#FCBE11` glow on active keys, condensed sans labels, 1920×1080.
 - The right side carries a mouse panel: wheel highlighted for
-  `CTRL+WHEEL = ZOOM`, plus `ALT+BS = RESET ZOOM`, `CTRL+DRAG = PAN`,
+  `CTRL+WHEEL = ZOOM`, plus `ALT+BACKSPACE = RESET ZOOM`, `CTRL+DRAG = PAN`,
   `RIGHT CLICK = MENU` and `LEFT CLICK = UI`.
 - Labels are English and describe the keybindings exactly. Modifier actions are
   written as combinations (`SHIFT+F10`, `CTRL+WHEEL`, `SHIFT+ESC`); never put a
-  combo action on the bare modifier key alone.
+  combo action on the bare modifier key alone. Spell out `BACKSPACE`; `BS` is
+  only mpv's internal key name.
 - For any other text-heavy image, draw it instead of generating it: exact
   text matters more than style.
 - The README banners — `banner.png`, `design.png`, `audio.png`,

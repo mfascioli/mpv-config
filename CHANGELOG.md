@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.2.8 — 2026-11-17
 
 - **Video:** `hwdec=auto-copy` is on. GPU decoding cuts CPU load and can lower power draw, and copy-back keeps the lavfi filters working — `auto`/`auto-safe` broke `idet` (`Ctrl+d`) and would break `cropdetect`. `auto-safe` is only an alias of `auto` in mpv 0.40+.
 - **Docs:** the README is denser on phones. The hero is 1600×600, the specimen 1200×470 and the strips 1200×180 with larger type, and the keyboard map uses a 15-column ortholinear grid without gaps. **Updating** and **Uninstalling uosc** gain strips, and the README ends with a **Privacy: uosc subtitle search** section: what OpenSubtitles receives, what the source audit covered and what it cannot prove.

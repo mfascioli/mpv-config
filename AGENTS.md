@@ -8,16 +8,18 @@ disagree.
 
 Personal mpv setup in `mpv.conf`, `input.conf` and `scripts/`, forked from
 [wopian/mpv-config](https://github.com/wopian/mpv-config). Targets mpv 0.40+
-(`gpu-next`), verified on 0.41. uosc is installed from its official release by
-the per-system installers and is not vendored.
+(`gpu-next`), verified on 0.41 and 0.42. uosc is installed from its official
+release by the per-system installers and is not vendored.
+
+Machine-specific notes — working copy, packaging, syncing — live in
+`AGENTS.local.md`, which is gitignored and never shipped.
 
 ## Language
 
 Everything that ships stays in **English**: README, CHANGELOG, code comments,
-OSD messages, commit messages, image labels, filenames. The user writes in
-Spanish, but the artifacts do not. Never reintroduce Spanish aliases such as
-*Cine*, *Películas*, *Estándar* or *Noche*, and check for leftovers before
-calling a task done.
+OSD messages, commit messages, image labels, filenames. Never reintroduce
+Spanish aliases such as *Cine*, *Películas*, *Estándar* or *Noche*, and check
+for leftovers before calling a task done.
 
 ## Audio profiles
 
@@ -114,8 +116,8 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
 - Labels are English and describe the bindings exactly. Modifier actions are
   written as combinations (`SHIFT+Z`, `CTRL+PRINT`, `SHIFT+ESC`); never put a
   combo action on the bare modifier key alone.
-- Prefer deterministic drawing for text-heavy images; AI generation has
-  failed here (provider `Forbidden`).
+- For any other text-heavy image, draw it instead of generating it: exact
+  text matters more than style.
 
 ## Git
 
@@ -123,19 +125,6 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
   Imperative subject, body explaining what and why, no emoji.
 - Do not commit, tag or push unless the user asks. Report uncommitted changes.
 - Keep `AGENTS.md` current when a preference changes.
-
-## Workflow
-
-1. Edit the vault copy at `M:\ObsidianVaults\mpv-config`.
-2. Test with mpv 0.41 using `--config-dir=<vault>` and temporary Lua harnesses.
-3. Build `mpv-config-<version>.zip` from a staging copy, excluding `.git`,
-   `watch_later`, `subtitle-size.txt`, `scripts/uosc/`, `fonts/uosc_*`,
-   `script-opts/uosc.conf` and `script-opts/thumbfast.conf`. Extract it to a
-   clean folder and re-test.
-4. Sync the changed files to `%APPDATA%\mpv`, remove deleted scripts, and
-   verify file hashes.
-5. Remove local state (`subtitle-size.txt`) before packaging and syncing, so
-   the user starts from the defaults.
 
 ## Testing checklist
 

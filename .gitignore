@@ -1,6 +1,9 @@
 watch_later
 subtitle-size.txt
 
+# Local agent notes for this machine
+AGENTS.local.md
+
 # uosc is installed from its official release (install-uosc-* scripts)
 scripts/uosc/
 fonts/uosc_icons.otf

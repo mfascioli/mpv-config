@@ -118,6 +118,12 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
   combo action on the bare modifier key alone.
 - For any other text-heavy image, draw it instead of generating it: exact
   text matters more than style.
+- The README banners — `banner.png`, `design.png`, `audio.png`,
+  `subtitles.png`, `installation.png` — come from `assets/banner.py` (Python +
+  Pillow) using the bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL),
+  with the same palette, grid and HUD frame as the keyboard map. `--version`
+  sets the chip on the two large images; rerun `python3 assets/banner.py` after
+  changing text or releasing.
 
 ## Git
 
@@ -148,5 +154,7 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
 | `scripts/esc-quit.lua` | two-step Esc close |
 | `assets/keys.ps1` | generator for the keyboard map |
 | `assets/keys.png` | keyboard map used by the README |
+| `assets/banner.py` | generator for the README banners |
+| `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |
 | `README.md` | user-facing documentation |
 | `CHANGELOG.md` | release notes |

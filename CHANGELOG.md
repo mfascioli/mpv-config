@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2 — 2026-11-16
+
+- **Docs (design):** the README opens with a HUD banner and moves "Why this look?" into a **Design** section, next to the palette, the Merriweather rationale and the subtitle-style tokens. Audio, subtitles and installation gain matching section banners; the subtitle specimen renders the bundled Merriweather at the real colours and outline.
+- **Images:** `assets/banner.py` (Python + Pillow) draws the five banners deterministically from the bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL, subset to latin). `assets/keys.ps1` still draws the keyboard map.
+- **AGENTS.md:** the public file keeps the portable guidance; the vault path, packaging and sync steps moved to a gitignored `AGENTS.local.md`, and mpv 0.42 is recorded as a tested target.
+
 ## 1.2.1 — 2026-11-16
 
 - **Fixed:** `window-corners=round` removed from `mpv.conf`. mpv 0.42 dropped the option, so every launch logged `Error parsing option window-corners` and ignored it. The window stays borderless; the rounding only applied on Windows and macOS.

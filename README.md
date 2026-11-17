@@ -2,10 +2,22 @@
 
 [![release badge]][release]
 
+![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, 21:9 bars and four audio profiles](assets/banner.png)
+
 Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitles, four audio profiles and a handful of small scripts. Based on [wopian/mpv-config](https://github.com/wopian/mpv-config).
 
 ![mpv with uosc: timeline, thumbfast preview and Merriweather subtitles in amber](assets/interface.jpg)
 <sub>Wicked City | 1987 — Yoshiaki Kawajiri. Spoiler: it did not go smoothly at all.</sub>
+
+## 🎨 Design
+
+**Amber, not white.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
+
+**Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
+
+![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/design.png)
+
+Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` at 1 px.
 
 ## What's inside
 
@@ -21,8 +33,6 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
   ```ini
   mpv_path=C:\Program Files\mpv\mpv.exe
   ```
-
-Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` at 1 px.
 
 ## Keys
 
@@ -58,6 +68,8 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 
 ## 🎚 Audio profiles
 
+![Audio banner: FOUR PROFILES — Off, Soft, Balanced, Night](assets/audio.png)
+
 `scripts/audio-norm.lua` owns the filter chain. Each key **replaces** it, and playback starts in **1 — Off**. Bindings call named script bindings, so they can be remapped without touching the Lua.
 
 | Key | Profile | Target | Peak | Character |
@@ -88,13 +100,17 @@ Soft, Balanced and Night use `loudnorm` in single-pass dynamic mode (`linear=fal
 
 ## 💬 Subtitles: bars and size
 
+![Subtitles banner: AMBER & MERRIWEATHER — bars, size and delay](assets/subtitles.png)
+
 `blend-subtitles=no` keeps subtitles on the OSD layer, outside the video image — that is what lets them reach the letterbox. `sub-use-margins=yes` and `sub-ass-force-margins=yes` allow the text there. `sub-pos` runs 0–150; 100 is the normal spot just above the bottom edge, and `w` (or ~100–106) moves the text into the bottom bar. Much higher approaches the window edge and can clip, especially with two lines.
 
 Numpad `+` / `-` (or `G` / `F`) change the size; `scripts/subtitle-size.lua` writes every change to `subtitle-size.txt` and restores it at startup. The file is gitignored — delete it to fall back to `sub-font-size=40`.
 
 ## 📥 Installation
 
-Requires **mpv 0.40+** (`gpu-next`; tested on 0.41). The repository *is* the config folder, so installing is one clone. **Already using this config?** Do not clone again — go to [Updating](#-updating).
+![Installation banner: ONE CLONE — mpv 0.40+, uosc optional](assets/installation.png)
+
+Requires **mpv 0.40+** (`gpu-next`; tested on 0.41 and 0.42). The repository *is* the config folder, so installing is one clone. **Already using this config?** Do not clone again — go to [Updating](#-updating).
 
 **1 — Clone.** Pick your system; the rename keeps an old config as `mpv.backup` and does nothing when there is none. Git is the only tool needed — on Windows, install [git-scm.com](https://git-scm.com/downloads) first.
 
@@ -153,11 +169,7 @@ Removes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
-## 🎨 Why this look?
-
-**Amber, not white.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
-
-**Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
+## Credits
 
 Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 

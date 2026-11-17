@@ -25,9 +25,13 @@ The one exception is `README.es.md`, a full Spanish mirror linked from a
 language button at the top of both files:
 
 ```markdown
-[<kbd>Español 🇪🇸</kbd>](README.es.md)   <!-- in README.md -->
-[<kbd>English 🇬🇧</kbd>](README.md)     <!-- in README.es.md -->
+[![release badge]][release] [![Español](https://img.shields.io/badge/Espa%C3%B1ol-FCBE11?style=flat-square)](README.es.md)   <!-- README.md -->
+[![release badge]][release] [![English](https://img.shields.io/badge/English-FCBE11?style=flat-square)](README.md)         <!-- README.es.md -->
 ```
+
+The button sits on the same line as the release badge, in the banner amber
+(`FCBE11`, `flat-square`). Do not use the flag emoji: Windows and GitHub do not
+render it reliably, so the coloured badge carries the attention instead.
 
 - Keep both files in step: same sections, same order, same images, same
   commands. Translate the prose and the section headings, not the interface.

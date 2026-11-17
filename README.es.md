@@ -1,8 +1,6 @@
 # mpv config
 
-[![release badge]][release]
-
-[<kbd>English 🇬🇧</kbd>](README.md)
+[![release badge]][release] [![English](https://img.shields.io/badge/English-FCBE11?style=flat-square)](README.md)
 
 ![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png)
 

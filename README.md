@@ -1,8 +1,6 @@
 # mpv config
 
-[![release badge]][release]
-
-[<kbd>Español 🇪🇸</kbd>](README.es.md)
+[![release badge]][release] [![Español](https://img.shields.io/badge/Espa%C3%B1ol-FCBE11?style=flat-square)](README.es.md)
 
 ![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png)
 

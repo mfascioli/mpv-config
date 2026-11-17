@@ -138,7 +138,7 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
 - `1`–`4`: correct chain applied and replaced, no filter stacking.
 - Numpad: `0`→0, `5`→55.56, `9`→100, `/`→−2, `*`→+2; `+`/`-` change size.
 - Subtitle size restored after restart.
-- Bars: with a 21:9 clip, `sub-pos` ≈105 places subtitles inside the bottom bar.
+- Bars: with a letterboxed clip (21:9 on 16:9, or 4:3 on 16:9), `sub-pos` ≈105 places subtitles inside the bottom bar.
 - Screenshots: video-only has no subtitles; the with-subtitles mode includes them.
 - `Esc` in fullscreen leaves fullscreen, next press quits without saving;
   `Shift+Esc` writes `start=` only.

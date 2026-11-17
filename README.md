@@ -2,7 +2,7 @@
 
 [![release badge]][release]
 
-![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, 21:9 bars and four audio profiles](assets/banner.png)
+![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, letterbox bars and four audio profiles](assets/banner.png)
 
 Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitles, four audio profiles and a handful of small scripts. Based on [wopian/mpv-config](https://github.com/wopian/mpv-config).
 
@@ -22,7 +22,7 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 ## What's inside
 
 - **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation and hardware decoding are off; debanding is off too (`b` toggles it).
-- **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They stay on their own layer (`blend-subtitles=no`) so `w` can drop them into the black bars of a 21:9 film on a 16:9 screen. Size chosen with numpad `+` / `-` survives restarts.
+- **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They stay on their own layer (`blend-subtitles=no`) so `w` can drop them into the horizontal black bars of any letterboxed source, whatever its aspect ratio. Size chosen with numpad `+` / `-` survives restarts.
 - **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in Off; see [Audio profiles](#-audio-profiles).
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
 - **Streaming** — 100 s cache, desktop Firefox user agent, maximum HLS bitrate, looping GIF/WebM.
@@ -102,7 +102,7 @@ Soft, Balanced and Night use `loudnorm` in single-pass dynamic mode (`linear=fal
 
 ![Subtitles banner: AMBER & MERRIWEATHER — bars, size and delay](assets/subtitles.png)
 
-`blend-subtitles=no` keeps subtitles on the OSD layer, outside the video image — that is what lets them reach the letterbox. `sub-use-margins=yes` and `sub-ass-force-margins=yes` allow the text there. `sub-pos` runs 0–150; 100 is the normal spot just above the bottom edge, and `w` (or ~100–106) moves the text into the bottom bar. Much higher approaches the window edge and can clip, especially with two lines.
+`blend-subtitles=no` keeps subtitles on the OSD layer, outside the video image — that is what lets them reach the letterbox bars of any source, whatever its aspect ratio. `sub-use-margins=yes` and `sub-ass-force-margins=yes` allow the text there. `sub-pos` runs 0–150; 100 is the normal spot just above the bottom edge, and `w` (or ~100–106) moves the text into the bottom bar. Much higher approaches the window edge and can clip, especially with two lines. A 21:9 film on a 16:9 screen is the common case; a 4:3 film on a 16:9 screen works the same way, with wider bars.
 
 Numpad `+` / `-` (or `G` / `F`) change the size; `scripts/subtitle-size.lua` writes every change to `subtitle-size.txt` and restores it at startup. The file is gitignored — delete it to fall back to `sub-font-size=40`.
 

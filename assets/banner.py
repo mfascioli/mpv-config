@@ -117,7 +117,7 @@ def hero(path, version):
 
     o.line([(140, 376), (1780, 376)], fill=(252, 190, 17, 60), width=1)
 
-    chips = ("SDR \u00b7 HDR", "GPU-NEXT", "21:9 BARS", "FOUR PROFILES")
+    chips = ("SDR \u00b7 HDR", "GPU-NEXT", "LETTERBOX BARS", "FOUR PROFILES")
     chip_font = font("semibold", 18)
     boxes = []
     x = 140
@@ -227,7 +227,7 @@ def strip(path, kicker, title, detail):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--out", type=Path, default=HERE)
-    p.add_argument("--version", default="v1.2.2")
+    p.add_argument("--version", default="v1.2.3")
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     hero(a.out / "banner.png", a.version)

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.2.9 — 2026-11-17
 
 - **Docs:** shorter banners with the same type sizes — hero 1600×470, specimen 1200×400, strips 1200×158 — so the page no longer fills with images, and the credits section gains its own strip.
 - **Docs (Spanish):** `README.es.md` mirrors the README in Spanish, reachable from a language button at the top of both files.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.5 — 2026-11-16
+
+- **Fixed:** the arrow keys seek exactly. `←`/`→` move 5 s and `↑`/`↓` 60 s instead of landing on the nearest keyframe, which made a 5 s seek jump 8 s or more on sparse-keyframe files.
+
 ## 1.2.4 — 2026-11-16
 
 - **Docs (subtitles):** the black bars are now described as subtitle behaviour instead of a letterbox feature. The hero chip reads `ADAPTIVE SUBTITLES`, the subtitles strip reads `ADAPTIVE PLACEMENT`, and the README explains that subtitles follow the window, stay sharp at any size and never stretch with the picture, whatever the aspect ratio.

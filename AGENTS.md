@@ -142,6 +142,7 @@ unbound. `volume-max=100` remains. uosc's volume slider is enabled
 - Numpad: `0`→0, `5`→55.56, `9`→100, `/`→−2, `*`→+2; `+`/`-` change size.
 - Subtitle size restored after restart.
 - Bars: with a letterboxed clip (21:9 on 16:9, or 4:3 on 16:9), `sub-pos` ≈105 places subtitles inside the bottom bar.
+- Seeks: `←`/`→` move exactly 5 s on a file whose keyframes are 10 s apart (without `exact`, mpv would land 8 s away); `↑`/`↓` do 60 s.
 - Screenshots: video-only has no subtitles; the with-subtitles mode includes them.
 - `Esc` in fullscreen leaves fullscreen, next press quits without saving;
   `Shift+Esc` writes `start=` only.

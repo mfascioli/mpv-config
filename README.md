@@ -15,7 +15,7 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
 - **Streaming** — 100 s cache, desktop Firefox user agent, maximum HLS bitrate, looping GIF/WebM.
 - **Scripts** — `audio-norm` (profiles), `subtitle-size` (persistence), `esc-quit` (two-step close), `autocrop` (`C`), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline previews).
-- **Interface** — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer: proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search, playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
+- **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search, playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
 - **Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/` and renders previews by running mpv from `PATH`. If mpv is not in `PATH` (common on Windows), point to it in `script-opts/thumbfast.conf` (gitignored):
 
   ```ini
@@ -94,69 +94,62 @@ Numpad `+` / `-` (or `G` / `F`) change the size; `scripts/subtitle-size.lua` wri
 
 ## 📥 Installation
 
-Requires **mpv 0.40+** (`gpu-next`; tested on 0.41). Clone into the mpv config directory — `%APPDATA%\mpv` on Windows, `~/.config/mpv` on Linux/macOS:
+Requires **mpv 0.40+** (`gpu-next`; tested on 0.41). The repository *is* the config folder, so installing is one clone. **Already using this config?** Do not clone again — go to [Updating](#-updating).
+
+**1 — Clone.** Pick your system; the rename keeps an old config as `mpv.backup` and does nothing when there is none. Git is the only tool needed — on Windows, install [git-scm.com](https://git-scm.com/downloads) first.
+
+Windows (PowerShell):
 
 ```console
-# Windows
-cd /d "%APPDATA%\mpv" && git init . && git remote add -t * -f origin https://github.com/mfascioli/mpv-config && git checkout master
-
-# Linux / macOS
-cd ~/.config/mpv && git init . && git remote add -t \* -f origin https://github.com/mfascioli/mpv-config && git checkout master
+if (Test-Path "$env:APPDATA\mpv") { Move-Item "$env:APPDATA\mpv" "$env:APPDATA\mpv.backup" }
+git clone https://github.com/mfascioli/mpv-config.git "$env:APPDATA\mpv"
 ```
 
-**Option 1 — config only.** Nothing else: settings, keys, scripts, Merriweather and the minimal OSC. Launch mpv; no network needed after cloning.
-
-**Option 2 — config + uosc.** Run the installer from the config directory:
+Linux / macOS:
 
 ```console
-# Windows 10/11 (PowerShell 5.1+)
-powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1
-
-# Ubuntu / Debian
-bash install-uosc-ubuntu.sh
-
-# CachyOS / Arch
-bash install-uosc-cachyos.sh
-
-# macOS
-bash install-uosc-macos.sh
+mv ~/.config/mpv ~/.config/mpv.backup 2>/dev/null
+git clone https://github.com/mfascioli/mpv-config.git ~/.config/mpv
 ```
 
-Each script is native and uses only what the system has:
+**2 — Start mpv.** Settings, keys, scripts, the Merriweather font and a minimal OSC are ready. mpv finds the folder by itself — no flags, no network.
 
-| System | Downloads with | Extracts with | Missing tool |
-| --- | --- | --- | --- |
-| Windows | `Invoke-WebRequest` | `Expand-Archive` | none (PowerShell only) |
-| Ubuntu / Debian | `curl`, else `wget` | `unzip` | asks, then `apt-get install` that package only |
-| CachyOS / Arch | `curl` | `bsdtar` | asks, then `yay`/`paru`/`pacman -S --needed` that package only |
-| macOS | `curl` | `unzip` | stops and names the missing tool |
+**3 — Optional: uosc.** The timeline, control bar, menus and search. Run one command; skip it to keep the minimal OSC:
 
-The Linux scripts refuse to run on the wrong distro, and `--yes` / `-y` skips the install question.
+```console
+powershell -ExecutionPolicy Bypass -File "$env:APPDATA\mpv\install-uosc.ps1"   # Windows 10/11
+bash ~/.config/mpv/install-uosc-ubuntu.sh                                      # Ubuntu / Debian
+bash ~/.config/mpv/install-uosc-cachyos.sh                                     # CachyOS / Arch
+bash ~/.config/mpv/install-uosc-macos.sh                                       # macOS
+```
 
-uosc is **not vendored**: the script fetches the latest official release at run time, so you always get the current version. It downloads over HTTPS only (with timeouts and a size cap), verifies GitHub's SHA-256 (`-NoVerify` / `--no-verify` skips it), checks the archive layout before replacing anything, installs `scripts/uosc/` plus its icon fonts and LGPL license, and writes `script-opts/uosc.conf` only if you do not have one. Everything else is untouched. `-ConfigDir` / `--config-dir`, `-Force` / `--force` and the config directory must already exist. All installed paths are gitignored, so `git pull` never overwrites them and `git add -A` never commits the binaries.
+The installer is native to each system, fetches the latest uosc release over HTTPS, verifies GitHub's SHA-256 and keeps an existing `script-opts/uosc.conf`. Linux needs `curl`/`wget` plus `unzip`/`bsdtar` and asks before installing a missing package (`--yes` / `-y` skips the question); `--no-verify` skips the checksum. Everything it installs is gitignored, so updates never overwrite uosc, and each Linux installer refuses to run on the wrong distro. Config folder somewhere else? Append `-ConfigDir <path>` / `--config-dir <path>`.
 
 ### 🔄 Updating
 
-```console
-git -C <config dir> pull
+Two independent pieces — update them separately.
 
-# uosc — rerun the installer; it keeps uosc.conf and verifies the checksum
-powershell -ExecutionPolicy Bypass -File .\install-uosc.ps1   # Windows
-bash install-uosc-ubuntu.sh                                    # Ubuntu / Debian
-bash install-uosc-cachyos.sh                                   # CachyOS / Arch
-bash install-uosc-macos.sh                                     # macOS
+**The config.** One command, no need to open the folder:
+
+```console
+git -C "$env:APPDATA\mpv" pull --ff-only   # Windows
+git -C ~/.config/mpv pull --ff-only        # Linux / macOS
 ```
 
-uosc's **Utils → Update uosc** also works, but pipes the latest `master` installer into a shell (`irm … | iex`, `source <(curl …)`); the installers above download a release and validate its layout instead.
+Files you added and the gitignored `script-opts/*.conf` are left alone. Your own edits to tracked files block the pull: move them aside or `git stash` first.
+
+**uosc.** Rerun its installer, the same command as step 3. It replaces uosc only and keeps `uosc.conf`.
+
+uosc's **Utils → Update uosc** also works, but pipes the latest `master` installer into a shell (`irm … | iex`, `source <(curl …)`); the installer above downloads a release and validates its layout first.
 
 ### 🗑 Uninstalling uosc
 
 ```console
-powershell -ExecutionPolicy Bypass -File .\uninstall-uosc.ps1   # Windows
-bash uninstall-uosc.sh                                            # Linux / macOS
+powershell -ExecutionPolicy Bypass -File "$env:APPDATA\mpv\uninstall-uosc.ps1"   # Windows
+bash ~/.config/mpv/uninstall-uosc.sh                                            # Linux / macOS
 ```
 
-Removes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf`, leaving the rest intact; `-KeepConf` / `--keep-conf` keeps your preferences. The built-in OSC takes over immediately.
+Removes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf`, leaving the rest intact; `-KeepConf` / `--keep-conf` keeps your preferences. The built-in OSC takes over immediately. To remove the config itself, delete its folder — your old files are still in `mpv.backup`.
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 

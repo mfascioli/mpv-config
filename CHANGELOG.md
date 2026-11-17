@@ -9,6 +9,7 @@
 - **Closing:** new `scripts/esc-quit.lua`. `Esc` leaves fullscreen first and quits on the next press; `Shift+Esc` quits and saves the position. `q` no longer quits. `save-position-on-quit` still covers the window close button.
 - **Resume:** `watch-later-options-remove` drops `af`, `volume` and `mute` from new resume files, and the audio script reasserts the selected profile whenever a file loads. Old watch-later files may still carry `af` or a volume; the profile is reasserted on load.
 - **Docs:** README now documents the full key map, the four profiles (LUFS, LRA, compressor, true peak, limiter), the loudness concepts and best uses, numpad volume, subtitles in the black bars, subtitle-size persistence, the scripts and the two screenshot modes. Adds `assets/keys.png`, a SQUAD-style keyboard map with every binding, and `AGENTS.md`, which records the project's preferences and style for future edits.
+- **Docs (installation):** the install and update sections were rewritten around a single `git clone` instead of `git init` plus a remote and a checkout. One short block per system backs up an existing config as `mpv.backup` and does nothing when there is none; uosc is a separate optional step; updating is split into two copy-paste commands (`git -C … pull --ff-only` for the config, rerun the installer for uosc) with no placeholder paths. Adds a "do not clone again" pointer for existing installs, absolute-path installer and uninstaller commands, and a note on `git stash` when tracked files were edited locally.
 
 ## 1.1.0
 

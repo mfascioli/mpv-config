@@ -9,7 +9,7 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 
 ## What's inside
 
-- **Video** — windowed at most 90 % of the screen, borderless, rounded corners. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation and hardware decoding are off; debanding is off too (`b` toggles it).
+- **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation and hardware decoding are off; debanding is off too (`b` toggles it).
 - **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They stay on their own layer (`blend-subtitles=no`) so `w` can drop them into the black bars of a 21:9 film on a 16:9 screen. Size chosen with numpad `+` / `-` survives restarts.
 - **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in Off; see [Audio profiles](#-audio-profiles).
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.

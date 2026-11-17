@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.1 — 2026-11-16
+
+- **Fixed:** `window-corners=round` removed from `mpv.conf`. mpv 0.42 dropped the option, so every launch logged `Error parsing option window-corners` and ignored it. The window stays borderless; the rounding only applied on Windows and macOS.
+- **Docs (installation):** the install and update sections were rewritten around a single `git clone` instead of `git init` plus a remote and a checkout. One short block per system backs up an existing config as `mpv.backup` and does nothing when there is none; uosc is a separate optional step; updating is split into two copy-paste commands (`git -C … pull --ff-only` for the config, rerun the installer for uosc) with no placeholder paths. Adds a "do not clone again" pointer for existing installs, absolute-path installer and uninstaller commands, and a note on `git stash` when tracked files were edited locally.
+
 ## 1.2.0 — 2026-11-16
 
 - **Audio profiles:** new `scripts/audio-norm.lua` with four profiles on `1`–`4`: Off (no filters), Soft (−23 LUFS, `loudnorm` only, −1 dBTP), Balanced (−18 LUFS, `loudnorm` only, −2 dBTP) and Night (−16 LUFS, 4:1 compression at −18 dB before `loudnorm`, −3 dBTP). Playback starts in Off (1), so files play untouched until a profile is chosen. Soft, Balanced and Night force `loudnorm`'s dynamic mode with `linear=false`; `alimiter` with `level=0` is the final sample-peak stage. Replaces the old always-on `dynaudnorm`.
@@ -9,7 +14,6 @@
 - **Closing:** new `scripts/esc-quit.lua`. `Esc` leaves fullscreen first and quits on the next press; `Shift+Esc` quits and saves the position. `q` no longer quits. `save-position-on-quit` still covers the window close button.
 - **Resume:** `watch-later-options-remove` drops `af`, `volume` and `mute` from new resume files, and the audio script reasserts the selected profile whenever a file loads. Old watch-later files may still carry `af` or a volume; the profile is reasserted on load.
 - **Docs:** README now documents the full key map, the four profiles (LUFS, LRA, compressor, true peak, limiter), the loudness concepts and best uses, numpad volume, subtitles in the black bars, subtitle-size persistence, the scripts and the two screenshot modes. Adds `assets/keys.png`, a SQUAD-style keyboard map with every binding, and `AGENTS.md`, which records the project's preferences and style for future edits.
-- **Docs (installation):** the install and update sections were rewritten around a single `git clone` instead of `git init` plus a remote and a checkout. One short block per system backs up an existing config as `mpv.backup` and does nothing when there is none; uosc is a separate optional step; updating is split into two copy-paste commands (`git -C … pull --ff-only` for the config, rerun the installer for uosc) with no placeholder paths. Adds a "do not clone again" pointer for existing installs, absolute-path installer and uninstaller commands, and a note on `git stash` when tracked files were edited locally.
 
 ## 1.1.0
 

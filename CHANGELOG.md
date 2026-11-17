@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.6 — 2026-11-17
+
+- **Docs (design):** the specimen line in `assets/design.png` now reads "Anyway, I hope everything goes smoothly." instead of "The city never looked this quiet." Same size, colour, outline and position; the banners are regenerated for 1.2.6.
+
 ## 1.2.5 — 2026-11-16
 
 - **Fixed:** the arrow keys seek exactly. `←`/`→` move 5 s and `↑`/`↓` 60 s instead of landing on the nearest keyframe, which made a 5 s seek jump 8 s or more on sparse-keyframe files.

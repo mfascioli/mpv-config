@@ -21,6 +21,24 @@ OSD messages, commit messages, image labels, filenames. Never reintroduce
 Spanish aliases such as *Cine*, *Películas*, *Estándar* or *Noche*, and check
 for leftovers before calling a task done.
 
+The one exception is `README.es.md`, a full Spanish mirror linked from a
+language button at the top of both files:
+
+```markdown
+[<kbd>Español 🇪🇸</kbd>](README.es.md)   <!-- in README.md -->
+[<kbd>English 🇬🇧</kbd>](README.md)     <!-- in README.es.md -->
+```
+
+- Keep both files in step: same sections, same order, same images, same
+  commands. Translate the prose and the section headings, not the interface.
+- Untranslated on purpose: **keybindings** (the term, and its heading),
+  profile names (`No Processing`, `Cinematic`, `Balanced`, `Night Mode`),
+  filter names, key names, option values and file paths.
+- The images stay English; do not build a second set of Spanish banners.
+- Spanish anchors are accented (`#-perfiles-de-audio`,
+  `#-privacidad-búsqueda-de-subtítulos-de-uosc`); update every internal link
+  when a heading changes.
+
 ## Terminology
 
 Use **keybindings** (English) for the assignments, everywhere: README, image
@@ -122,7 +140,7 @@ is enabled (`volume=right` in the local `uosc.conf`).
 ## Docs style
 
 - Concise and scannable: short sections, tables over prose, bold lead-ins.
-  The README should stay under about 15 KB, not 20.
+  Both READMEs should stay under about 18 KB, not 20.
 - At most a handful of emojis, only as section markers (audio, subtitles,
   installation, updating, uninstalling, design, privacy). No emoji in body text.
 - No marketing tone and no repetition between the summary and the dedicated
@@ -157,14 +175,15 @@ is enabled (`volume=right` in the local `uosc.conf`).
   text matters more than style.
 - The README banners — `banner.png`, `design.png`, `audio.png`,
   `subtitles.png`, `installation.png`, `updating.png`, `uninstalling.png`,
-  `privacy.png` — come from `assets/banner.py` (Python + Pillow) using the
-  bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL), with the same
-  palette, grid and HUD frame as the keyboard map. `--version` sets the chip on
-  the two large images; rerun `python3 assets/banner.py` after changing text or
-  releasing. The audio strip lists the four profile names. Canvases stay narrow
-  so the type survives README scaling on phones: the hero is 1600×600, the
-  design is 1200×470 and the strips are 1200×180. Enlarge the type or shrink
-  the canvas instead of adding width.
+  `credits.png`, `privacy.png` — come from `assets/banner.py` (Python +
+  Pillow) using the bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL),
+  with the same palette, grid and HUD frame as the keyboard map. `--version`
+  sets the chip on the two large images; rerun `python3 assets/banner.py` after
+  changing text or releasing. The audio strip lists the four profile names.
+  Keep the canvases short so the page does not fill with images: the hero is
+  1600×470, the specimen 1200×400 and the strips 1200×158, all at the same type
+  sizes as before. Enlarge the type or shrink the canvas instead of adding
+  width.
 
 ## Privacy notice
 
@@ -218,7 +237,8 @@ is enabled (`volume=right` in the local `uosc.conf`).
 | `assets/banner.py` | generator for the README banners |
 | `assets/banner.png` | hero banner |
 | `assets/design.png` | subtitle specimen |
-| `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `privacy.png` | section strips |
+| `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
 | `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |
-| `README.md` | user-facing documentation |
+| `README.md` | user-facing documentation (English) |
+| `README.es.md` | the same documentation in Spanish |
 | `CHANGELOG.md` | release notes |

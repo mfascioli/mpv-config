@@ -2,6 +2,8 @@
 
 [![release badge]][release]
 
+[<kbd>Español 🇪🇸</kbd>](README.es.md)
+
 ![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png)
 
 Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitles, four audio profiles and a handful of small scripts. Based on [wopian/mpv-config](https://github.com/wopian/mpv-config).
@@ -172,6 +174,8 @@ Removes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## Credits
+
+![Credits banner: BUILT ON — uosc, thumbfast and Merriweather](assets/credits.png)
 
 Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 

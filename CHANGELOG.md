@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Docs:** shorter banners with the same type sizes — hero 1600×470, specimen 1200×400, strips 1200×158 — so the page no longer fills with images, and the credits section gains its own strip.
+- **Docs (Spanish):** `README.es.md` mirrors the README in Spanish, reachable from a language button at the top of both files.
+
 ## 1.2.8 — 2026-11-17
 
 - **Video:** `hwdec=auto-copy` is on. GPU decoding cuts CPU load and can lower power draw, and copy-back keeps the lavfi filters working — `auto`/`auto-safe` broke `idet` (`Ctrl+d`) and would break `cropdetect`. `auto-safe` is only an alias of `auto` in mpv 0.40+.

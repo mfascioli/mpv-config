@@ -159,7 +159,7 @@ $g.DrawRectangle($framePen, 20, 20, $W - 40, $H - 40)
 # ---------- header ----------
 $g.DrawString('MPV KEYBINDINGS', $fTitle, (New-Object System.Drawing.SolidBrush($amber)), 40, 30)
 $g.DrawString("personal mpv config  ${dot}  keybindings", $fSub, (New-Object System.Drawing.SolidBrush($greyText)), 44, 92)
-$g.DrawString('v1.2.7', $fTiny, (New-Object System.Drawing.SolidBrush($greyText)), 1518, 50)
+$g.DrawString('v1.3.0', $fTiny, (New-Object System.Drawing.SolidBrush($greyText)), 1518, 50)
 
 $rulePen = New-Object System.Drawing.Pen ([System.Drawing.Color]::FromArgb(70, 252, 190, 17)), 1
 $g.DrawLine($rulePen, 40, 122, 1560, 122)
@@ -254,7 +254,7 @@ DrawKey (X 12) $y4 (3 * $U - $GAP) $KH 'SHIFT' '' $false 'normal'
 DrawKey (X 0) $y5 (2 * $U - $GAP) $KH 'CTRL' '' $false 'normal'
 DrawKey (X 2) $y5 $KW $KH 'WIN' '' $false 'normal'
 DrawKey (X 3) $y5 $KW $KH 'ALT' '' $false 'normal'
-DrawKey (X 4) $y5 (6 * $U - $GAP) $KH 'SPACE' '' $false 'normal'
+DrawKey (X 4) $y5 (6 * $U - $GAP) $KH 'SPACE' 'PAUSE / RESUME' $true 'normal'
 DrawKey (X 10) $y5 $KW $KH 'ALT' '' $false 'normal'
 DrawKey (X 11) $y5 $KW $KH 'FN' '' $false 'normal'
 DrawKey (X 12) $y5 $KW $KH 'MENU' '' $false 'normal'

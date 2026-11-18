@@ -9,16 +9,6 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 ![mpv with uosc: timeline, thumbfast preview and Merriweather subtitles in amber](assets/interface.jpg)
 <sub>Wicked City | 1987 — Yoshiaki Kawajiri. Spoiler: it did not go smoothly at all.</sub>
 
-## 🎨 Design
-
-![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png?v=1.3.0)
-
-**The colour.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
-
-**Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
-
-Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` (ARGB, 20 % black) at 1 px.
-
 ## What's inside
 
 ![Overview banner: WHAT'S INSIDE — video, audio, subtitles and scripts](assets/inside.png)
@@ -58,43 +48,6 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 
 Subtitles are not part of this path: `blend-subtitles=no` draws them on the OSD layer at window resolution. Debanding stays off because it costs GPU time and smears grain, and `b` is the only switch.
 
-## Keybindings
-
-![Keyboard map: amber keys mark every binding; the numpad sets volume and subtitle size, and the mouse panel shows the zoom and pan controls](assets/keys.png)
-
-| Key | Action |
-| --- | --- |
-| `1` / `2` / `3` / `4` | Audio profile: No Processing / Cinematic / Balanced / Night Mode |
-| `m` | Mute † |
-| `q` / `w` | Subtitles up / down (past 100 % they enter the black bars) |
-| `a` / `s` | Subtitle delay −100 ms / +100 ms |
-| `Ctrl`+wheel up/down | Zoom in / out (`video-zoom`) |
-| `Ctrl`+drag | Pan the zoomed image |
-| `F10` / `Shift+F10` | Screenshot without / with subtitles |
-| `Esc` | Leave fullscreen; when windowed, quit (a uosc menu closes first) |
-| `Shift+Esc` | Quit and save the position |
-| `b` | Toggle deband |
-| `←` / `→` | Seek −5 s / +5 s † |
-| `↑` / `↓` | Seek +60 s / −60 s † |
-| `[` / `]` | Speed down / up (×0.91 / ×1.1) † |
-| `Backspace` | Speed back to 1× † |
-| numpad `0`–`9` | Volume 0 %, 11.1 %, …, 88.9 %, 100 % † |
-| numpad `+` / `-` | Subtitle size ±2 (saved between runs) |
-| `C` | Autocrop now (it also runs 10 s after playback starts) |
-| `Ctrl+d` | Autodeint |
-
-† Flashes uosc's own timeline, volume or speed indicator instead of the built-in OSD bar.
-
-`f`, `Space`, `Alt+Backspace` (reset zoom) and the usual track/playlist keys are mpv defaults. Deliberately unbound: `r`, `t`, `e`, `x`, `z`, `Shift+z`, `v`, `Shift+q`, `5`–`8`, horizontal `9`/`0`, `/`, `*`, wheel up/down/left/right, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w`, `u`, `V`, `A`, `F`, `G`, `E`, `PrintScreen` and the volume media keys. Only `1`–`4` are horizontal number keys; the numpad digits set volume. `q` no longer quits: `Esc` and `Shift+Esc` are the quit keys (`Ctrl+c` still force-quits).
-
-**Closing** is two-step on purpose. In fullscreen, `Esc` leaves fullscreen and only the next press quits. `Shift+Esc` always quits and saves the position; the window close button also saves (`save-position-on-quit`). Resume keeps the position, not the audio profile — the script reasserts the selected profile on load.
-
-**Screenshots** — `F10` captures the frame, `Shift+F10` adds subtitles. PNG output; with `blend-subtitles=no` neither mode includes the letterbox bars. The old `s`/`S`/`Ctrl+s`/`Alt+s` and `PrintScreen` bindings are gone so `s` can adjust subtitle delay and the print key stays with the system.
-
-**Zoom** — `Ctrl`+wheel moves `video-zoom`: 0 is fit, 0.1 is about +7 %, and negative values zoom out past the frame. `Alt+Backspace` resets zoom, pan and alignment. `z`/`Shift+z` no longer touch the image.
-
-**Autocrop** — after 10 s of playback it detects the encoded black borders and crops them; `C` applies or undoes the crop at any time.
-
 ## 🎚 Audio profiles
 
 ![Audio banner: FOUR PROFILES — No Processing, Cinematic, Balanced, Night Mode](assets/audio.png)
@@ -120,6 +73,16 @@ Cinematic, Balanced and Night Mode use `loudnorm` in single-pass dynamic mode (`
 
 **Resume** restores position only: `watch-later-options-remove` drops `af`, `volume` and `mute` from new watch-later files, and the profile is reasserted on every load. Old watch-later files may still carry a volume; deleting them clears it.
 
+## 🎨 Design
+
+![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png?v=1.3.0)
+
+**The colour.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
+
+**Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
+
+Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` (ARGB, 20 % black) at 1 px.
+
 ## 💬 Subtitles: adaptive placement
 
 ![Subtitles banner: ADAPTIVE PLACEMENT — amber, size and delay](assets/subtitles.png)
@@ -127,6 +90,44 @@ Cinematic, Balanced and Night Mode use `loudnorm` in single-pass dynamic mode (`
 Subtitles are laid out against the window instead of the video image: `blend-subtitles=no` keeps them on the OSD layer, so they stay sharp at any window size and never stretch with the picture. `sub-use-margins=yes` and `sub-ass-force-margins=yes` let them use the whole frame, and `w` moves them into the bottom black bar of any letterboxed source — 21:9 or 4:3, same behaviour. `sub-pos` runs 0–150; 100 is the normal spot just above the bottom edge, and `w` (or ~100–106) sits inside the bar. Much higher approaches the window edge and can clip, especially with two lines.
 
 Numpad `+` / `-` change the size; `scripts/subtitle-size.lua` writes every change to `subtitle-size.txt` and restores it at startup. The file is gitignored — delete it to fall back to `sub-font-size=40`.
+
+## Keybindings
+
+![Keyboard map: amber keys mark every binding; the numpad sets volume and subtitle size, and the mouse panel shows the zoom and pan controls](assets/keys.png)
+
+| Key | Action |
+| --- | --- |
+| `1` / `2` / `3` / `4` | Audio profile: No Processing / Cinematic / Balanced / Night Mode |
+| `m` | Mute † |
+| `Space` | Pause / resume (mpv default) |
+| `q` / `w` | Subtitles up / down (past 100 % they enter the black bars) |
+| `a` / `s` | Subtitle delay −100 ms / +100 ms |
+| `Ctrl`+wheel up/down | Zoom in / out (`video-zoom`) |
+| `Ctrl`+drag | Pan the zoomed image |
+| `F10` / `Shift+F10` | Screenshot without / with subtitles |
+| `Esc` | Leave fullscreen; when windowed, quit (a uosc menu closes first) |
+| `Shift+Esc` | Quit and save the position |
+| `b` | Toggle deband |
+| `←` / `→` | Seek −5 s / +5 s † |
+| `↑` / `↓` | Seek +60 s / −60 s † |
+| `[` / `]` | Speed down / up (×0.91 / ×1.1) † |
+| `Backspace` | Speed back to 1× † |
+| numpad `0`–`9` | Volume 0 %, 11.1 %, …, 88.9 %, 100 % † |
+| numpad `+` / `-` | Subtitle size ±2 (saved between runs) |
+| `C` | Autocrop now (it also runs 10 s after playback starts) |
+| `Ctrl+d` | Autodeint |
+
+† Flashes uosc's own timeline, volume or speed indicator instead of the built-in OSD bar.
+
+`f` (fullscreen) and the usual track/playlist keys are mpv defaults. Deliberately unbound: `r`, `t`, `e`, `x`, `z`, `Shift+z`, `v`, `Shift+q`, `5`–`8`, horizontal `9`/`0`, `/`, `*`, wheel up/down/left/right, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w`, `u`, `V`, `A`, `F`, `G`, `E`, `PrintScreen` and the volume media keys. Only `1`–`4` are horizontal number keys; the numpad digits set volume. `q` no longer quits: `Esc` and `Shift+Esc` are the quit keys (`Ctrl+c` still force-quits).
+
+**Closing** is two-step on purpose. In fullscreen, `Esc` leaves fullscreen and only the next press quits. `Shift+Esc` always quits and saves the position; the window close button also saves (`save-position-on-quit`). Resume keeps the position, not the audio profile — the script reasserts the selected profile on load.
+
+**Screenshots** — `F10` captures the frame, `Shift+F10` adds subtitles. PNG output; with `blend-subtitles=no` neither mode includes the letterbox bars. The old `s`/`S`/`Ctrl+s`/`Alt+s` and `PrintScreen` bindings are gone so `s` can adjust subtitle delay and the print key stays with the system.
+
+**Zoom** — `Ctrl`+wheel moves `video-zoom`: 0 is fit, 0.1 is about +7 %, and negative values zoom out past the frame. `Alt+Backspace` resets zoom, pan and alignment. `z`/`Shift+z` no longer touch the image.
+
+**Autocrop** — after 10 s of playback it detects the encoded black borders and crops them; `C` applies or undoes the crop at any time.
 
 ## 📥 Installation
 
@@ -199,7 +200,7 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 **How it was written.** Most of the code — `mpv.conf`, `input.conf`, `scripts/`, the installers and these docs — was generated with **DeepSeek V4.1 Flash Free** in OpenCode, then reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**. The 1.3.0 files were also scanned with VirusTotal and other analysis tools before publication.
 
-![Privacy banner: SUBTITLE SEARCH — OpenSubtitles receives the file name, hash, language and IP](assets/privacy.png)
+![Privacy and security banner: AI, DATA, AUDIT — code written with AI, what OpenSubtitles receives, VirusTotal scans](assets/privacy.png)
 
 The subtitle search inside uosc is a third-party call, not a local feature. A search sends **OpenSubtitles** the video file name without its extension, the file hash when available, the languages and page you asked for, and your IP address; downloading a subtitle also sends its id. The requests come from `ziggy`, the helper binary bundled with uosc.
 
@@ -209,11 +210,11 @@ That audit covers published code, not live traffic: it cannot show what OpenSubt
 
 The wider review — provenance, installer guarantees, what was fixed and what it cannot prove — is in [SECURITY.md](SECURITY.md).
 
-## Credits
+## 🙏 Credits
 
-![Credits banner: BUILT ON — uosc, thumbfast and Merriweather](assets/credits.png)
+![Credits banner: BUILT ON — mpv, uosc, thumbfast and Merriweather](assets/credits.png)
 
-This project is a fork of [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
+The player is [mpv](https://mpv.io/), by the [mpv project](https://github.com/mpv-player/mpv) (GPL-2.0+); this repository only configures it. It is a fork of [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

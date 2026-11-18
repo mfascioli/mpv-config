@@ -154,6 +154,8 @@ is enabled (`volume=right` in the local `uosc.conf`).
 ## Keybindings and closing
 
 - `q`/`w`: subtitles up/down. `a`/`s`: subtitle delay. `b`: deband.
+- `Space`: mpv's own pause/resume, left on the default. It is listed in the
+  README table and highlighted in the keyboard map like any other binding.
 - `Ctrl`+wheel: `video-zoom` in/out with an OSD value; `Alt+Backspace` resets
   zoom, pan and alignment. `z`/`Shift+z` stay free.
 - `Ctrl`+drag pans the zoomed image; right click opens the context menu; left
@@ -176,8 +178,14 @@ is enabled (`volume=right` in the local `uosc.conf`).
 - Concise and scannable: short sections, tables over prose, bold lead-ins.
   Keep the English README under about 18 KB and the Spanish mirror under about
   20 KB; Spanish runs longer for the same content, not because it may say more.
-- At most a handful of emojis, only as section markers (audio, subtitles,
-  installation, updating, uninstalling, design, privacy). No emoji in body text.
+- At most a handful of emojis, only as section markers (audio, design,
+  subtitles, installation, updating, uninstalling, privacy and security,
+  credits). No emoji in body text.
+- Section order: **What's inside**, **Audio profiles**, **Design**,
+  **Subtitles**, **Keybindings**, **Installation** (with updating and
+  uninstalling under it), **Privacy and security**, **Credits**. The overview
+  comes first so the page answers "what do I get" before the detail, and the
+  credits close the page after the privacy notice.
 - No marketing tone and no repetition between the summary and the dedicated
   sections. Keep the existing anchors working.
 - CHANGELOG: one entry per release, grouped by feature, in English.
@@ -212,10 +220,15 @@ is enabled (`volume=right` in the local `uosc.conf`).
   `audio.png`, `subtitles.png`, `installation.png`, `updating.png`,
   `uninstalling.png`, `credits.png`, `privacy.png` — come from
   `assets/banner.py` (Python + Pillow) using the bundled Fira Sans Condensed in
-  `assets/fonts/` (SIL OFL), with the same palette, grid and HUD frame as the
-  keyboard map. `--version` sets the chip on the two large images
+  `assets/banner-fonts/` (SIL OFL), with the same palette, grid and HUD frame as
+  the keyboard map. Those Fira files belong to the generator only: `fonts/` is
+  what mpv loads for subtitles, and `assets/banner-fonts/` never reaches the
+  player. `--version` sets the chip on the two large images
   (`banner.png`, `specimen.png`); rerun `python3 assets/banner.py` after
-  changing text or releasing. The audio strip lists the four profile names.
+  changing text or releasing. The audio strip lists the four profile names and
+  the privacy strip names the three topics of its section — AI, data, audit —
+  because that section now covers authorship, the OpenSubtitles request and the
+  scans, not only the subtitle search.
   The specimen is the only image in **Design** and sits directly under the
   heading: it already carries the `DESIGN` / `AMBER, NOT WHITE` header, so do
   not add a strip there.
@@ -312,6 +325,7 @@ guarantees, fixes and limits. Keep it in step with the code.
 | --- | --- |
 | `mpv.conf` | playback, scaling, subtitles, volume, resume |
 | `input.conf` | bindings and freed keys |
+| `fonts/Merriweather-Bold.ttf` | subtitle font, loaded by mpv through `~~/fonts` (uosc adds `fonts/uosc_*` beside it) |
 | `scripts/audio-norm.lua` | four audio profiles |
 | `scripts/subtitle-size.lua` | subtitle-size persistence (8–200, default 40) |
 | `scripts/esc-quit.lua` | two-step Esc close |
@@ -329,7 +343,7 @@ guarantees, fixes and limits. Keep it in step with the code.
 | `assets/specimen.png` | subtitle specimen and the only image in **Design** (carries the version chip) |
 | `assets/inside.png` | strip for **What's inside** |
 | `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
-| `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |
+| `assets/banner-fonts/` | Fira Sans Condensed and its OFL licence, for `assets/banner.py` only; mpv never loads it |
 | `README.md` | user-facing documentation (English) |
 | `README.es.md` | the same documentation in Spanish |
 | `SECURITY.md` | audit summary, provenance, installer guarantees, limits |

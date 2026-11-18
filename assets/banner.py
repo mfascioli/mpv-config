@@ -19,7 +19,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = Path(__file__).resolve().parent
-FONT_DIR = HERE / "fonts"
+FONT_DIR = HERE / "banner-fonts"
 
 AMBER = (252, 190, 17)
 AMBER_DIM = (201, 154, 38)
@@ -242,8 +242,9 @@ def main():
         ("installation.png", "INSTALL", "ONE CLONE", "mpv 0.40+ \u00b7 uosc optional"),
         ("updating.png", "UPDATE", "PULL --FF-ONLY", "config and uosc move separately"),
         ("uninstalling.png", "UNINSTALL", "UOSC ONLY", "config, resume and fonts stay"),
-        ("credits.png", "CREDITS", "BUILT ON", "uosc \u00b7 thumbfast \u00b7 Merriweather"),
-        ("privacy.png", "PRIVACY", "SUBTITLE SEARCH", "file name \u00b7 hash \u00b7 language \u00b7 IP"),
+        ("credits.png", "CREDITS", "BUILT ON", "mpv \u00b7 uosc \u00b7 thumbfast \u00b7 Merriweather"),
+        ("privacy.png", "PRIVACY & SECURITY", "AI, DATA, AUDIT",
+         "AI written \u00b7 OpenSubtitles \u00b7 VirusTotal"),
     )
     for name, kicker, title, detail in strips:
         strip(a.out / name, kicker, title, detail)

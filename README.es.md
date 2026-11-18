@@ -9,16 +9,6 @@ Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad �
 ![mpv con uosc: línea de tiempo, vista previa de thumbfast y subtítulos Merriweather en ámbar](assets/interface.jpg)
 <sub>Wicked City | 1987 — Yoshiaki Kawajiri. Spoiler: no fue nada tranquilo.</sub>
 
-## 🎨 Diseño
-
-![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png?v=1.3.0)
-
-**El color.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
-
-**Merriweather Bold.** Una serif de pantalla con altura de x grande y bajo contraste de trazo, así que las minúsculas se mantienen sólidas al tamaño del subtítulo y aguantan ClearType. Bold 700 lleva un contorno *fino* en lugar del borde negro grueso habitual y conserva la forma sobre imagen cargada, donde serifs más aireadas como Source Serif o IBM Plex Serif pierden detalle. [Más sobre la fuente](https://fontfyi.com/blog/source-serif-vs-merriweather/).
-
-Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 40 · espaciado 0.5 · sombra `#33000000` (ARGB, 20 % negro) a 1 px.
-
 ## Qué incluye
 
 ![Banner de resumen: WHAT'S INSIDE — vídeo, audio, subtítulos y scripts](assets/inside.png)
@@ -58,43 +48,6 @@ Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 
 
 Los subtítulos no pasan por esta cadena: `blend-subtitles=no` los dibuja en la capa del OSD a la resolución de la ventana. El debanding sigue apagado porque cuesta GPU y emborrona el grano, y `b` es el único interruptor.
 
-## Keybindings
-
-![Mapa de teclado: las teclas ámbar marcan cada asignación; el numérico pone el volumen y el tamaño de subtítulo, y el panel del ratón muestra los controles de zoom y desplazamiento](assets/keys.png)
-
-| Tecla | Acción |
-| --- | --- |
-| `1` / `2` / `3` / `4` | Perfil de audio: No Processing / Cinematic / Balanced / Night Mode |
-| `m` | Silenciar † |
-| `q` / `w` | Subtítulos arriba / abajo (pasado el 100 % entran en las barras negras) |
-| `a` / `s` | Retardo de subtítulos −100 ms / +100 ms |
-| `Ctrl`+rueda arriba/abajo | Zoom in / out (`video-zoom`) |
-| `Ctrl`+arrastrar | Desplazar la imagen ampliada |
-| `F10` / `Shift+F10` | Captura sin / con subtítulos |
-| `Esc` | Salir de pantalla completa; en ventana, cerrar (antes se cierra un menú de uosc) |
-| `Shift+Esc` | Cerrar y guardar la posición |
-| `b` | Alternar deband |
-| `←` / `→` | Saltar −5 s / +5 s † |
-| `↑` / `↓` | Saltar +60 s / −60 s † |
-| `[` / `]` | Bajar / subir velocidad (×0.91 / ×1.1) † |
-| `Backspace` | Volver a velocidad 1× † |
-| numérico `0`–`9` | Volumen 0 %, 11.1 %, …, 88.9 %, 100 % † |
-| numérico `+` / `-` | Tamaño de subtítulo ±2 (se guarda entre ejecuciones) |
-| `C` | Autocrop ahora (también corre 10 s después de empezar la reproducción) |
-| `Ctrl+d` | Autodeint |
-
-† Muestra el indicador propio de uosc (línea de tiempo, volumen o velocidad) en lugar de la barra OSD integrada.
-
-`f`, `Space`, `Alt+Backspace` (reiniciar zoom) y las teclas habituales de pista y lista son valores por defecto de mpv. Sin asignar a propósito: `r`, `t`, `e`, `x`, `z`, `Shift+z`, `v`, `Shift+q`, `5`–`8`, el `9`/`0` horizontal, `/`, `*`, rueda arriba/abajo/izquierda/derecha, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w`, `u`, `V`, `A`, `F`, `G`, `E`, `PrintScreen` y las teclas multimedia de volumen. Solo `1`–`4` son teclas numéricas horizontales; los dígitos del teclado numérico ponen el volumen. `q` ya no cierra: `Esc` y `Shift+Esc` son las teclas de salida (`Ctrl+c` sigue forzando el cierre).
-
-**Cerrar** es en dos pasos a propósito. En pantalla completa, `Esc` sale de pantalla completa y solo la siguiente pulsación cierra. `Shift+Esc` siempre cierra y guarda la posición; el botón de cerrar la ventana también guarda (`save-position-on-quit`). El reanudado conserva la posición, no el perfil de audio: el script reafirma el perfil elegido al cargar.
-
-**Capturas** — `F10` captura el fotograma y `Shift+F10` añade los subtítulos. Salida PNG; con `blend-subtitles=no` ninguno de los dos modos incluye las barras negras. Las antiguas asignaciones `s`/`S`/`Ctrl+s`/`Alt+s` y `PrintScreen` ya no están, para que `s` ajuste el retardo de subtítulos y la tecla Impr Pant quede para el sistema.
-
-**Zoom** — `Ctrl`+rueda mueve `video-zoom`: 0 es ajustar, 0.1 es aproximadamente +7 % y los valores negativos alejan más allá del marco. `Alt+Backspace` reinicia zoom, desplazamiento y alineación. `z`/`Shift+z` ya no tocan la imagen.
-
-**Autocrop** — a los 10 s de reproducción detecta los bordes negros codificados y los recorta; `C` aplica o deshace el recorte en cualquier momento.
-
 ## 🎚 Perfiles de audio
 
 ![Banner de audio: FOUR PROFILES con los cuatro nombres de perfil](assets/audio.png)
@@ -120,6 +73,16 @@ Cinematic, Balanced y Night Mode usan `loudnorm` en modo dinámico de una pasada
 
 **Reanudar** restaura solo la posición: `watch-later-options-remove` quita `af`, `volume` y `mute` de los archivos watch-later nuevos, y el perfil se reafirma en cada carga. Los watch-later antiguos pueden seguir trayendo un volumen; borrarlos lo limpia.
 
+## 🎨 Diseño
+
+![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png?v=1.3.0)
+
+**El color.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
+
+**Merriweather Bold.** Una serif de pantalla con altura de x grande y bajo contraste de trazo, así que las minúsculas se mantienen sólidas al tamaño del subtítulo y aguantan ClearType. Bold 700 lleva un contorno *fino* en lugar del borde negro grueso habitual y conserva la forma sobre imagen cargada, donde serifs más aireadas como Source Serif o IBM Plex Serif pierden detalle. [Más sobre la fuente](https://fontfyi.com/blog/source-serif-vs-merriweather/).
+
+Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 40 · espaciado 0.5 · sombra `#33000000` (ARGB, 20 % negro) a 1 px.
+
 ## 💬 Subtítulos: colocación adaptable
 
 ![Banner de subtítulos: ADAPTIVE PLACEMENT — ámbar, tamaño, retardo y cualquier letterbox](assets/subtitles.png)
@@ -127,6 +90,44 @@ Cinematic, Balanced y Night Mode usan `loudnorm` en modo dinámico de una pasada
 Los subtítulos se colocan contra la ventana en lugar de contra la imagen: `blend-subtitles=no` los mantiene en la capa del OSD, así que quedan nítidos a cualquier tamaño de ventana y nunca se estiran con la imagen. `sub-use-margins=yes` y `sub-ass-force-margins=yes` les permiten usar todo el marco, y `w` los mueve a la barra negra inferior de cualquier fuente con letterbox — 21:9 o 4:3, mismo comportamiento. `sub-pos` va de 0 a 150; 100 es el sitio normal justo por encima del borde inferior, y `w` (o ~100–106) queda dentro de la barra. Mucho más arriba se acerca al borde de la ventana y puede recortarse, sobre todo con dos líneas.
 
 El teclado numérico `+` / `-` cambia el tamaño; `scripts/subtitle-size.lua` escribe cada cambio en `subtitle-size.txt` y lo restaura al arrancar. El archivo está en gitignore — bórralo para volver a `sub-font-size=40`.
+
+## Keybindings
+
+![Mapa de teclado: las teclas ámbar marcan cada asignación; el numérico pone el volumen y el tamaño de subtítulo, y el panel del ratón muestra los controles de zoom y desplazamiento](assets/keys.png)
+
+| Tecla | Acción |
+| --- | --- |
+| `1` / `2` / `3` / `4` | Perfil de audio: No Processing / Cinematic / Balanced / Night Mode |
+| `m` | Silenciar † |
+| `Space` | Pausa / reanudar (valor por defecto de mpv) |
+| `q` / `w` | Subtítulos arriba / abajo (pasado el 100 % entran en las barras negras) |
+| `a` / `s` | Retardo de subtítulos −100 ms / +100 ms |
+| `Ctrl`+rueda arriba/abajo | Zoom in / out (`video-zoom`) |
+| `Ctrl`+arrastrar | Desplazar la imagen ampliada |
+| `F10` / `Shift+F10` | Captura sin / con subtítulos |
+| `Esc` | Salir de pantalla completa; en ventana, cerrar (antes se cierra un menú de uosc) |
+| `Shift+Esc` | Cerrar y guardar la posición |
+| `b` | Alternar deband |
+| `←` / `→` | Saltar −5 s / +5 s † |
+| `↑` / `↓` | Saltar +60 s / −60 s † |
+| `[` / `]` | Bajar / subir velocidad (×0.91 / ×1.1) † |
+| `Backspace` | Volver a velocidad 1× † |
+| numérico `0`–`9` | Volumen 0 %, 11.1 %, …, 88.9 %, 100 % † |
+| numérico `+` / `-` | Tamaño de subtítulo ±2 (se guarda entre ejecuciones) |
+| `C` | Autocrop ahora (también corre 10 s después de empezar la reproducción) |
+| `Ctrl+d` | Autodeint |
+
+† Muestra el indicador propio de uosc (línea de tiempo, volumen o velocidad) en lugar de la barra OSD integrada.
+
+`f` (pantalla completa) y las teclas habituales de pista y lista son valores por defecto de mpv. Sin asignar a propósito: `r`, `t`, `e`, `x`, `z`, `Shift+z`, `v`, `Shift+q`, `5`–`8`, el `9`/`0` horizontal, `/`, `*`, rueda arriba/abajo/izquierda/derecha, `S`, `Ctrl+s`, `Alt+s`, `Ctrl+w`, `u`, `V`, `A`, `F`, `G`, `E`, `PrintScreen` y las teclas multimedia de volumen. Solo `1`–`4` son teclas numéricas horizontales; los dígitos del teclado numérico ponen el volumen. `q` ya no cierra: `Esc` y `Shift+Esc` son las teclas de salida (`Ctrl+c` sigue forzando el cierre).
+
+**Cerrar** es en dos pasos a propósito. En pantalla completa, `Esc` sale de pantalla completa y solo la siguiente pulsación cierra. `Shift+Esc` siempre cierra y guarda la posición; el botón de cerrar la ventana también guarda (`save-position-on-quit`). El reanudado conserva la posición, no el perfil de audio: el script reafirma el perfil elegido al cargar.
+
+**Capturas** — `F10` captura el fotograma y `Shift+F10` añade los subtítulos. Salida PNG; con `blend-subtitles=no` ninguno de los dos modos incluye las barras negras. Las antiguas asignaciones `s`/`S`/`Ctrl+s`/`Alt+s` y `PrintScreen` ya no están, para que `s` ajuste el retardo de subtítulos y la tecla Impr Pant quede para el sistema.
+
+**Zoom** — `Ctrl`+rueda mueve `video-zoom`: 0 es ajustar, 0.1 es aproximadamente +7 % y los valores negativos alejan más allá del marco. `Alt+Backspace` reinicia zoom, desplazamiento y alineación. `z`/`Shift+z` ya no tocan la imagen.
+
+**Autocrop** — a los 10 s de reproducción detecta los bordes negros codificados y los recorta; `C` aplica o deshace el recorte en cualquier momento.
 
 ## 📥 Instalación
 
@@ -199,7 +200,7 @@ Las notas de versión están en [CHANGELOG.md](CHANGELOG.md) (en inglés).
 
 **Cómo se escribió.** La mayor parte del código — `mpv.conf`, `input.conf`, `scripts/`, los instaladores y esta documentación — se generó con **DeepSeek V4.1 Flash Free** en OpenCode y después se revisó con **Claude Sonnet 5.5** y **GPT-6 Luna**. Los archivos de la 1.3.0 también se analizaron con VirusTotal y otras herramientas antes de publicarlos.
 
-![Banner de privacidad: SUBTITLE SEARCH — OpenSubtitles recibe el nombre del archivo, el hash, el idioma y la IP](assets/privacy.png)
+![Banner de privacidad y seguridad: AI, DATA, AUDIT — código escrito con IA, lo que recibe OpenSubtitles y los análisis de VirusTotal](assets/privacy.png)
 
 La búsqueda de subtítulos dentro de uosc es una llamada a un tercero, no una función local. Una búsqueda envía a **OpenSubtitles** el nombre del archivo de vídeo sin extensión, el hash del archivo cuando está disponible, los idiomas y la página que pediste y tu dirección IP; descargar un subtítulo también envía su id. Las peticiones salen de `ziggy`, el binario auxiliar que viene con uosc.
 
@@ -209,11 +210,11 @@ Esa auditoría cubre código publicado, no tráfico real: no puede mostrar qué 
 
 La revisión completa — procedencia, garantías de los instaladores, qué se corrigió y qué no puede demostrar — está en [SECURITY.md](SECURITY.md).
 
-## Créditos
+## 🙏 Créditos
 
-![Banner de créditos: BUILT ON — uosc, thumbfast y Merriweather](assets/credits.png)
+![Banner de créditos: BUILT ON — mpv, uosc, thumbfast y Merriweather](assets/credits.png)
 
-Este proyecto es un fork de [wopian/mpv-config](https://github.com/wopian/mpv-config). Interfaz por [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); miniaturas por [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather bajo SIL OFL (ver [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
+El reproductor es [mpv](https://mpv.io/), del [proyecto mpv](https://github.com/mpv-player/mpv) (GPL-2.0+); este repositorio solo lo configura. Es un fork de [wopian/mpv-config](https://github.com/wopian/mpv-config). Interfaz por [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); miniaturas por [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather bajo SIL OFL (ver [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

@@ -198,9 +198,9 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
 ## 🔒 Privacy and security
 
-**How it was written.** Most of the code — `mpv.conf`, `input.conf`, `scripts/`, the installers and these docs — was generated with **DeepSeek V4.1 Flash Free** in OpenCode, then reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**. The 1.3.0 files were also scanned with VirusTotal and other analysis tools before publication.
-
 ![Privacy and security banner: AI, DATA, AUDIT — code written with AI, what OpenSubtitles receives, VirusTotal scans](assets/privacy.png)
+
+**How it was written.** Most of the code — `mpv.conf`, `input.conf`, `scripts/`, the installers and these docs — was generated with **DeepSeek V4.1 Flash Free** in OpenCode, then reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**. The 1.3.0 files were also scanned with VirusTotal and other analysis tools before publication.
 
 The subtitle search inside uosc is a third-party call, not a local feature. A search sends **OpenSubtitles** the video file name without its extension, the file hash when available, the languages and page you asked for, and your IP address; downloading a subtitle also sends its id. The requests come from `ziggy`, the helper binary bundled with uosc.
 

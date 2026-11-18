@@ -216,8 +216,9 @@ is enabled (`volume=right` in the local `uosc.conf`).
   keyboard map. `--version` sets the chip on the two large images
   (`banner.png`, `specimen.png`); rerun `python3 assets/banner.py` after
   changing text or releasing. The audio strip lists the four profile names.
-  The specimen is the only image in **Design**: it already carries the
-  `DESIGN` / `AMBER, NOT WHITE` header, so do not add a strip there.
+  The specimen is the only image in **Design** and sits directly under the
+  heading: it already carries the `DESIGN` / `AMBER, NOT WHITE` header, so do
+  not add a strip there.
   Keep the canvases short so the page does not fill with images: the hero is
   1600×470, the specimen 1200×400 and the strips 1200×158, all at the same type
   sizes as before. Enlarge the type or shrink the canvas instead of adding

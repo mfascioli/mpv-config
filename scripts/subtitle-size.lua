@@ -9,9 +9,18 @@ local mp = require 'mp'
 
 local PATH = mp.command_native({ 'expand-path', '~~/subtitle-size.txt' })
 
+-- The numpad keys only move the size by 2, so anything outside this range came
+-- from a hand-edited file. Ignore it instead of handing mpv a value that would
+-- make subtitles invisible (0) or cover the picture.
+local MIN_SIZE, MAX_SIZE = 8, 200
+
+local function valid(size)
+    return size and size >= MIN_SIZE and size <= MAX_SIZE
+end
+
 local function save()
     local size = mp.get_property_number('sub-font-size')
-    if not size then return end
+    if not valid(size) then return end
 
     local file = io.open(PATH, 'w')
     if not file then return end
@@ -23,9 +32,9 @@ local file = io.open(PATH, 'r')
 if file then
     local size = tonumber(file:read('*l'))
     file:close()
-    if size then mp.set_property_number('sub-font-size', size) end
+    if valid(size) then mp.set_property_number('sub-font-size', size) end
 end
 
 mp.observe_property('sub-font-size', 'number', function(_, size)
-    if size then save() end
+    if valid(size) then save() end
 end)

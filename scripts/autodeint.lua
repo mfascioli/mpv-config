@@ -68,10 +68,18 @@ end
 local function judge(label)
     -- get the metadata
     local result = mp.get_property_native(string.format("vf-metadata/%s", label))
+    if type(result) ~= "table" then
+        mp.msg.warn(label..": idet published no metadata")
+        return nil
+    end
     local num_tff          = tonumber(result["lavfi.idet.multiple.tff"])
     local num_bff          = tonumber(result["lavfi.idet.multiple.bff"])
     local num_progressive  = tonumber(result["lavfi.idet.multiple.progressive"])
     local num_undetermined = tonumber(result["lavfi.idet.multiple.undetermined"])
+    if not (num_tff and num_bff and num_progressive and num_undetermined) then
+        mp.msg.warn(label..": incomplete idet metadata")
+        return nil
+    end
     local num_interlaced   = num_tff + num_bff
     local num_determined   = num_interlaced + num_progressive
 
@@ -98,6 +106,13 @@ local function select_filter()
     -- handle the first detection filter results
     local verdict = judge(detect_label)
     local ivtc_verdict = judge(ivtc_detect_label)
+    if not verdict or not ivtc_verdict then
+        mp.msg.warn("no usable idet data: leaving the picture untouched")
+        stop_detect()
+        del_filter_if_present(dominance_label)
+        del_filter_if_present(pullup_label)
+        return
+    end
     local dominance = "auto"
     if verdict == progressive then
         mp.msg.info("progressive: doing nothing")

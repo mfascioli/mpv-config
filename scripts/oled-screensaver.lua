@@ -47,7 +47,8 @@ function alphaHex()
         end
     end
 
-    return string.format("%02x", state.alpha)
+    -- state.alpha is a float after the first step; %02x only takes integers.
+    return string.format("%02x", math.floor(state.alpha))
 end
 
 function rainbowHex()
@@ -65,8 +66,9 @@ function rainbowHex()
         changeColour(3, "-")
     end
 
-    -- ASS Sub colours BBGGRR
-    return string.format("%02x%02x%02x", state.colour[3], state.colour[2], state.colour[1])
+    -- ASS Sub colours BBGGRR; luminance and rainbowStep can be fractional.
+    return string.format("%02x%02x%02x", math.floor(state.colour[3]),
+        math.floor(state.colour[2]), math.floor(state.colour[1]))
 end
 
 function startScreensaver()
@@ -79,15 +81,22 @@ function drawScreensaver()
     local colour = o.screensaverColor
     if o.rainbow == true then
         colour = rainbowHex()
-    elseif state.alpha < 1 then
-        state.drawScreensaverTimer:kill()
+    else
+        -- The colour lands inside an ASS override tag; a hand-edited options
+        -- file should not be able to inject anything else there.
+        if not colour:match("^%x%x%x%x%x%x$") then
+            colour = "000000"
+        end
+        if state.alpha < 1 then
+            state.drawScreensaverTimer:kill()
+        end
     end
 
     local w, h = mp.get_osd_size()
-    ass = assdraw.ass_new()
+    local ass = assdraw.ass_new()
     ass:new_event()
     ass:append("{\\c&H" .. colour .. "&}")
-    ass:append("{\\{\\bord0}")
+    ass:append("{\\bord0}")
     ass:append("{\\shad0}")
     ass:append("{\\1a&H" .. alphaHex() .. "&}")
     ass:append("{\\2a&HFF&}")
@@ -111,7 +120,9 @@ end
 
 function checkMouseMovement()
     local x, y = mp.get_mouse_pos()
-    if x == state.lastMouseXPos or y == state.lastMouseYPos then
+    -- No movement means both coordinates are unchanged; `or` would keep the
+    -- screensaver postponed whenever the cursor merely stayed on one axis.
+    if x == state.lastMouseXPos and y == state.lastMouseYPos then
         state.startScreensaverAfterTimer:resume()
     else
         state.startScreensaverAfterTimer:kill()

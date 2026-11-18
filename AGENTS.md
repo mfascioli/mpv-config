@@ -222,6 +222,10 @@ is enabled (`volume=right` in the local `uosc.conf`).
   1600×470, the specimen 1200×400 and the strips 1200×158, all at the same type
   sizes as before. Enlarge the type or shrink the canvas instead of adding
   width.
+- `banner.png` and `specimen.png` carry the version chip. Both READMEs link
+  them with `?v=<version>`; bump that query on every release so GitHub's image
+  proxy fetches the new file instead of serving its cached copy. The strips
+  have no chip and need no query.
 
 ## Privacy notice
 

@@ -2,7 +2,7 @@
 
 [![release badge]][release] [![English](https://img.shields.io/badge/English-FCBE11?style=flat-square)](README.md)
 
-![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png)
+![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png?v=1.3.0)
 
 Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños. Basado en [wopian/mpv-config](https://github.com/wopian/mpv-config).
 
@@ -13,11 +13,11 @@ Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad �
 
 ![Banner de diseño: AMBER, NOT WHITE — relleno, contorno, sombra y tipo](assets/design.png)
 
-**Ámbar, no blanco.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
+**El color.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
 
 **Merriweather Bold.** Una serif de pantalla con altura de x grande y bajo contraste de trazo, así que las minúsculas se mantienen sólidas al tamaño del subtítulo y aguantan ClearType. Bold 700 lleva un contorno *fino* en lugar del borde negro grueso habitual y conserva la forma sobre imagen cargada, donde serifs más aireadas como Source Serif o IBM Plex Serif pierden detalle. [Más sobre la fuente](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
-![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png)
+![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png?v=1.3.0)
 
 Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 40 · espaciado 0.5 · sombra `#33000000` (ARGB, 20 % negro) a 1 px.
 

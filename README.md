@@ -2,7 +2,7 @@
 
 [![release badge]][release] [![Español](https://img.shields.io/badge/Espa%C3%B1ol-FCBE11?style=flat-square)](README.es.md)
 
-![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png)
+![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png?v=1.3.0)
 
 Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitles, four audio profiles and a handful of small scripts. Based on [wopian/mpv-config](https://github.com/wopian/mpv-config).
 
@@ -13,11 +13,11 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 
 ![Design banner: AMBER, NOT WHITE — fill, outline, shadow and type](assets/design.png)
 
-**Amber, not white.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
+**The colour.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
 
 **Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
-![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png)
+![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png?v=1.3.0)
 
 Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` (ARGB, 20 % black) at 1 px.
 

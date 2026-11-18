@@ -2,7 +2,7 @@
 
 [![release badge]][release] [![English](https://img.shields.io/badge/English-FCBE11?style=flat-square)](README.md)
 
-![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png?v=1.3.0)
+![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png?v=1.3.1)
 
 Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños.
 
@@ -75,7 +75,7 @@ Cinematic, Balanced y Night Mode usan `loudnorm` en modo dinámico de una pasada
 
 ## 🎨 Diseño
 
-![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png?v=1.3.0)
+![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png?v=1.3.1)
 
 **El color.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
 

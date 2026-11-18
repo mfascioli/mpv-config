@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.1 — 2026-11-18
+
+- **Docs:** the README opens with **What's inside**, then audio, design, subtitles and keybindings, so the page answers "what do I get" before the detail; installation follows, then the privacy notice, the credits and one closing pointer to `wiz-ambilight`. Credits gain a marker, name **mpv** as the player this repository only configures, and keep the `wopian/mpv-config` fork.
+- **Docs (privacy):** **Privacy and security** replaces **Privacy: uosc subtitle search** and states how the code was written — generated with DeepSeek V4.1 Flash Free in OpenCode, reviewed with Claude Sonnet 5.5 and GPT-6 Luna, and scanned with VirusTotal and other tools for 1.3.0. The strip is retitled **AI, DATA, AUDIT** to match.
+- **Keybindings:** `Space` is documented as pause/resume in the table and highlighted in the keyboard map, which also catches up to the 1.3.0 chip.
+- **Repository:** the generator's Fira Sans Condensed moves to `assets/banner-fonts/`, so only the folder mpv loads for subtitles is called `fonts/`.
+
 ## 1.3.0 — 2026-11-18
 
 - **Security:** full static audit of the config, scripts and installers, published as [`SECURITY.md`](SECURITY.md) with provenance, installer guarantees, the fixes and the limits of the review. `subtitle-size` now accepts only 8–200, `autocrop` and `autodeint` survive missing decoder and filter metadata, and `oled-screensaver` loses a global leak, a malformed ASS tag, fractional values in `%02x` and an inverted mouse test.

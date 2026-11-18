@@ -2,7 +2,7 @@
 
 [![release badge]][release] [![Español](https://img.shields.io/badge/Espa%C3%B1ol-FCBE11?style=flat-square)](README.es.md)
 
-![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png?v=1.3.0)
+![MPV CONFIG banner: amber title over a charcoal HUD grid with tags for SDR/HDR, GPU-NEXT, adaptive subtitles and four audio profiles](assets/banner.png?v=1.3.1)
 
 Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitles, four audio profiles and a handful of small scripts.
 
@@ -75,7 +75,7 @@ Cinematic, Balanced and Night Mode use `loudnorm` in single-pass dynamic mode (`
 
 ## 🎨 Design
 
-![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png?v=1.3.0)
+![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png?v=1.3.1)
 
 **The colour.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
 

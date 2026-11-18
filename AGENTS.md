@@ -208,16 +208,16 @@ is enabled (`volume=right` in the local `uosc.conf`).
   reintroduce half-unit offsets or a staggered QWERTY silhouette.
 - For any other text-heavy image, draw it instead of generating it: exact
   text matters more than style.
-- The README banners — `banner.png`, `specimen.png`, `design.png`,
-  `inside.png`, `audio.png`, `subtitles.png`, `installation.png`,
-  `updating.png`, `uninstalling.png`, `credits.png`, `privacy.png` — come from
+- The README banners — `banner.png`, `specimen.png`, `inside.png`,
+  `audio.png`, `subtitles.png`, `installation.png`, `updating.png`,
+  `uninstalling.png`, `credits.png`, `privacy.png` — come from
   `assets/banner.py` (Python + Pillow) using the bundled Fira Sans Condensed in
   `assets/fonts/` (SIL OFL), with the same palette, grid and HUD frame as the
   keyboard map. `--version` sets the chip on the two large images
   (`banner.png`, `specimen.png`); rerun `python3 assets/banner.py` after
-  changing text or releasing. The audio strip lists the four profile names;
-  `design.png` and `inside.png` are the strips for **Design** and **What's
-  inside**, not the specimen.
+  changing text or releasing. The audio strip lists the four profile names.
+  The specimen is the only image in **Design**: it already carries the
+  `DESIGN` / `AMBER, NOT WHITE` header, so do not add a strip there.
   Keep the canvases short so the page does not fill with images: the hero is
   1600×470, the specimen 1200×400 and the strips 1200×158, all at the same type
   sizes as before. Enlarge the type or shrink the canvas instead of adding
@@ -319,8 +319,7 @@ guarantees, fixes and limits. Keep it in step with the code.
 | `assets/keys.png` | keyboard map used by the README |
 | `assets/banner.py` | generator for the README banners |
 | `assets/banner.png` | hero banner (carries the version chip) |
-| `assets/specimen.png` | subtitle specimen (carries the version chip) |
-| `assets/design.png` | strip for **Design** |
+| `assets/specimen.png` | subtitle specimen and the only image in **Design** (carries the version chip) |
 | `assets/inside.png` | strip for **What's inside** |
 | `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
 | `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |

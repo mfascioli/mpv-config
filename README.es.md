@@ -11,8 +11,6 @@ Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad �
 
 ## 🎨 Diseño
 
-![Banner de diseño: AMBER, NOT WHITE — relleno, contorno, sombra y tipo](assets/design.png)
-
 **El color.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
 
 **Merriweather Bold.** Una serif de pantalla con altura de x grande y bajo contraste de trazo, así que las minúsculas se mantienen sólidas al tamaño del subtítulo y aguantan ClearType. Bold 700 lleva un contorno *fino* en lugar del borde negro grueso habitual y conserva la forma sobre imagen cargada, donde serifs más aireadas como Source Serif o IBM Plex Serif pierden detalle. [Más sobre la fuente](https://fontfyi.com/blog/source-serif-vs-merriweather/).

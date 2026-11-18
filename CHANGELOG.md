@@ -3,7 +3,7 @@
 ## 1.3.0 — 2026-11-18
 
 - **Security:** full static audit of the config, scripts and installers, published as [`SECURITY.md`](SECURITY.md) with provenance, installer guarantees, the fixes and the limits of the review. `subtitle-size` now accepts only 8–200, `autocrop` and `autodeint` survive missing decoder and filter metadata, and `oled-screensaver` loses a global leak, a malformed ASS tag, fractional values in `%02x` and an inverted mouse test.
-- **Docs:** **Design** and **What's inside** gain their own strips, the subtitle specimen moves to `assets/specimen.png`, and both READMEs document the whole video path — output, decode, upscale, downscale, chroma, linear light, dither, range, HDR, deband and timing — instead of only naming EWA Lanczos.
+- **Docs:** **What's inside** gains its own strip and the Design section keeps the subtitle specimen (now `assets/specimen.png`) as its only image, since it already carries the section header. Both READMEs document the whole video path — output, decode, upscale, downscale, chroma, linear light, dither, range, HDR, deband and timing — instead of only naming EWA Lanczos.
 
 ## 1.2.9 — 2026-11-17
 

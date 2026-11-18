@@ -233,8 +233,6 @@ def main():
     hero(a.out / "banner.png", a.version)
     specimen(a.out / "specimen.png", a.version)
     strips = (
-        ("design.png", "DESIGN", "AMBER, NOT WHITE",
-         "fill \u00b7 outline \u00b7 shadow \u00b7 type"),
         ("inside.png", "OVERVIEW", "WHAT'S INSIDE",
          "video \u00b7 audio \u00b7 subtitles \u00b7 scripts"),
         ("audio.png", "AUDIO", "FOUR PROFILES",

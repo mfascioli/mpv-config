@@ -11,8 +11,6 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 
 ## 🎨 Design
 
-![Design banner: AMBER, NOT WHITE — fill, outline, shadow and type](assets/design.png)
-
 **The colour.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
 
 **Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).

@@ -198,9 +198,9 @@ Las notas de versión están en [CHANGELOG.md](CHANGELOG.md) (en inglés).
 
 ## 🔒 Privacidad y seguridad
 
-**Cómo se escribió.** La mayor parte del código — `mpv.conf`, `input.conf`, `scripts/`, los instaladores y esta documentación — se generó con **DeepSeek V4.1 Flash Free** en OpenCode y después se revisó con **Claude Sonnet 5.5** y **GPT-6 Luna**. Los archivos de la 1.3.0 también se analizaron con VirusTotal y otras herramientas antes de publicarlos.
-
 ![Banner de privacidad y seguridad: AI, DATA, AUDIT — código escrito con IA, lo que recibe OpenSubtitles y los análisis de VirusTotal](assets/privacy.png)
+
+**Cómo se escribió.** La mayor parte del código — `mpv.conf`, `input.conf`, `scripts/`, los instaladores y esta documentación — se generó con **DeepSeek V4.1 Flash Free** en OpenCode y después se revisó con **Claude Sonnet 5.5** y **GPT-6 Luna**. Los archivos de la 1.3.0 también se analizaron con VirusTotal y otras herramientas antes de publicarlos.
 
 La búsqueda de subtítulos dentro de uosc es una llamada a un tercero, no una función local. Una búsqueda envía a **OpenSubtitles** el nombre del archivo de vídeo sin extensión, el hash del archivo cuando está disponible, los idiomas y la página que pediste y tu dirección IP; descargar un subtítulo también envía su id. Las peticiones salen de `ziggy`, el binario auxiliar que viene con uosc.
 

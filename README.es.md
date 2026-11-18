@@ -4,7 +4,7 @@
 
 ![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png?v=1.3.0)
 
-Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños. Basado en [wopian/mpv-config](https://github.com/wopian/mpv-config).
+Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños. 
 
 ![mpv con uosc: línea de tiempo, vista previa de thumbfast y subtítulos Merriweather en ámbar](assets/interface.jpg)
 <sub>Wicked City | 1987 — Yoshiaki Kawajiri. Spoiler: no fue nada tranquilo.</sub>

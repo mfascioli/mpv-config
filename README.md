@@ -11,17 +11,21 @@ Clean scaling on any screen — SDR, HDR, standard or high DPI — amber subtitl
 
 ## 🎨 Design
 
+![Design banner: AMBER, NOT WHITE — fill, outline, shadow and type](assets/design.png)
+
 **Amber, not white.** `#FCBE11` is the subtitle yellow I remember from the cinema and from TV at home: warm, familiar, a little nostalgic. On dark scenes it is easier on the eyes than pure white, with less glare over a two-hour film.
 
 **Merriweather Bold.** A screen serif with a tall x-height and low stroke contrast, so lowercase stays solid at subtitle size and survives ClearType. Bold 700 carries a *thin* outline instead of the usual fat black border and keeps its shape over busy footage, where airier serifs such as Source Serif or IBM Plex Serif lose detail. [More on the font](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
-![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/design.png)
+![Subtitle specimen: amber Merriweather over charcoal, with fill, outline, shadow and type tokens](assets/specimen.png)
 
 Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing 0.5 · shadow `#33000000` (ARGB, 20 % black) at 1 px.
 
 ## What's inside
 
-- **Video** — windowed at most 90 % of the screen, borderless. The `high-quality` profile is on by default: EWA Lanczos with antiringing, sigmoid upscaling, correct downscaling, temporal dither, full-range output and HDR peak computation. Motion interpolation is off. Hardware decoding runs in copy-back mode (`hwdec=auto-copy`), which cuts CPU load and can lower power draw while keeping `Ctrl+d` and the autocrop filters working; debanding is off too (`b` toggles it).
+![Overview banner: WHAT'S INSIDE — video, audio, subtitles and scripts](assets/inside.png)
+
+- **Video** — windowed at most 90 % of the screen, borderless, with the `high-quality` chain below: `gpu-next`, EWA Lanczos, copy-back decoding and no motion interpolation.
 - **Subtitles** — Merriweather Bold 700, bundled in [`fonts/`](fonts/) and loaded from `~~/fonts`, so nothing needs installing. Styling is forced over every track (ASS/fansub signs included); external subs autoload fuzzily; margins, MKV preroll and embedded fonts are enabled. They adapt to the window, not the video: `blend-subtitles=no` keeps them on the OSD layer, so they stay sharp at any size and never stretch with the image, and `w` slides them into the black bars of any letterboxed source. Size chosen with numpad `+` / `-` survives restarts.
 - **Audio** — stereo downmix, pitch correction when changing speed, fuzzy external audio. Four profiles on `1`–`4`, starting in No Processing; see [Audio profiles](#-audio-profiles).
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
@@ -33,6 +37,28 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
   ```ini
   mpv_path=C:\Program Files\mpv\mpv.exe
   ```
+
+### How video is displayed
+
+`high-quality` is the whole chain. It only resamples when the frame and the window disagree, and these are the defaults for every file.
+
+| Stage | Setting | Effect |
+| --- | --- | --- |
+| Output | `gpu-next` (0.40+ default), `gpu-context=auto`, Vulkan async compute/transfer, one queue | libplacebo on the GPU |
+| Decode | `hwdec=auto-copy` | GPU decode, frames copied back so `idet`/`cropdetect` work |
+| Upscale | `scale=ewa_lanczossharp`, `scale-radius=2`, `scale-antiring=1` | sharpened EWA Lanczos, restrained radius, antiringing |
+| Downscale | `dscale=ewa_lanczossharp`, `correct-downscaling` | same kernel, low-passed in linear light: no aliasing |
+| Chroma | `cscale=ewa_lanczos`, `cscale-antiring=1` | clean 4:2:0 chroma; `ewa_lanczossoft` is `vo=gpu` only |
+| Policy | `scaler-resizes-only` | no resampling when the window matches the frame |
+| Light | `sigmoid-upscaling` | linear-light upscale: no dark halos or washed highlights |
+| Dither | `temporal-dither`, `dither-depth=auto` | rounding follows the panel depth, so gradients do not band |
+| Range | `video-output-levels=full` | full-range RGB to the display |
+| HDR | `hdr-compute-peak=yes`, `target-colorspace-hint=yes` | tone map on measured peak, report the real colorspace |
+| Deband | `deband=no`; `b` toggles | tuned (4 iterations, threshold 48, range 16, grain 48), off |
+| Timing | `video-sync=audio`, `opengl-swapinterval=1` | audio is the clock, no interpolation; swap interval 1 on GL contexts |
+| Window | `autofit-larger=90%x90%`, `no-border` | at most 90 % of the screen, borderless |
+
+Subtitles are not part of this path: `blend-subtitles=no` draws them on the OSD layer at window resolution. Debanding stays off because it costs GPU time and smears grain, and `b` is the only switch.
 
 ## Keybindings
 
@@ -186,6 +212,8 @@ The subtitle search inside uosc is a third-party call, not a local feature. A se
 I checked the published source — `menus.lua` and `main.lua` for the search UI, `subtitles.go`, `utils.go` and `http.go` in `ziggy` — and found no analytics, tracking pixels or ad telemetry in this feature.
 
 That audit covers published code, not live traffic: it cannot show what OpenSubtitles does with the data, or rule out changes in a later release. A file name still says what you are watching. If that matters to you, skip the built-in downloader and fetch subtitles elsewhere — the rest of uosc works without it.
+
+The wider review — provenance, installer guarantees, what was fixed and what it cannot prove — is in [SECURITY.md](SECURITY.md).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

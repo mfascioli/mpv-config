@@ -59,6 +59,36 @@ for autocrop) fail on direct hwdec interop. `auto-safe` is only an alias of
 Autocrop disables hwdec for its detection window; `autodeint` does not, which is
 why copy-back is the configured default.
 
+## Video display
+
+`[default]` applies `[high-quality]`, so every file gets this chain. `gpu-next`
+is the default VO in mpv 0.40+, and the scaler path only runs when the frame and
+the window differ (`scaler-resizes-only`).
+
+| Stage | Setting |
+| --- | --- |
+| Output | `gpu-next`, `gpu-context=auto`, Vulkan async compute/transfer, one queue |
+| Decode | `hwdec=auto-copy` |
+| Upscale | `scale=ewa_lanczossharp`, `scale-radius=2`, `scale-antiring=1` |
+| Downscale | `dscale=ewa_lanczossharp`, `correct-downscaling` |
+| Chroma | `cscale=ewa_lanczos`, `cscale-antiring=1` |
+| Policy | `scaler-resizes-only` |
+| Light | `sigmoid-upscaling` |
+| Dither | `temporal-dither`, `dither-depth=auto` |
+| Range | `video-output-levels=full` |
+| HDR | `hdr-compute-peak=yes`, `target-colorspace-hint=yes` |
+| Deband | `deband=no`, tuned values behind `b` |
+| Timing | `video-sync=audio`, `opengl-swapinterval=1` |
+| Window | `autofit-larger=90%x90%`, `no-border` |
+
+- `correct-downscaling` and `sigmoid-upscaling` filter in linear light on
+  purpose; do not remove them to "sharpen" the image.
+- `cscale` stays `ewa_lanczos`: `ewa_lanczossoft` only exists in `vo=gpu`.
+- Debanding stays off by default (GPU cost, smears grain); `b` toggles it.
+- No motion interpolation: `video-sync=audio` is the intended behaviour.
+- The README table (`### How video is displayed`, `### Cómo se muestra el
+  vídeo`) mirrors these rows. Update both when `mpv.conf` changes.
+
 ## Audio profiles
 
 Four profiles on `1`–`4`, handled by `scripts/audio-norm.lua`. Playback starts
@@ -144,7 +174,8 @@ is enabled (`volume=right` in the local `uosc.conf`).
 ## Docs style
 
 - Concise and scannable: short sections, tables over prose, bold lead-ins.
-  Both READMEs should stay under about 18 KB, not 20.
+  Keep the English README under about 18 KB and the Spanish mirror under about
+  20 KB; Spanish runs longer for the same content, not because it may say more.
 - At most a handful of emojis, only as section markers (audio, subtitles,
   installation, updating, uninstalling, design, privacy). No emoji in body text.
 - No marketing tone and no repetition between the summary and the dedicated
@@ -177,13 +208,16 @@ is enabled (`volume=right` in the local `uosc.conf`).
   reintroduce half-unit offsets or a staggered QWERTY silhouette.
 - For any other text-heavy image, draw it instead of generating it: exact
   text matters more than style.
-- The README banners — `banner.png`, `design.png`, `audio.png`,
-  `subtitles.png`, `installation.png`, `updating.png`, `uninstalling.png`,
-  `credits.png`, `privacy.png` — come from `assets/banner.py` (Python +
-  Pillow) using the bundled Fira Sans Condensed in `assets/fonts/` (SIL OFL),
-  with the same palette, grid and HUD frame as the keyboard map. `--version`
-  sets the chip on the two large images; rerun `python3 assets/banner.py` after
-  changing text or releasing. The audio strip lists the four profile names.
+- The README banners — `banner.png`, `specimen.png`, `design.png`,
+  `inside.png`, `audio.png`, `subtitles.png`, `installation.png`,
+  `updating.png`, `uninstalling.png`, `credits.png`, `privacy.png` — come from
+  `assets/banner.py` (Python + Pillow) using the bundled Fira Sans Condensed in
+  `assets/fonts/` (SIL OFL), with the same palette, grid and HUD frame as the
+  keyboard map. `--version` sets the chip on the two large images
+  (`banner.png`, `specimen.png`); rerun `python3 assets/banner.py` after
+  changing text or releasing. The audio strip lists the four profile names;
+  `design.png` and `inside.png` are the strips for **Design** and **What's
+  inside**, not the specimen.
   Keep the canvases short so the page does not fill with images: the hero is
   1600×470, the specimen 1200×400 and the strips 1200×158, all at the same type
   sizes as before. Enlarge the type or shrink the canvas instead of adding
@@ -201,6 +235,36 @@ is enabled (`volume=right` in the local `uosc.conf`).
 - Keep it short. Do not add the full Spanish draft back: it repeats the same
   facts and names analytics vendors that were not found.
 
+## Security
+
+`SECURITY.md` is the user-facing summary: trust model, provenance, installer
+guarantees, fixes and limits. Keep it in step with the code.
+
+- **Trust model.** An mpv config is executable: `scripts/*.lua` runs with user
+  rights at startup. Do not add a script or keybinding that downloads and runs
+  code, and do not tell users to run one.
+- **Our scripts stay local.** `audio-norm`, `subtitle-size`, `esc-quit` and
+  `oled-screensaver` use no network, no subprocesses and no `loadstring`. The
+  only file they write is `subtitle-size.txt` (gitignored).
+- **`thumbfast.lua` is the only subprocess caller.** It runs mpv from `PATH`
+  (or `mpv_path`) to render thumbnails. Do not extend it.
+- **Installers** download over HTTPS only, cap at 50 MB, verify the SHA-256 that
+  GitHub publishes for the release, check the archive layout before deleting
+  the old uosc, refuse a filesystem root, and only remove `scripts/uosc`,
+  `fonts/uosc_*` and optionally `script-opts/uosc.conf`. Keep those properties.
+- **Provenance.** `mpv.conf`, `input.conf`, the four scripts above and the
+  installers are ours; `thumbfast.lua` is po5/thumbfast (MPL-2.0);
+  `autocrop.lua`, `autodeint.lua` and `autoload.lua` are upstream mpv
+  `TOOLS/lua` with hardening patches; uosc is installed from its release and
+  never vendored.
+- **Audit baseline (2026-11-18).** No malware or privilege escalation found in
+  the reviewed files; four files were hardened: `subtitle-size` range check, nil
+  guards in `autocrop` and `autodeint`, and the `oled-screensaver` fixes. If a
+  change touches network, process execution, installers or persisted files,
+  update `SECURITY.md` and re-check with
+  `rg -n "os\.execute|io\.popen|loadstring|dofile|subprocess" scripts`
+  (`Select-String -Path scripts\*.lua` on Windows).
+
 ## Git
 
 - Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `release:`.
@@ -214,6 +278,10 @@ is enabled (`volume=right` in the local `uosc.conf`).
 - `1`–`4`: correct chain applied and replaced, no filter stacking.
 - Numpad: `0`→0, `5`→55.56, `9`→100, `/`→−2, `*`→+2; `+`/`-` change size.
 - Subtitle size restored after restart.
+- Corrupt `subtitle-size.txt` (`0`, `-3`, `1e9`, text) is ignored and the size
+  stays at 40; a valid number such as `64` is restored.
+- Idle: paused and fullscreen for 60 s shows the black overlay; any input
+  clears it.
 - Zoom: `Ctrl`+wheel changes `video-zoom` and shows the value; `z`/`Shift+z`
   do nothing; `Alt+Backspace` resets.
 - Defaults freed: `u`, `V`, `A`, `F`, `G`, `E`, `v` and horizontal wheel do
@@ -234,15 +302,25 @@ is enabled (`volume=right` in the local `uosc.conf`).
 | `mpv.conf` | playback, scaling, subtitles, volume, resume |
 | `input.conf` | bindings and freed keys |
 | `scripts/audio-norm.lua` | four audio profiles |
-| `scripts/subtitle-size.lua` | subtitle-size persistence |
+| `scripts/subtitle-size.lua` | subtitle-size persistence (8–200, default 40) |
 | `scripts/esc-quit.lua` | two-step Esc close |
+| `scripts/oled-screensaver.lua` | black overlay after idle, paused and fullscreen |
+| `scripts/autocrop.lua` | upstream mpv, 10 s auto crop and `C` |
+| `scripts/autodeint.lua` | upstream mpv, `Ctrl+d` detection |
+| `scripts/autoload.lua` | upstream mpv, queue the folder |
+| `scripts/thumbfast.lua` | po5/thumbfast (MPL-2.0), timeline previews |
+| `install-uosc.ps1` `install-uosc-ubuntu.sh` `install-uosc-cachyos.sh` `install-uosc-macos.sh` | uosc release installers |
+| `uninstall-uosc.ps1` `uninstall-uosc.sh` | remove uosc, keep everything else |
 | `assets/keys.ps1` | generator for the keyboard map |
 | `assets/keys.png` | keyboard map used by the README |
 | `assets/banner.py` | generator for the README banners |
-| `assets/banner.png` | hero banner |
-| `assets/design.png` | subtitle specimen |
+| `assets/banner.png` | hero banner (carries the version chip) |
+| `assets/specimen.png` | subtitle specimen (carries the version chip) |
+| `assets/design.png` | strip for **Design** |
+| `assets/inside.png` | strip for **What's inside** |
 | `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
 | `assets/fonts/` | Fira Sans Condensed used by the banner generator (OFL) |
 | `README.md` | user-facing documentation (English) |
 | `README.es.md` | the same documentation in Spanish |
+| `SECURITY.md` | audit summary, provenance, installer guarantees, limits |
 | `CHANGELOG.md` | release notes |

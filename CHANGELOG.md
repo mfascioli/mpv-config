@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Security:** full static audit of the config, scripts and installers, published as [`SECURITY.md`](SECURITY.md) with provenance, installer guarantees, the fixes and the limits of the review. `subtitle-size` now accepts only 8–200, `autocrop` and `autodeint` survive missing decoder and filter metadata, and `oled-screensaver` loses a global leak, a malformed ASS tag, fractional values in `%02x` and an inverted mouse test.
+- **Docs:** **Design** and **What's inside** gain their own strips, the subtitle specimen moves to `assets/specimen.png`, and both READMEs document the whole video path — output, decode, upscale, downscale, chroma, linear light, dither, range, HDR, deband and timing — instead of only naming EWA Lanczos.
+
 ## 1.2.9 — 2026-11-17
 
 - **Docs:** shorter banners with the same type sizes — hero 1600×470, specimen 1200×400, strips 1200×158 — so the page no longer fills with images, and the credits section gains its own strip.

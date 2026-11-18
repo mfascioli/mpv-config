@@ -6,7 +6,7 @@ Same visual language as assets/keys.ps1: charcoal gradient, faint grid, amber
 deterministically with Pillow and the bundled Fira Sans Condensed (SIL OFL),
 so the text is exact and the output is reproducible.
 
-    python3 assets/banner.py            # writes banner.png and design.png next to it
+    python3 assets/banner.py            # writes the banners next to this file
     python3 assets/banner.py --out DIR  # write somewhere else
 
 Requires Pillow and numpy.
@@ -163,7 +163,7 @@ def hero(path, version):
     img.convert("RGB").save(path, optimize=True)
 
 
-def design(path, version):
+def specimen(path, version):
     w, h = 1200, 400
     img = canvas(w, h, (520, 200, 460, 210, 18))
     ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
@@ -231,8 +231,12 @@ def main():
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     hero(a.out / "banner.png", a.version)
-    design(a.out / "design.png", a.version)
+    specimen(a.out / "specimen.png", a.version)
     strips = (
+        ("design.png", "DESIGN", "AMBER, NOT WHITE",
+         "fill \u00b7 outline \u00b7 shadow \u00b7 type"),
+        ("inside.png", "OVERVIEW", "WHAT'S INSIDE",
+         "video \u00b7 audio \u00b7 subtitles \u00b7 scripts"),
         ("audio.png", "AUDIO", "FOUR PROFILES",
          "NO PROCESSING \u00b7 CINEMATIC \u00b7 BALANCED \u00b7 NIGHT"),
         ("subtitles.png", "SUBTITLES", "ADAPTIVE PLACEMENT",

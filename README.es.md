@@ -11,17 +11,21 @@ Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad �
 
 ## 🎨 Diseño
 
+![Banner de diseño: AMBER, NOT WHITE — relleno, contorno, sombra y tipo](assets/design.png)
+
 **Ámbar, no blanco.** `#FCBE11` es el amarillo de subtítulos que recuerdo del cine y de la tele de casa: cálido, familiar, un poco nostálgico. Sobre escenas oscuras cansa menos que el blanco puro y deslumbra menos en una película de dos horas.
 
 **Merriweather Bold.** Una serif de pantalla con altura de x grande y bajo contraste de trazo, así que las minúsculas se mantienen sólidas al tamaño del subtítulo y aguantan ClearType. Bold 700 lleva un contorno *fino* en lugar del borde negro grueso habitual y conserva la forma sobre imagen cargada, donde serifs más aireadas como Source Serif o IBM Plex Serif pierden detalle. [Más sobre la fuente](https://fontfyi.com/blog/source-serif-vs-merriweather/).
 
-![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/design.png)
+![Muestra de subtítulo: Merriweather ámbar sobre carbón, con las fichas de relleno, contorno, sombra y tipo](assets/specimen.png)
 
 Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 40 · espaciado 0.5 · sombra `#33000000` (ARGB, 20 % negro) a 1 px.
 
 ## Qué incluye
 
-- **Vídeo** — ventana de como máximo el 90 % de la pantalla, sin bordes. El perfil `high-quality` va por defecto: EWA Lanczos con antiringing, sigmoid upscaling, downscaling correcto, dither temporal, salida de rango completo y cálculo del pico HDR. La interpolación de movimiento está apagada. La decodificación por hardware va en modo copy-back (`hwdec=auto-copy`), que baja la CPU y puede reducir el consumo sin romper `Ctrl+d` ni los filtros de autocrop; el debanding también está apagado (`b` lo alterna).
+![Banner de resumen: WHAT'S INSIDE — vídeo, audio, subtítulos y scripts](assets/inside.png)
+
+- **Vídeo** — ventana de como máximo el 90 % de la pantalla, sin bordes, con la cadena `high-quality` de abajo: `gpu-next`, EWA Lanczos, decodificación copy-back y sin interpolación de movimiento.
 - **Subtítulos** — Merriweather Bold 700, incluida en [`fonts/`](fonts/) y cargada desde `~~/fonts`, así que no hay que instalar nada. El estilo se fuerza sobre todas las pistas (también los carteles ASS de fansub); los subtítulos externos se autocargan por nombre aproximado; márgenes, preroll de MKV y fuentes incrustadas activados. Se adaptan a la ventana, no al vídeo: `blend-subtitles=no` los mantiene en la capa del OSD, así que quedan nítidos a cualquier tamaño y nunca se estiran con la imagen, y `w` los mete en las barras negras de cualquier fuente con letterbox. El tamaño elegido con `+` / `-` del teclado numérico sobrevive al reinicio.
 - **Audio** — downmix estéreo, corrección de tono al cambiar la velocidad, audio externo por nombre aproximado. Cuatro perfiles en `1`–`4`, arrancando en No Processing; ver [Perfiles de audio](#-perfiles-de-audio).
 - **Idiomas** — subtítulos inglés (SDH comparte la etiqueta `en`) y luego español; audio inglés y luego español; se pasan a yt-dlp.
@@ -33,6 +37,28 @@ Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 
   ```ini
   mpv_path=C:\Program Files\mpv\mpv.exe
   ```
+
+### Cómo se muestra el vídeo
+
+`high-quality` es la cadena completa. Solo remuestrea cuando el fotograma y la ventana no coinciden, y estos son los valores por defecto para cualquier archivo.
+
+| Etapa | Ajuste | Efecto |
+| --- | --- | --- |
+| Salida | `gpu-next` (por defecto en 0.40+), `gpu-context=auto`, Vulkan asíncrono, una cola | libplacebo en la GPU |
+| Decodificación | `hwdec=auto-copy` | Decodifica en la GPU y copia los fotogramas de vuelta, así `idet`/`cropdetect` funcionan |
+| Escalado | `scale=ewa_lanczossharp`, `scale-radius=2`, `scale-antiring=1` | EWA Lanczos realzado, radio contenido, antiringing |
+| Reducción | `dscale=ewa_lanczossharp`, `correct-downscaling` | El mismo kernel, filtrado en luz lineal: sin aliasing |
+| Croma | `cscale=ewa_lanczos`, `cscale-antiring=1` | Croma 4:2:0 limpio; `ewa_lanczossoft` solo existe en `vo=gpu` |
+| Política | `scaler-resizes-only` | Nada de remuestreo cuando la ventana ya coincide con el fotograma |
+| Luz | `sigmoid-upscaling` | Escala en luz lineal: sin halos oscuros ni altas luces lavadas |
+| Dither | `temporal-dither`, `dither-depth=auto` | El redondeo sigue la profundidad real de la pantalla, así los degradados no hacen bandas |
+| Rango | `video-output-levels=full` | RGB de rango completo a la pantalla |
+| HDR | `hdr-compute-peak=yes`, `target-colorspace-hint=yes` | Tone mapping sobre el pico medido y colorspace real a la pantalla |
+| Deband | `deband=no`; `b` lo alterna | Ajustado (4 iteraciones, umbral 48, rango 16, grano 48), apagado |
+| Sincronía | `video-sync=audio`, `opengl-swapinterval=1` | El reloj de audio manda, sin interpolación; swap interval 1 en contextos GL |
+| Ventana | `autofit-larger=90%x90%`, `no-border` | Como máximo el 90 % de la pantalla, sin bordes |
+
+Los subtítulos no pasan por esta cadena: `blend-subtitles=no` los dibuja en la capa del OSD a la resolución de la ventana. El debanding sigue apagado porque cuesta GPU y emborrona el grano, y `b` es el único interruptor.
 
 ## Keybindings
 
@@ -186,6 +212,8 @@ La búsqueda de subtítulos dentro de uosc es una llamada a un tercero, no una f
 Revisé el código publicado — `menus.lua` y `main.lua` para la interfaz de búsqueda, y `subtitles.go`, `utils.go` y `http.go` de `ziggy` — y no encontré analítica, píxeles de seguimiento ni telemetría publicitaria en esta función.
 
 Esa auditoría cubre código publicado, no tráfico real: no puede mostrar qué hace OpenSubtitles con los datos ni descartar cambios en una versión posterior. Un nombre de archivo sigue diciendo lo que estás viendo. Si eso te importa, sáltate el descargador integrado y busca subtítulos en otra fuente — el resto de uosc funciona sin él.
+
+La revisión completa — procedencia, garantías de los instaladores, qué se corrigió y qué no puede demostrar — está en [SECURITY.md](SECURITY.md).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

@@ -227,7 +227,7 @@ def strip(path, kicker, title, detail):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--out", type=Path, default=HERE)
-    p.add_argument("--version", default="v1.2.9")
+    p.add_argument("--version", default="v1.3.0")
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     hero(a.out / "banner.png", a.version)

@@ -1,8 +1,7 @@
 # Security notes
 
 What this repository runs, what it does not, and how to check it yourself.
-Last reviewed: **2026-11-18**, against `1.2.9` plus the script fixes listed
-below.
+Last reviewed: **2026-11-18**, against `1.3.0`.
 
 ## Trust model
 

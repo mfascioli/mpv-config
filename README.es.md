@@ -29,7 +29,7 @@ Estilo del subtítulo: relleno `#FCBE11` · contorno `#1F1F1F` a 1.5 · tamaño 
 - **Idiomas** — subtítulos inglés (SDH comparte la etiqueta `en`) y luego español; audio inglés y luego español; se pasan a yt-dlp.
 - **Streaming** — caché de 100 s, user agent de Firefox de escritorio, bitrate máximo para HLS, GIF/WebM en bucle.
 - **Scripts** — `audio-norm` (perfiles), `subtitle-size` (persistencia), `esc-quit` (cierre en dos pasos), `autocrop` (recorta 10 s después de cargar; `C` lo alterna), `autodeint` (`Ctrl+d`), `autoload` (encola la carpeta), `oled-screensaver` (capa negra tras 60 s inactivo), `thumbfast` (vistas previas en la línea de tiempo).
-- **Interfaz** (opcional) — [uosc](https://github.com/tomasklaen/uosc) instalado desde su última release por el instalador de cada sistema ([paso 3](#-instalación)): línea de tiempo por proximidad, barra de control, menús con búsqueda para pistas, búsqueda en OpenSubtitles ([privacidad](#-privacidad-búsqueda-de-subtítulos-de-uosc)), lista de reproducción, capítulos, explorador de archivos y consulta de keybindings, todo con vistas previas de thumbfast. Sigue a `osd-font` y al orden de idiomas de subtítulos; el deslizador de volumen refleja las teclas del numérico (pon `volume=none` en `script-opts/uosc.conf` para ocultarlo). Sin uosc toma el control el OSC mínimo de `script-opts/osc.conf`.
+- **Interfaz** (opcional) — [uosc](https://github.com/tomasklaen/uosc) instalado desde su última release por el instalador de cada sistema ([paso 3](#-instalación)): línea de tiempo por proximidad, barra de control, menús con búsqueda para pistas, búsqueda en OpenSubtitles ([privacidad y seguridad](#-privacidad-y-seguridad)), lista de reproducción, capítulos, explorador de archivos y consulta de keybindings, todo con vistas previas de thumbfast. Sigue a `osd-font` y al orden de idiomas de subtítulos; el deslizador de volumen refleja las teclas del numérico (pon `volume=none` en `script-opts/uosc.conf` para ocultarlo). Sin uosc toma el control el OSC mínimo de `script-opts/osc.conf`.
 - **Miniaturas** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) viene en `scripts/` y genera las vistas previas ejecutando mpv desde `PATH`. Si mpv no está en `PATH` (habitual en Windows), apúntalo en `script-opts/thumbfast.conf` (gitignored):
 
   ```ini
@@ -195,13 +195,9 @@ Quita `scripts/uosc/`, los dos archivos `fonts/uosc_*` y `script-opts/uosc.conf`
 
 Las notas de versión están en [CHANGELOG.md](CHANGELOG.md) (en inglés).
 
-## Créditos
+## 🔒 Privacidad y seguridad
 
-![Banner de créditos: BUILT ON — uosc, thumbfast y Merriweather](assets/credits.png)
-
-Interfaz por [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); miniaturas por [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather bajo SIL OFL (ver [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
-
-## 🔒 Privacidad: búsqueda de subtítulos de uosc
+**Cómo se escribió.** La mayor parte del código — `mpv.conf`, `input.conf`, `scripts/`, los instaladores y esta documentación — se generó con **DeepSeek V4.1 Flash Free** en OpenCode y después se revisó con **Claude Sonnet 5.5** y **GPT-6 Luna**. Los archivos de la 1.3.0 también se analizaron con VirusTotal y otras herramientas antes de publicarlos.
 
 ![Banner de privacidad: SUBTITLE SEARCH — OpenSubtitles recibe el nombre del archivo, el hash, el idioma y la IP](assets/privacy.png)
 
@@ -212,6 +208,12 @@ Revisé el código publicado — `menus.lua` y `main.lua` para la interfaz de b�
 Esa auditoría cubre código publicado, no tráfico real: no puede mostrar qué hace OpenSubtitles con los datos ni descartar cambios en una versión posterior. Un nombre de archivo sigue diciendo lo que estás viendo. Si eso te importa, sáltate el descargador integrado y busca subtítulos en otra fuente — el resto de uosc funciona sin él.
 
 La revisión completa — procedencia, garantías de los instaladores, qué se corrigió y qué no puede demostrar — está en [SECURITY.md](SECURITY.md).
+
+## Créditos
+
+![Banner de créditos: BUILT ON — uosc, thumbfast y Merriweather](assets/credits.png)
+
+Este proyecto es un fork de [wopian/mpv-config](https://github.com/wopian/mpv-config). Interfaz por [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); miniaturas por [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather bajo SIL OFL (ver [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

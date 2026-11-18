@@ -29,7 +29,7 @@ Subtitle style: fill `#FCBE11` · outline `#1F1F1F` at 1.5 · size 40 · spacing
 - **Languages** — subtitles English (SDH shares the `en` tag) then Spanish; audio English then Spanish; forwarded to yt-dlp.
 - **Streaming** — 100 s cache, desktop Firefox user agent, maximum HLS bitrate, looping GIF/WebM.
 - **Scripts** — `audio-norm` (profiles), `subtitle-size` (persistence), `esc-quit` (two-step close), `autocrop` (crops 10 s after load; `C` toggles), `autodeint` (`Ctrl+d`), `autoload` (queue the folder), `oled-screensaver` (black overlay after 60 s idle), `thumbfast` (timeline previews).
-- **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search ([privacy](#-privacy-uosc-subtitle-search)), playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
+- **Interface** (optional) — [uosc](https://github.com/tomasklaen/uosc) installed from its latest release by the per-system installer ([step 3](#-installation)): proximity timeline, control bar, searchable menus for tracks, OpenSubtitles search ([privacy and security](#-privacy-and-security)), playlist, chapters, file browser and keybind lookup, all with thumbfast previews. It follows `osd-font` and the subtitle-language order; the volume slider mirrors the numpad keys (set `volume=none` in `script-opts/uosc.conf` to hide it). Without uosc the minimal OSC in `script-opts/osc.conf` takes over.
 - **Thumbnails** — [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0) ships in `scripts/` and renders previews by running mpv from `PATH`. If mpv is not in `PATH` (common on Windows), point to it in `script-opts/thumbfast.conf` (gitignored):
 
   ```ini
@@ -195,13 +195,9 @@ Removes `scripts/uosc/`, the two `fonts/uosc_*` files and `script-opts/uosc.conf
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes.
 
-## Credits
+## 🔒 Privacy and security
 
-![Credits banner: BUILT ON — uosc, thumbfast and Merriweather](assets/credits.png)
-
-Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
-
-## 🔒 Privacy: uosc subtitle search
+**How it was written.** Most of the code — `mpv.conf`, `input.conf`, `scripts/`, the installers and these docs — was generated with **DeepSeek V4.1 Flash Free** in OpenCode, then reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**. The 1.3.0 files were also scanned with VirusTotal and other analysis tools before publication.
 
 ![Privacy banner: SUBTITLE SEARCH — OpenSubtitles receives the file name, hash, language and IP](assets/privacy.png)
 
@@ -212,6 +208,12 @@ I checked the published source — `menus.lua` and `main.lua` for the search UI,
 That audit covers published code, not live traffic: it cannot show what OpenSubtitles does with the data, or rule out changes in a later release. A file name still says what you are watching. If that matters to you, skip the built-in downloader and fetch subtitles elsewhere — the rest of uosc works without it.
 
 The wider review — provenance, installer guarantees, what was fixed and what it cannot prove — is in [SECURITY.md](SECURITY.md).
+
+## Credits
+
+![Credits banner: BUILT ON — uosc, thumbfast and Merriweather](assets/credits.png)
+
+This project is a fork of [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

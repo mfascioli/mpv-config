@@ -40,8 +40,8 @@ render it reliably, so the coloured badge carries the attention instead.
   filter names, key names, option values and file paths.
 - The images stay English; do not build a second set of Spanish banners.
 - Spanish anchors are accented (`#-perfiles-de-audio`,
-  `#-privacidad-búsqueda-de-subtítulos-de-uosc`); update every internal link
-  when a heading changes.
+  `#-privacidad-y-seguridad`); update every internal link when a heading
+  changes.
 
 ## Terminology
 
@@ -230,10 +230,16 @@ is enabled (`volume=right` in the local `uosc.conf`).
 
 ## Privacy notice
 
-- The README ends with **Privacy: uosc subtitle search**, and the section says
-  only what was verified: OpenSubtitles receives the file name, the file hash
-  when available, the requested languages and page, and the client IP;
-  downloads send the subtitle id; the requests come from `ziggy`.
+- The README ends with **Credits**; **Privacy and security** sits just above it
+  and says only what was verified: OpenSubtitles receives the file name, the
+  file hash when available, the requested languages and page, and the client
+  IP; downloads send the subtitle id; the requests come from `ziggy`.
+- The same section states how the code was written, because it is part of the
+  trust model: most of it was generated with **DeepSeek V4.1 Flash Free** in
+  OpenCode, reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**, and the
+  release files were scanned with VirusTotal and other analysis tools. Do not
+  claim a clean result, a vendor count or a guarantee the user has not
+  provided; keep it to what was actually run and when.
 - No claim that it caused anything else, no accusations. The audit result is
   limited to the inspected files (`menus.lua`, `main.lua`, `subtitles.go`,
   `utils.go`, `http.go`) and the limitations and the opt-out are stated.

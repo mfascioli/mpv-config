@@ -216,5 +216,12 @@ The wider review — provenance, installer guarantees, what was fixed and what i
 
 The player is [mpv](https://mpv.io/), by the [mpv project](https://github.com/mpv-player/mpv) (GPL-2.0+); this repository only configures it. It is a fork of [wopian/mpv-config](https://github.com/wopian/mpv-config). Interface by [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); thumbnails by [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather under the SIL OFL (see [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
 
+## 💡 Also check out
+
+![wiz-ambilight panel: three WiZ bulbs with their zone, colour and hex value](assets/wiz-ambilight.png)
+
+[wiz-ambilight](https://github.com/mfascioli/wiz-ambilight) (MIT) paints the edges of the mpv picture onto WiZ bulbs over the local network: a small Lua script samples the frame, a fade loop drives the bulbs at 18 Hz, and its panel borrows this config's amber palette. No capture card, no cloud, no Python packages.
+
+
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

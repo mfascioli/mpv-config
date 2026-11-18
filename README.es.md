@@ -4,7 +4,7 @@
 
 ![Banner MPV CONFIG: título ámbar sobre una rejilla HUD carbón con etiquetas SDR/HDR, GPU-NEXT, subtítulos adaptativos y cuatro perfiles de audio](assets/banner.png?v=1.3.0)
 
-Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños. 
+Escalado limpio en cualquier pantalla — SDR, HDR, estándar o alta densidad —, subtítulos ámbar, cuatro perfiles de audio y un puñado de scripts pequeños.
 
 ![mpv con uosc: línea de tiempo, vista previa de thumbfast y subtítulos Merriweather en ámbar](assets/interface.jpg)
 <sub>Wicked City | 1987 — Yoshiaki Kawajiri. Spoiler: no fue nada tranquilo.</sub>
@@ -215,6 +215,12 @@ La revisión completa — procedencia, garantías de los instaladores, qué se c
 ![Banner de créditos: BUILT ON — mpv, uosc, thumbfast y Merriweather](assets/credits.png)
 
 El reproductor es [mpv](https://mpv.io/), del [proyecto mpv](https://github.com/mpv-player/mpv) (GPL-2.0+); este repositorio solo lo configura. Es un fork de [wopian/mpv-config](https://github.com/wopian/mpv-config). Interfaz por [uosc](https://github.com/tomasklaen/uosc) (LGPL-2.1); miniaturas por [thumbfast](https://github.com/po5/thumbfast) (MPL-2.0); Merriweather bajo SIL OFL (ver [`Merriweather-OFL.txt`](Merriweather-OFL.txt)).
+
+## 💡 También te puede interesar
+
+![Panel de wiz-ambilight: tres bombillas WiZ con su zona, color y hex](assets/wiz-ambilight.png)
+
+[wiz-ambilight](https://github.com/mfascioli/wiz-ambilight) (MIT) lleva los bordes de la imagen de mpv a bombillas WiZ por la red local: un script Lua muestrea el fotograma, un bucle de fundido mueve las bombillas a 18 Hz y su panel toma la paleta ámbar de esta configuración. Sin capturadora, sin nube y sin paquetes de Python.
 
 [release]:https://github.com/mfascioli/mpv-config/releases
 [release badge]:https://flat.badgen.net/github/release/mfascioli/mpv-config

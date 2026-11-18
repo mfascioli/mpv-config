@@ -180,12 +180,13 @@ is enabled (`volume=right` in the local `uosc.conf`).
   20 KB; Spanish runs longer for the same content, not because it may say more.
 - At most a handful of emojis, only as section markers (audio, design,
   subtitles, installation, updating, uninstalling, privacy and security,
-  credits). No emoji in body text.
+  credits, check out). No emoji in body text.
 - Section order: **What's inside**, **Audio profiles**, **Design**,
   **Subtitles**, **Keybindings**, **Installation** (with updating and
-  uninstalling under it), **Privacy and security**, **Credits**. The overview
-  comes first so the page answers "what do I get" before the detail, and the
-  credits close the page after the privacy notice.
+  uninstalling under it), **Privacy and security**, **Credits**, **Also check
+  out**. The overview comes first so the page answers "what do I get" before
+  the detail; the credits close the page's own content and one short pointer to
+  `wiz-ambilight` follows, because both projects live in mpv.
 - No marketing tone and no repetition between the summary and the dedicated
   sections. Keep the existing anchors working.
 - CHANGELOG: one entry per release, grouped by feature, in English.
@@ -240,13 +241,19 @@ is enabled (`volume=right` in the local `uosc.conf`).
   them with `?v=<version>`; bump that query on every release so GitHub's image
   proxy fetches the new file instead of serving its cached copy. The strips
   have no chip and need no query.
+- `assets/wiz-ambilight.png` is the one image no script here draws: it is a
+  crop of `docs/gui.png` from `mfascioli/wiz-ambilight` (MIT), cut to the
+  **Lights** panel so the closing pointer stays short. Re-crop that file rather
+  than generating a look-alike.
 
 ## Privacy notice
 
-- The README ends with **Credits**; **Privacy and security** sits just above it
-  and says only what was verified: OpenSubtitles receives the file name, the
-  file hash when available, the requested languages and page, and the client
-  IP; downloads send the subtitle id; the requests come from `ziggy`.
+- The README ends with **Also check out**, a short pointer to
+  `mfascioli/wiz-ambilight`; **Privacy and security** and **Credits** sit above
+  it, and the privacy section says only what was verified: OpenSubtitles
+  receives the file name, the file hash when available, the requested languages
+  and page, and the client IP; downloads send the subtitle id; the requests come
+  from `ziggy`.
 - The same section states how the code was written, because it is part of the
   trust model: most of it was generated with **DeepSeek V4.1 Flash Free** in
   OpenCode, reviewed with **Claude Sonnet 5.5** and **GPT-6 Luna**, and the
@@ -341,6 +348,7 @@ guarantees, fixes and limits. Keep it in step with the code.
 | `assets/banner.py` | generator for the README banners |
 | `assets/banner.png` | hero banner (carries the version chip) |
 | `assets/specimen.png` | subtitle specimen and the only image in **Design** (carries the version chip) |
+| `assets/wiz-ambilight.png` | cropped panel screenshot from `mfascioli/wiz-ambilight` for **Also check out** (MIT) |
 | `assets/inside.png` | strip for **What's inside** |
 | `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
 | `assets/banner-fonts/` | Fira Sans Condensed and its OFL licence, for `assets/banner.py` only; mpv never loads it |

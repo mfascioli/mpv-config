@@ -23,6 +23,7 @@ PNG/JPEG images and TTF fonts.
 | `scripts/thumbfast.lua` | [po5/thumbfast](https://github.com/po5/thumbfast), MPL-2.0 |
 | `scripts/autocrop.lua`, `autodeint.lua`, `autoload.lua` | upstream mpv `TOOLS/lua`, with local patches |
 | `fonts/Merriweather-Bold.ttf` | Merriweather, SIL OFL (`Merriweather-OFL.txt`) |
+| `assets/wiz-ambilight.png` | cropped screenshot from `mfascioli/wiz-ambilight`, MIT |
 | `assets/banner-fonts/*.ttf` | Fira Sans Condensed, SIL OFL (`assets/banner-fonts/OFL.txt`); used only by `assets/banner.py` |
 | `scripts/uosc/` | not shipped; installed from the official uosc release |
 

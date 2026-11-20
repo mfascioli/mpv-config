@@ -245,6 +245,8 @@ def main():
         ("credits.png", "CREDITS", "BUILT ON", "mpv \u00b7 uosc \u00b7 thumbfast \u00b7 Merriweather"),
         ("privacy.png", "PRIVACY & SECURITY", "AI, DATA, AUDIT",
          "AI written \u00b7 OpenSubtitles \u00b7 VirusTotal"),
+        ("related.png", "RELATED PROJECTS", "WIZ-AMBILIGHT",
+         "screen colors \u00b7 local UDP \u00b7 WiZ"),
     )
     for name, kicker, title, detail in strips:
         strip(a.out / name, kicker, title, detail)

@@ -218,7 +218,7 @@ The player is [mpv](https://mpv.io/), by the [mpv project](https://github.com/mp
 
 ## 💡 Also check out
 
-![wiz-ambilight panel: three WiZ bulbs with their zone, colour and hex value](assets/wiz-ambilight.png)
+![Related projects banner: wiz-ambilight — screen colors, local UDP, WiZ](assets/related.png)
 
 [wiz-ambilight](https://github.com/mfascioli/wiz-ambilight) (MIT) paints the edges of the mpv picture onto WiZ bulbs over the local network: a small Lua script samples the frame, a fade loop drives the bulbs at 18 Hz, and its panel borrows this config's amber palette. No capture card, no cloud, no Python packages.
 

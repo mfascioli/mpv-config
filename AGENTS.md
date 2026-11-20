@@ -219,7 +219,7 @@ is enabled (`volume=right` in the local `uosc.conf`).
   text matters more than style.
 - The README banners — `banner.png`, `specimen.png`, `inside.png`,
   `audio.png`, `subtitles.png`, `installation.png`, `updating.png`,
-  `uninstalling.png`, `credits.png`, `privacy.png` — come from
+  `uninstalling.png`, `credits.png`, `privacy.png`, `related.png` — come from
   `assets/banner.py` (Python + Pillow) using the bundled Fira Sans Condensed in
   `assets/banner-fonts/` (SIL OFL), with the same palette, grid and HUD frame as
   the keyboard map. Those Fira files belong to the generator only: `fonts/` is
@@ -241,10 +241,11 @@ is enabled (`volume=right` in the local `uosc.conf`).
   them with `?v=<version>`; bump that query on every release so GitHub's image
   proxy fetches the new file instead of serving its cached copy. The strips
   have no chip and need no query.
-- `assets/wiz-ambilight.png` is the one image no script here draws: it is a
-  crop of `docs/gui.png` from `mfascioli/wiz-ambilight` (MIT), cut to the
-  **Lights** panel so the closing pointer stays short. Re-crop that file rather
-  than generating a look-alike.
+- `assets/related.png` closes the page as the reciprocal of the strip
+  wiz-ambilight shows for this repository: **RELATED PROJECTS** /
+  **WIZ-AMBILIGHT** / local UDP and WiZ. It is generated like the other strips,
+  so keep both projects' banners symmetrical; do not fall back to a cropped
+  panel screenshot.
 
 ## Privacy notice
 
@@ -348,7 +349,7 @@ guarantees, fixes and limits. Keep it in step with the code.
 | `assets/banner.py` | generator for the README banners |
 | `assets/banner.png` | hero banner (carries the version chip) |
 | `assets/specimen.png` | subtitle specimen and the only image in **Design** (carries the version chip) |
-| `assets/wiz-ambilight.png` | cropped panel screenshot from `mfascioli/wiz-ambilight` for **Also check out** (MIT) |
+| `assets/related.png` | section strip for **Also check out** |
 | `assets/inside.png` | strip for **What's inside** |
 | `assets/audio.png` `subtitles.png` `installation.png` `updating.png` `uninstalling.png` `credits.png` `privacy.png` | section strips |
 | `assets/banner-fonts/` | Fira Sans Condensed and its OFL licence, for `assets/banner.py` only; mpv never loads it |

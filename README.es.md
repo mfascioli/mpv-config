@@ -218,7 +218,7 @@ El reproductor es [mpv](https://mpv.io/), del [proyecto mpv](https://github.com/
 
 ## 💡 También te puede interesar
 
-![Panel de wiz-ambilight: tres bombillas WiZ con su zona, color y hex](assets/wiz-ambilight.png)
+![Banner de proyectos relacionados: wiz-ambilight — colores de pantalla, UDP local, WiZ](assets/related.png)
 
 [wiz-ambilight](https://github.com/mfascioli/wiz-ambilight) (MIT) lleva los bordes de la imagen de mpv a bombillas WiZ por la red local: un script Lua muestrea el fotograma, un bucle de fundido mueve las bombillas a 18 Hz y su panel toma la paleta ámbar de esta configuración. Sin capturadora, sin nube y sin paquetes de Python.
 

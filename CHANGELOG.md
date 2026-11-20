@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- **Docs:** the closing pointer to `wiz-ambilight` uses a generated
+  `related.png` strip, drawn by `assets/banner.py` like the rest of the page,
+  instead of the cropped panel screenshot. It is the reciprocal of the strip
+  that wiz-ambilight shows for this repository.
+
 ## 1.3.1 — 2026-11-18
 
 - **Docs:** the README opens with **What's inside**, then audio, design, subtitles and keybindings, so the page answers "what do I get" before the detail; installation follows, then the privacy notice, the credits and one closing pointer to `wiz-ambilight`. Credits gain a marker, name **mpv** as the player this repository only configures, and keep the `wopian/mpv-config` fork.
